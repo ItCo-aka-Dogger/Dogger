@@ -6,23 +6,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.dogger.dto.OwnerDto;
+import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.services.UsersService;
 
-import javax.validation.Valid;
-
 @RestController
-public class SignUpController {
+public class LoginController {
 
     private UsersService usersService;
 
     @Autowired
-    public SignUpController(UsersService usersService) {
+    public LoginController(UsersService usersService) {
         this.usersService = usersService;
     }
 
-    @PostMapping("/signUp")
+    @PostMapping("/login")
     @PreAuthorize("permitAll()")
-    public void signUpNewUser(@Valid @RequestBody OwnerDto dto) {
-        usersService.signUp(dto);
+    public TokenDto login(@RequestBody OwnerDto dto) {
+        return usersService.login(dto);
     }
 }
