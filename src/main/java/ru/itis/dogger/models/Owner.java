@@ -18,9 +18,10 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String login;
+    private String password;
 
-    private Date date_of_birth;
+    private Date dateOfBirth;
 
     private String photo_path;
 
@@ -41,4 +42,10 @@ public class Owner {
     @OneToMany(mappedBy = "author")
     @OrderBy("date DESC")
     private List<Answer> answers;
+
+    public Owner(String login, String password, Date dateOfBirth) {
+        this.login = login;
+        this.password = password;
+        this.dateOfBirth = dateOfBirth;
+    }
 }
