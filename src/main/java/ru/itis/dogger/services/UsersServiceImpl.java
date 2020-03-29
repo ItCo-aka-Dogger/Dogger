@@ -3,6 +3,7 @@ package ru.itis.dogger.services;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.dogger.dto.OwnerDto;
@@ -21,7 +22,9 @@ public class UsersServiceImpl implements UsersService {
 
     private UsersRepository usersRepository;
     private PasswordEncoder passwordEncoder;
-    private static final String KEY = "secret";
+
+    @Value("{jwt.secret}")
+    private String KEY;
 
     @Autowired
     public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
