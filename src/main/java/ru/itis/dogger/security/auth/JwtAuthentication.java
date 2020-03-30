@@ -15,7 +15,8 @@ public class JwtAuthentication implements Authentication {
     private String token;
     private boolean isAuthenticated;
 
-    private String secretKey = "secret";
+//    @Value("{jwt.secret}")
+    private String secretKey = "doggerainakamalesyatimurthemostsecretkeyeverintheworld";
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -19,8 +19,8 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable, AuthenticationEntryPoint {
 
-    @Value("{jwt.secret}")
-    private String SECRET;
+//    @Value("{jwt.secret}")
+    private String SECRET = "doggerainakamalesyatimurthemostsecretkeyeverintheworld";
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
