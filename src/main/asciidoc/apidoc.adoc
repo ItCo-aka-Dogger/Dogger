@@ -18,7 +18,7 @@
     {
         "login": "user",
         "password": "user1",
-        "dateOfBirth": "12.09.1999"
+        "name": "User user user"
     }
 
 === Авторизация

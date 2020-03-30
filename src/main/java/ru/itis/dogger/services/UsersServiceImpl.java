@@ -11,9 +11,6 @@ import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -35,13 +32,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void signUp(OwnerDto dto) {
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Owner newUser = null;
-        try {
-            newUser = new Owner(dto.getLogin(), hashPassword, format.parse(dto.getDateOfBirth()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName());
         usersRepository.save(newUser);
     }
 

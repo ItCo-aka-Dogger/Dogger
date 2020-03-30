@@ -20,6 +20,7 @@ public class Owner {
 
     private String login;
     private String password;
+    private String fullName;
 
     private Date dateOfBirth;
 
@@ -43,9 +44,9 @@ public class Owner {
     @OrderBy("date DESC")
     private List<Answer> answers;
 
-    public Owner(String login, String password, Date dateOfBirth) {
+    public Owner(String login, String password, String fullName) {
         this.login = login;
         this.password = password;
-        this.dateOfBirth = dateOfBirth;
+        this.fullName = fullName;
     }
 }

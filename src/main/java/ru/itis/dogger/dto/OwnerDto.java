@@ -6,5 +6,5 @@ import lombok.Data;
 public class OwnerDto {
     private String login;
     private String password;
-    private String dateOfBirth;
+    private String fullName;
 }
