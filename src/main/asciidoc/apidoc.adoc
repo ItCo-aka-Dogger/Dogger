@@ -18,7 +18,7 @@
     {
         "login": "user",
         "password": "user1",
-        "name": "User user user"
+        "fullName": "User user user"
     }
 
 === Авторизация
