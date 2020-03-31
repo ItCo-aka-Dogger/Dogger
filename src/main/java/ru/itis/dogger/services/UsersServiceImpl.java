@@ -23,7 +23,7 @@ public class UsersServiceImpl implements UsersService {
     private PasswordEncoder passwordEncoder;
 
     @Value("${jwt.secret}")
-    private String KEY;
+    private String secretKey;
 
     @Autowired
     public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
@@ -68,7 +68,7 @@ public class UsersServiceImpl implements UsersService {
         return Jwts.builder()
                 .claim("login", user.getLogin())
                 .claim("id", user.getId())
-                .signWith(SignatureAlgorithm.HS512, KEY)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
 
