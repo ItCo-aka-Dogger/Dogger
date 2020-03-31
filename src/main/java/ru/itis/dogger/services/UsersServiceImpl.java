@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.itis.dogger.dto.EditDto;
 import ru.itis.dogger.dto.OwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -64,6 +67,17 @@ public class UsersServiceImpl implements UsersService {
         return ownerProperties;
     }
 
+    @Override
+    public Owner editInfo(EditDto dto, String login) {
+        Owner dbOwner = usersRepository.findByLogin(login).get();
+        String hashPassword = passwordEncoder.encode(dto.getPassword());
+        dbOwner.setLogin(dto.getLogin());
+        dbOwner.setPassword(hashPassword);
+        dbOwner.setFullName(dto.getFullName());
+        dbOwner.setDateOfBirth(dto.getDateOfBirth());
+        return usersRepository.save(dbOwner);
+    }
+
     private String createToken(Owner user) {
         return Jwts.builder()
                 .claim("login", user.getLogin())
@@ -71,5 +85,4 @@ public class UsersServiceImpl implements UsersService {
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
-
 }
