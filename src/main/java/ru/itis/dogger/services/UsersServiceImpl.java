@@ -22,8 +22,8 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepository;
     private PasswordEncoder passwordEncoder;
 
-//    @Value("{jwt.secret}")
-    private String KEY = "doggerainakamalesyatimurthemostsecretkeyeverintheworld";
+    @Value("${jwt.secret}")
+    private String KEY;
 
     @Autowired
     public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
