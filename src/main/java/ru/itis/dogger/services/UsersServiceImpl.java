@@ -11,6 +11,8 @@ import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -20,8 +22,8 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepository;
     private PasswordEncoder passwordEncoder;
 
-    @Value("{jwt.secret}")
-    private String KEY;
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     @Autowired
     public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
@@ -46,11 +48,27 @@ public class UsersServiceImpl implements UsersService {
         throw new NoSuchElementException("Can not find such user");
     }
 
+    @Override
+    public Optional<Owner> findByLogin(String login) {
+        return usersRepository.findByLogin(login);
+    }
+
+    @Override
+    public Map<String, Object> userToMap(Owner owner) {
+        Map<String, Object> ownerProperties = new HashMap<>();
+        ownerProperties.put("login", owner.getLogin());
+        ownerProperties.put("fullName", owner.getFullName());
+        ownerProperties.put("dateOfBirth", owner.getDateOfBirth());
+        ownerProperties.put("dogs", owner.getDogs());
+        ownerProperties.put("meetings", owner.getMeetings());
+        return ownerProperties;
+    }
+
     private String createToken(Owner user) {
         return Jwts.builder()
                 .claim("login", user.getLogin())
                 .claim("id", user.getId())
-                .signWith(SignatureAlgorithm.HS512, KEY)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
     }
 

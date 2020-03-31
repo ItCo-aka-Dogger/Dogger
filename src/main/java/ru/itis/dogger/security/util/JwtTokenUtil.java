@@ -19,8 +19,8 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil implements Serializable, AuthenticationEntryPoint {
 
-    @Value("{jwt.secret}")
-    private String SECRET;
+    @Value("${jwt.secret}")
+    private String secretKey;
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -36,7 +36,7 @@ public class JwtTokenUtil implements Serializable, AuthenticationEntryPoint {
     }
 
     private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
     private Boolean isTokenExpired(String token) {
