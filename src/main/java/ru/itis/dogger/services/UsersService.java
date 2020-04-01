@@ -11,11 +11,12 @@ import java.util.Optional;
 
 public interface UsersService {
     void signUp(OwnerDto dto);
+
     TokenDto login(OwnerDto dto);
 
     Optional<Owner> findByLogin(String login);
 
     Map<String, Object> userToMap(Owner owner);
 
-    Owner editInfo(EditDto dto, String login);
+    void editInfo(EditDto dto, String login);
 }

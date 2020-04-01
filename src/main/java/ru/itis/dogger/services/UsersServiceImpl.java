@@ -68,14 +68,14 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Owner editInfo(EditDto dto, String login) {
+    public void editInfo(EditDto dto, String login) {
         Owner dbOwner = usersRepository.findByLogin(login).get();
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         dbOwner.setLogin(dto.getLogin());
         dbOwner.setPassword(hashPassword);
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
-        return usersRepository.save(dbOwner);
+        usersRepository.save(dbOwner);
     }
 
     private String createToken(Owner user) {
