@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,7 +23,7 @@ public class Dog {
 
     private String breed;
 
-    private Date date_of_birth;
+    private Timestamp dateOfBirth;
 
     private Boolean sex;
 
