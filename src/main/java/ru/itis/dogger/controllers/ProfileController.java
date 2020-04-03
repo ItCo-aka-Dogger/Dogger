@@ -6,8 +6,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.EditDto;
+import ru.itis.dogger.dto.DogDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
+import ru.itis.dogger.services.DogsService;
 import ru.itis.dogger.services.UsersService;
 
 import java.util.Optional;
@@ -35,7 +37,8 @@ public class ProfileController {
 
     @PostMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication, @RequestHeader(name = "Authorization") String token) {
+    public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication,
+                                         @RequestHeader(name = "Authorization") String token) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.editInfo(dto, currentUser.getLogin());
         return ResponseEntity.ok(usersService.findByLogin(dto.getLogin()));

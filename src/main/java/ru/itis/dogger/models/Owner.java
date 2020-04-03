@@ -1,10 +1,15 @@
 package ru.itis.dogger.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "dogs")
 public class Owner {
 
     @Id
@@ -26,7 +32,9 @@ public class Owner {
 
     private String photo_path;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @JsonIgnore
     private List<Dog> dogs;
 
     @ManyToMany
@@ -49,4 +57,13 @@ public class Owner {
         this.password = password;
         this.fullName = fullName;
     }
+
+//    public List<Dog> getDogs() {
+//        List<Dog> dogList = new ArrayList<>();
+//        for (Dog dog : dogs) {
+//            Dog dog1 = new Dog(dog.getId(), dog.getName(), dog.getBreed(), dog.getDateOfBirth(), dog.getSex(), dog.getSize(), dog.getInformation());
+//            dogList.add(dog1);
+//        }
+//        return dogList;
+//    }
 }

@@ -1,20 +1,21 @@
 package ru.itis.dogger.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Dog {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,14 +26,29 @@ public class Dog {
 
     private Timestamp dateOfBirth;
 
-    private Boolean sex;
+    private String sex;
 
     private String size;
 
     private String photo_path;
 
+    private String information;
+
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private Owner owner;
 
+    @Override
+    public String toString() {
+        return "Dog{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", breed='" + breed + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", sex='" + sex + '\'' +
+                ", size='" + size + '\'' +
+                ", information='" + information + '\'' +
+                '}';
+    }
 }
