@@ -1,8 +1,10 @@
 package ru.itis.dogger.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -33,19 +35,9 @@ public class Dog {
     private String information;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private Owner owner;
-
-    public Dog(Long id, String name, String breed, Timestamp dateOfBirth, String sex, String size, String information) {
-        this.id = id;
-        this.name = name;
-        this.breed = breed;
-        this.dateOfBirth = dateOfBirth;
-        this.sex = sex;
-        this.size = size;
-        this.information = information;
-    }
 
     @Override
     public String toString() {
@@ -57,7 +49,6 @@ public class Dog {
                 ", sex='" + sex + '\'' +
                 ", size='" + size + '\'' +
                 ", information='" + information + '\'' +
-                ", owner='" + owner.getLogin() + '\'' +
                 '}';
     }
 }
