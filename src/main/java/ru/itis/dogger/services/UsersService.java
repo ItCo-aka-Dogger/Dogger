@@ -1,6 +1,5 @@
 package ru.itis.dogger.services;
 
-import org.springframework.http.ResponseEntity;
 import ru.itis.dogger.dto.EditDto;
 import ru.itis.dogger.dto.OwnerDto;
 import ru.itis.dogger.dto.TokenDto;
@@ -10,7 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface UsersService {
-    void signUp(OwnerDto dto);
+    boolean signUp(OwnerDto dto);
 
     TokenDto login(OwnerDto dto);
 
@@ -19,4 +18,6 @@ public interface UsersService {
     Map<String, Object> userToMap(Owner owner);
 
     void editInfo(EditDto dto, String login);
+
+    boolean activateUser(String code);
 }

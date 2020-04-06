@@ -2,9 +2,7 @@ package ru.itis.dogger.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.OwnerDto;
 import ru.itis.dogger.services.UsersService;
 
@@ -23,6 +21,24 @@ public class SignUpController {
     @PostMapping("/signUp")
     @PreAuthorize("permitAll()")
     public void signUpNewUser(@Valid @RequestBody OwnerDto dto) {
-        usersService.signUp(dto);
+        if(!usersService.signUp(dto)) {
+            System.out.println("user already in the system");
+        } else {
+            System.out.println("added user");
+        }
+
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/activate/{code}")
+    public void activate(@PathVariable String code) {
+        boolean isActivated = usersService.activateUser(code);
+
+        if (isActivated) {
+            System.out.println("User successfully activated");
+        } else {
+            System.out.println("Activation code is not found!");
+        }
+
     }
 }

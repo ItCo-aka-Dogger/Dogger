@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.EditDto;
 import ru.itis.dogger.dto.OwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -35,16 +34,24 @@ public class UsersServiceImpl implements UsersService {
     private EmailService emailService;
 
     @Override
-    public void signUp(OwnerDto dto) {
-        String confirmString = UUID.randomUUID().toString();
-
+    public boolean signUp(OwnerDto dto) {
+        Optional<Owner> dbUser = usersRepository.findByLogin(dto.getLogin());
+        if (dbUser.isPresent()) {
+            return false;
+        }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail(), confirmString);
+        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail());
+        newUser.setActivationCode(UUID.randomUUID().toString());
+        newUser.setActive(true);
         usersRepository.save(newUser);
 
-        String text = "<a href='http://127.0.0.1:8080/signUp/" + newUser.getConfirmString() + "'>" +"Пройдите по ссылке" + "</a>";
-        System.out.println(text);
-        emailService.sendMail("Подтверждение регистрации", text, newUser.getEmail());
+        if (!StringUtils.isEmpty(newUser.getEmail())) {
+            String message = "Hello, \n" +
+                            "Welcome to Dogger. Please, visit next link: http://localhost:8080/activate/" +
+                    newUser.getActivationCode();
+            emailService.sendMail(newUser.getEmail(), "Activation code", message);
+        }
+        return true;
     }
 
     @Override
@@ -82,6 +89,17 @@ public class UsersServiceImpl implements UsersService {
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         usersRepository.save(dbOwner);
+    }
+
+    @Override
+    public boolean activateUser(String code) {
+        Optional<Owner> user = usersRepository.findByActivationCode(code);
+        if (!user.isPresent()) {
+            return false;
+        }
+        user.get().setActivationCode(null);
+        usersRepository.save(user.get());
+        return true;
     }
 
     private String createToken(Owner user) {
