@@ -28,6 +28,7 @@ public class DogsController {
     public ResponseEntity<?> addDog(@RequestBody DogDto dto, @RequestHeader(name = "Authorization") String token,
                                     Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+
         dogsService.addDog(dto, currentUser);
         return ResponseEntity.ok().build();
     }

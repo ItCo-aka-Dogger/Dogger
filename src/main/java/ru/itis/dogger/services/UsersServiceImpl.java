@@ -14,10 +14,7 @@ import ru.itis.dogger.repositories.UsersRepository;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -34,11 +31,20 @@ public class UsersServiceImpl implements UsersService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Autowired
+    private EmailService emailService;
+
     @Override
     public void signUp(OwnerDto dto) {
+        String confirmString = UUID.randomUUID().toString();
+
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName());
+        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail(), confirmString);
         usersRepository.save(newUser);
+
+        String text = "<a href='http://127.0.0.1:8080/signUp/" + newUser.getConfirmString() + "'>" +"Пройдите по ссылке" + "</a>";
+        System.out.println(text);
+        emailService.sendMail("Подтверждение регистрации", text, newUser.getEmail());
     }
 
     @Override

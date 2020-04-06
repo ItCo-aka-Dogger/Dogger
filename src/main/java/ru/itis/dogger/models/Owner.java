@@ -27,6 +27,8 @@ public class Owner {
     private String login;
     private String password;
     private String fullName;
+    private String email;
+    private String confirmString;
 
     private Date dateOfBirth;
 
@@ -52,18 +54,11 @@ public class Owner {
     @OrderBy("date DESC")
     private List<Answer> answers;
 
-    public Owner(String login, String password, String fullName) {
+    public Owner(String login, String password, String fullName, String email, String confirmString) {
         this.login = login;
         this.password = password;
         this.fullName = fullName;
+        this.email = email;
+        this.confirmString = confirmString;
     }
-
-//    public List<Dog> getDogs() {
-//        List<Dog> dogList = new ArrayList<>();
-//        for (Dog dog : dogs) {
-//            Dog dog1 = new Dog(dog.getId(), dog.getName(), dog.getBreed(), dog.getDateOfBirth(), dog.getSex(), dog.getSize(), dog.getInformation());
-//            dogList.add(dog1);
-//        }
-//        return dogList;
-//    }
 }
