@@ -3,7 +3,10 @@ package ru.itis.dogger.services;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -30,8 +33,9 @@ public class UsersServiceImpl implements UsersService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Qualifier("getJavaMailSender")
     @Autowired
-    private EmailService emailService;
+    public JavaMailSender emailSender;
 
     @Override
     public boolean signUp(OwnerDto dto) {
@@ -49,7 +53,13 @@ public class UsersServiceImpl implements UsersService {
             String message = "Hello, \n" +
                             "Welcome to Dogger. Please, visit next link: http://localhost:8080/activate/" +
                     newUser.getActivationCode();
-            emailService.sendMail(newUser.getEmail(), "Activation code", message);
+//            emailService.sendMail(newUser.getEmail(), "Activation code", message);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(newUser.getEmail());
+            mailMessage.setSubject("Activation code");
+            mailMessage.setText(message);
+            emailSender.send(mailMessage);
         }
         return true;
     }

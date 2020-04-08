@@ -21,7 +21,8 @@ public class SignUpController {
     @PostMapping("/signUp")
     @PreAuthorize("permitAll()")
     public void signUpNewUser(@Valid @RequestBody OwnerDto dto) {
-        if(!usersService.signUp(dto)) {
+        if (!usersService.signUp(dto)) {
+//            throw exception
             System.out.println("user already in the system");
         } else {
             System.out.println("added user");
