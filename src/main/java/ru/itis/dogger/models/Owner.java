@@ -9,7 +9,6 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,9 +26,10 @@ public class Owner {
     private String login;
     private String password;
     private String fullName;
-
+    private String email;
     private Date dateOfBirth;
-
+    private String activationCode;
+    private Boolean active;
     private String photo_path;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
@@ -52,18 +52,10 @@ public class Owner {
     @OrderBy("date DESC")
     private List<Answer> answers;
 
-    public Owner(String login, String password, String fullName) {
+    public Owner(String login, String password, String fullName, String email) {
         this.login = login;
         this.password = password;
         this.fullName = fullName;
+        this.email = email;
     }
-
-//    public List<Dog> getDogs() {
-//        List<Dog> dogList = new ArrayList<>();
-//        for (Dog dog : dogs) {
-//            Dog dog1 = new Dog(dog.getId(), dog.getName(), dog.getBreed(), dog.getDateOfBirth(), dog.getSex(), dog.getSize(), dog.getInformation());
-//            dogList.add(dog1);
-//        }
-//        return dogList;
-//    }
 }
