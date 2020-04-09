@@ -1,0 +1,61 @@
+POST http://localhost:8080/signUp
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "login": "test",
+  "password": "test",
+  "fullName": "test test test",
+  "email": "ainaard@mail.ru"
+}
+
+###
+
+GET http://localhost:8080/activate/e3996d7d-0a21-4f67-90b0-a14a207befb7
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+
+###
+
+POST http://localhost:8080/login
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "login": "aina",
+  "password": "aina"
+}
+
+<> 2020-03-31T080522.200.json
+<> 2020-03-31T080024.200.json
+
+###
+
+GET http://localhost:8080/profile
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+###
+
+POST http://localhost:8080/addDog
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+{
+  "name": "test",
+  "size": "test",
+  "breed": "test",
+  "dateOfBirth": "2018-04-15",
+  "sex": "test",
+  "information": "test"
+}
+
+###

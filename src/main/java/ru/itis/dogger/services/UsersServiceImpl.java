@@ -47,7 +47,7 @@ public class UsersServiceImpl implements UsersService {
 
         if (!StringUtils.isEmpty(newUser.getEmail())) {
             String message = "Hello, \n" +
-                    "Welcome to Dogger. Please, visit next link: http://localhost:8080/activate/" +
+                    "Welcome to Dogger. Please, visit next link: https://gentle-plains-10374.herokuapp.com/activate/" +
                     newUser.getActivationCode();
             emailService.sendMail(newUser.getEmail(), "Activation code", message);
         }

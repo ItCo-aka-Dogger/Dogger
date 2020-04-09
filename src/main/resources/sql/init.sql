@@ -19,7 +19,11 @@ create table if not exists owner
     date_of_birth timestamp,
     login varchar(255),
     password varchar(255),
-    photo_path varchar(255)
+    photo_path varchar(255),
+    full_name varchar(255),
+    email varchar(255),
+    activation_code varchar(255),
+    active boolean
 );
 
 
