@@ -1,6 +1,8 @@
 package ru.itis.dogger.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.OwnerDto;
@@ -18,28 +20,25 @@ public class SignUpController {
         this.usersService = usersService;
     }
 
-    @PostMapping("/signUp")
     @PreAuthorize("permitAll()")
-    public void signUpNewUser(@Valid @RequestBody OwnerDto dto) {
+    @PostMapping("/signUp")
+    public ResponseEntity<?> signUpNewUser(@Valid @RequestBody OwnerDto dto) {
         if (!usersService.signUp(dto)) {
-//            throw exception
-            System.out.println("user already in the system");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("User already in the system").build();
         } else {
-            System.out.println("added user");
+            return ResponseEntity.ok("Successfully added user");
         }
-
     }
 
     @PreAuthorize("permitAll()")
     @GetMapping("/activate/{code}")
-    public void activate(@PathVariable String code) {
+    public ResponseEntity<?> activate(@PathVariable String code) {
         boolean isActivated = usersService.activateUser(code);
 
         if (isActivated) {
-            System.out.println("User successfully activated");
+            return ResponseEntity.ok("User successfully activated");
         } else {
-            System.out.println("Activation code is not found!");
+            return ResponseEntity.notFound().build();
         }
-
     }
 }

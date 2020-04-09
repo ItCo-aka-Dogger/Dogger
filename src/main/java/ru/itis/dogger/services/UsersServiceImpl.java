@@ -3,10 +3,7 @@ package ru.itis.dogger.services;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,19 +20,18 @@ public class UsersServiceImpl implements UsersService {
 
     private UsersRepository usersRepository;
     private PasswordEncoder passwordEncoder;
+    private EmailService emailService;
 
     @Value("${jwt.secret}")
     private String secretKey;
 
     @Autowired
-    public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+    public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
-    @Qualifier("getJavaMailSender")
-    @Autowired
-    public JavaMailSender emailSender;
 
     @Override
     public boolean signUp(OwnerDto dto) {
@@ -46,20 +42,14 @@ public class UsersServiceImpl implements UsersService {
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail());
         newUser.setActivationCode(UUID.randomUUID().toString());
-        newUser.setActive(true);
+        newUser.setActive(false);
         usersRepository.save(newUser);
 
         if (!StringUtils.isEmpty(newUser.getEmail())) {
             String message = "Hello, \n" +
-                            "Welcome to Dogger. Please, visit next link: http://localhost:8080/activate/" +
+                    "Welcome to Dogger. Please, visit next link: http://localhost:8080/activate/" +
                     newUser.getActivationCode();
-//            emailService.sendMail(newUser.getEmail(), "Activation code", message);
-
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(newUser.getEmail());
-            mailMessage.setSubject("Activation code");
-            mailMessage.setText(message);
-            emailSender.send(mailMessage);
+            emailService.sendMail(newUser.getEmail(), "Activation code", message);
         }
         return true;
     }
@@ -107,7 +97,7 @@ public class UsersServiceImpl implements UsersService {
         if (!user.isPresent()) {
             return false;
         }
-        user.get().setActivationCode(null);
+        user.get().setActive(true);
         usersRepository.save(user.get());
         return true;
     }
