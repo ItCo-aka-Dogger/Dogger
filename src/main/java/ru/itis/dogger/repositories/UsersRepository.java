@@ -11,4 +11,6 @@ public interface UsersRepository extends JpaRepository<Owner, Long> {
     Optional<Owner> findByLogin(String login);
 
     Optional<Owner> findByActivationCode(String code);
+
+    Optional<Owner> findByEmail(String email);
 }

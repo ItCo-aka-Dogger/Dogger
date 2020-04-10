@@ -102,6 +102,35 @@ public class UsersServiceImpl implements UsersService {
         return true;
     }
 
+    @Override
+    public Optional<Owner> findByEmail(String email) {
+        return usersRepository.findByEmail(email);
+    }
+
+    @Override
+    public void sendRecoverMail(String email) {
+        Owner user = usersRepository.findByEmail(email).get();
+        user.setActive(false);
+
+        String message = "Hello, \n" +
+                "to recover your password, please, visit next link: http://localhost:8080/recover/" +
+                user.getId();
+        emailService.sendMail(user.getEmail(), "Password recover", message);
+        usersRepository.save(user);
+    }
+
+    @Override
+    public boolean recover(Long userId) {
+        Optional<Owner> userCandidate = usersRepository.findById(userId);
+        if (userCandidate.isPresent()) {
+            userCandidate.get().setActive(true);
+            usersRepository.save(userCandidate.get());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     private String createToken(Owner user) {
         return Jwts.builder()
                 .claim("login", user.getLogin())

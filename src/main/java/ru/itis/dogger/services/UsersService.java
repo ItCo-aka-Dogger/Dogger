@@ -20,4 +20,10 @@ public interface UsersService {
     void editInfo(EditDto dto, String login);
 
     boolean activateUser(String code);
+
+    Optional<Owner> findByEmail(String email);
+
+    void sendRecoverMail(String email);
+
+    boolean recover(Long userId);
 }
