@@ -1,11 +1,11 @@
 package ru.itis.dogger.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.OwnerDto;
+import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.services.UsersService;
 
 import javax.validation.Valid;
@@ -24,9 +24,9 @@ public class SignUpController {
     @PostMapping("/signUp")
     public ResponseEntity<?> signUpNewUser(@Valid @RequestBody OwnerDto dto) {
         if (!usersService.signUp(dto)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).header("User already in the system").build();
+            return ResponseEntity.ok(new ResponseDto("User already in the system"));
         } else {
-            return ResponseEntity.ok("Successfully added user");
+            return ResponseEntity.ok(new ResponseDto("Successfully added user"));
         }
     }
 
@@ -36,9 +36,9 @@ public class SignUpController {
         boolean isActivated = usersService.activateUser(code);
 
         if (isActivated) {
-            return ResponseEntity.ok("User successfully activated");
+            return ResponseEntity.ok(new ResponseDto("User successfully activated"));
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(new ResponseDto("User not found"));
         }
     }
 }

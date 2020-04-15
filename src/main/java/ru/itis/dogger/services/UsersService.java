@@ -26,4 +26,6 @@ public interface UsersService {
     void sendRecoverMail(String email);
 
     boolean recover(Long userId);
+
+    String delete(String login);
 }

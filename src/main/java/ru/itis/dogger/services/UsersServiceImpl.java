@@ -131,6 +131,17 @@ public class UsersServiceImpl implements UsersService {
         }
     }
 
+    @Override
+    public String delete(String login) {
+        Optional<Owner> owner = usersRepository.findByLogin(login);
+        if (owner.isPresent()) {
+            usersRepository.delete(owner.get());
+            return "User successfully deleted";
+        } else {
+            return "No such user in db";
+        }
+    }
+
     private String createToken(Owner user) {
         return Jwts.builder()
                 .claim("login", user.getLogin())
