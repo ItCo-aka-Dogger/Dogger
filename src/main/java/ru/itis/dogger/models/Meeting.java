@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -22,7 +22,7 @@ public class Meeting {
 
     private String description;
 
-    private Date date;
+    private Timestamp date;
 
     private Double coordinateX;
     private Double coordinateY;
