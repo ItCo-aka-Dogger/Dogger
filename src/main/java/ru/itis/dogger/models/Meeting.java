@@ -27,6 +27,10 @@ public class Meeting {
     private Double coordinateX;
     private Double coordinateY;
 
+    @ManyToOne
+    @JoinColumn(name = "creator_id")
+    private Owner creator;
+
     @ManyToMany(mappedBy = "meetings")
     private List<Owner> participants;
 }

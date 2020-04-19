@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.MeetingDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
@@ -30,6 +27,12 @@ public class MeetingsController {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         meetingsService.addMeeting(dto, currentUser);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/meetings")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> getMeetingsList(@RequestHeader(name = "Authorization") String token, Authentication authentication) {
+        return ResponseEntity.ok(meetingsService.getAllMeetings());
     }
 
 }

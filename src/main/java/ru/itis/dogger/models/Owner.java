@@ -37,10 +37,10 @@ public class Owner {
     @JsonIgnore
     private List<Dog> dogs;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "meeting_owner",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "owner_id"),
             inverseJoinColumns = @JoinColumn(name = "meeting_id"))
     private List<Meeting> meetings;
 

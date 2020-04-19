@@ -1,5 +1,6 @@
 package ru.itis.dogger.services;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.dogger.dto.MeetingDto;
@@ -7,7 +8,7 @@ import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.MeetingsRepository;
 
-import java.util.Collections;
+import java.util.List;
 
 @Service
 public class MeetingsServiceImpl implements MeetingsService {
@@ -28,9 +29,14 @@ public class MeetingsServiceImpl implements MeetingsService {
         newMeeting.setDate(dto.getDate());
         newMeeting.setDescription(dto.getDescription());
         newMeeting.setName(dto.getName());
-
-        newMeeting.setParticipants(Collections.singletonList(creator));
+        newMeeting.setCreator(creator);
 
         meetingsRepository.save(newMeeting);
+    }
+
+    @Override
+    public String getAllMeetings() {
+        List<Meeting> meetings = meetingsRepository.findAll();
+        return new Gson().toJson(meetings);
     }
 }
