@@ -1,10 +1,7 @@
 package ru.itis.dogger.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -37,11 +34,7 @@ public class Owner {
     @JsonIgnore
     private List<Dog> dogs;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "meeting_owner",
-            joinColumns = @JoinColumn(name = "owner_id"),
-            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    @ManyToMany(mappedBy = "participants")
     private List<Meeting> meetings;
 
     @OneToMany(mappedBy = "author")
@@ -51,6 +44,9 @@ public class Owner {
     @OneToMany(mappedBy = "author")
     @OrderBy("date DESC")
     private List<Answer> answers;
+
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    private List<Meeting> myMeetings;
 
     public Owner(String login, String password, String fullName, String email) {
         this.login = login;

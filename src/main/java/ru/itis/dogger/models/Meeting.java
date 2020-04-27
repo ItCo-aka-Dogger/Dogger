@@ -1,8 +1,6 @@
 package ru.itis.dogger.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -31,6 +29,10 @@ public class Meeting {
     @JoinColumn(name = "creator_id")
     private Owner creator;
 
-    @ManyToMany(mappedBy = "meetings")
+    @ManyToMany
+    @JoinTable(
+            name = "meeting_owner",
+            joinColumns = @JoinColumn(name = "meeting_id"),
+            inverseJoinColumns = @JoinColumn(name = "owner_id"))
     private List<Owner> participants;
 }

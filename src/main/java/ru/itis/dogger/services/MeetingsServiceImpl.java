@@ -8,6 +8,7 @@ import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.MeetingsRepository;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,6 +31,7 @@ public class MeetingsServiceImpl implements MeetingsService {
         newMeeting.setDescription(dto.getDescription());
         newMeeting.setName(dto.getName());
         newMeeting.setCreator(creator);
+        newMeeting.setParticipants(Collections.singletonList(creator));
 
         meetingsRepository.save(newMeeting);
     }
