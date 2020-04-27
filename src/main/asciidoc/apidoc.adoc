@@ -72,6 +72,38 @@
         "dateOfBirth": "1999-03-09"
     }
 
+В ответе приходит *Json*:
+
+    {
+            "dogs": [
+        {
+          "id": 4,
+          "name": "test",
+          "breed": "test",
+          "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+          "sex": "test",
+          "size": "test",
+          "photo_path": null,
+          "information": "test"
+        },
+        {
+          "id": 5,
+          "name": "dog one",
+          "breed": "labrador",
+          "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+          "sex": "male",
+          "size": "big",
+          "photo_path": null,
+          "information": "good"
+        }
+      ],
+      "fullName": "Aina aina aina",
+      "dateOfBirth": "1999-02-13T19:00:00.000+0000",
+      "meetings": [],
+      "login": "aina"
+    }
+
+
 === Добавить собаку
 
 Пользователь может добавить в свой профиль собаку и информацию по ней.
