@@ -1,5 +1,7 @@
 package ru.itis.dogger.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,9 +30,11 @@ public class Meeting {
     private Double coordinateY;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "creator_id")
     private Owner creator;
 
     @ManyToMany(mappedBy = "meetings")
+    @JsonIgnore
     private List<Owner> participants;
 }

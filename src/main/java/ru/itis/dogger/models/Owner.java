@@ -39,6 +39,7 @@ public class Owner {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     @JoinTable(
             name = "meeting_owner",
             joinColumns = @JoinColumn(name = "owner_id"),
