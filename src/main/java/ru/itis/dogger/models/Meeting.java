@@ -1,6 +1,10 @@
 package ru.itis.dogger.models;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -26,13 +30,11 @@ public class Meeting {
     private Double coordinateY;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "creator_id")
     private Owner creator;
 
-    @ManyToMany
-    @JoinTable(
-            name = "meeting_owner",
-            joinColumns = @JoinColumn(name = "meeting_id"),
-            inverseJoinColumns = @JoinColumn(name = "owner_id"))
+    @ManyToMany(mappedBy = "meetings")
+    @JsonIgnore
     private List<Owner> participants;
 }

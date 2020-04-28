@@ -30,18 +30,26 @@ public class Owner {
     private String photo_path;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.TRUE)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     private List<Dog> dogs;
 
-    @ManyToMany(mappedBy = "participants")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
+    @JoinTable(
+            name = "meeting_owner",
+            joinColumns = @JoinColumn(name = "owner_id"),
+            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
     private List<Meeting> meetings;
 
     @OneToMany(mappedBy = "author")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OrderBy("date DESC")
     private List<Question> questions;
 
     @OneToMany(mappedBy = "author")
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OrderBy("date DESC")
     private List<Answer> answers;
 
