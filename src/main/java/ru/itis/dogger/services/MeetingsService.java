@@ -1,11 +1,11 @@
 package ru.itis.dogger.services;
 
-import ru.itis.dogger.dto.MeetingDto;
+import ru.itis.dogger.dto.NewMeetingForm;
 import ru.itis.dogger.models.Owner;
 
 
 public interface MeetingsService {
-    void addMeeting(MeetingDto dto, Owner creator);
+    void addMeeting(NewMeetingForm form, Owner creator);
 
     String getAllMeetings();
 }
