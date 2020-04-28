@@ -34,13 +34,8 @@ public class Owner {
     @JsonIgnore
     private List<Dog> dogs;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
-    @JoinTable(
-            name = "meeting_owner",
-            joinColumns = @JoinColumn(name = "owner_id"),
-            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    @ManyToMany(mappedBy = "participants")
     private List<Meeting> meetings;
 
     @OneToMany(mappedBy = "author")
