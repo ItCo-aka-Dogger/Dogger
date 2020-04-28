@@ -37,8 +37,7 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public String getAllMeetings() {
-        List<Meeting> meetings = meetingsRepository.findAll();
-        return new Gson().toJson(meetings);
+    public List<Meeting> getAllMeetings() {
+        return meetingsRepository.findAll();
     }
 }
