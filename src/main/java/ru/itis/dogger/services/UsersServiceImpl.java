@@ -72,6 +72,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Map<String, Object> userToMap(Owner owner) {
         Map<String, Object> ownerProperties = new HashMap<>();
+        ownerProperties.put("id", owner.getId());
         ownerProperties.put("login", owner.getLogin());
         ownerProperties.put("fullName", owner.getFullName());
         ownerProperties.put("dateOfBirth", owner.getDateOfBirth());

@@ -19,7 +19,7 @@ public class MeetingDto {
 
     private Double coordinateX;
     private Double coordinateY;
-    private String creator;
+    private Long creator;
     private int participants_count;
 
     public static MeetingDto from(Meeting meeting) {
@@ -30,7 +30,7 @@ public class MeetingDto {
         meetingDto.setDate(meeting.getDate());
         meetingDto.setCoordinateX(meeting.getCoordinateX());
         meetingDto.setCoordinateY(meeting.getCoordinateY());
-        meetingDto.setCreator(meeting.getCreator().getLogin());
+        meetingDto.setCreator(meeting.getCreator().getId());
         meetingDto.setParticipants_count(meeting.getParticipants().size());
 
         return meetingDto;
