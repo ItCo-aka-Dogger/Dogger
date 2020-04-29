@@ -34,6 +34,7 @@ public class Owner {
     private List<Dog> dogs;
 
     @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(mappedBy = "participants")
     private List<Meeting> meetings;
 

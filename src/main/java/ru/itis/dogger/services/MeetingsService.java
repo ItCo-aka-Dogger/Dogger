@@ -14,4 +14,6 @@ public interface MeetingsService {
     List<Meeting> getAllMeetings();
 
     Optional<Meeting> getMeetingById(long id);
+
+    void joinMeeting(Owner currentUser, long meetingId);
 }

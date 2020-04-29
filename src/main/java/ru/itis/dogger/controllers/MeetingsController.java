@@ -52,6 +52,13 @@ public class MeetingsController {
             return ResponseEntity.ok(DetailedMeetingDto.from(meeting));
     }
 
-
+    @PostMapping("/meetings/{meetingId}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> joinMeeting(@RequestHeader(name = "Authorization") String token,
+                                         @PathVariable long meetingId, Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        meetingsService.joinMeeting(currentUser, meetingId);
+        return ResponseEntity.ok().build();
+    }
 
 }

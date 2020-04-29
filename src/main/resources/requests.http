@@ -26,6 +26,20 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/signUp
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "login": "kamila",
+  "password": "kamila",
+  "fullName": "test test test",
+  "email": "kamila.nigmet@gmail.com"
+}
+
+###
+
 GET http://localhost:8080/activate/386eb92a-b45c-4590-ad8f-5f661fc75137
 Accept: */*
 Cache-Control: no-cache
@@ -43,10 +57,34 @@ Content-Type: application/json
   "password": "aina"
 }
 
+
+
 <> 2020-03-31T080522.200.json
 <> 2020-03-31T080024.200.json
 
 ###
+
+POST http://localhost:8080/login
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "login": "kamila",
+  "password": "kamila"
+}
+
+###
+
+POST http://localhost:8080/logout
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
+
+
+###
+
 
 GET http://localhost:8080/profile
 Accept: */*
@@ -109,6 +147,22 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
 ###
 
 GET http://localhost:8080/meetings/3
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+###
+
+POST http://localhost:8080/meetings/3
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
+
+###
+
+POST http://localhost:8080/meetings/3
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
