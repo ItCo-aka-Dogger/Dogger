@@ -69,10 +69,51 @@
 Для редактирования профиля пользователя отправляется *Json*:
 
     {
-        "login": "kama",
-        "password": "kama",
-        "fullName": "Kamila Nigmetzyanova",
-        "dateOfBirth": "1999-03-09"
+        "dogs": [
+                  {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                  },
+                  {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                  }
+                ],
+        "fullName": "test test test",
+        "dateOfBirth": null,
+        "meetings":
+                [
+                  {
+                    "id": 3,
+                    "name": "Khakima 47-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                  },
+                  {
+                    "id": 8,
+                    "name": "Khakima 49-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                  }
+                ],
+        "id": 1,
+        "login": "aina"
     }
 
 === Добавить собаку
@@ -115,8 +156,8 @@
         "coordinateY": "63.14327"
     }
 
-При успешном запросе в базе данных появится мероприятие, автором которого будет текущий авторизованный
-пользователь (который автоматически попадает в список участников мероприятия). В списке всех митингов появится новый.
+При успешном запросе в базе данных появится мероприятие, автором которого будет текущий авторизованный пользователь (который автоматически попадает в список участников мероприятия).
+В списке всех митингов появится новый.
 
 === Получить список всех мероприятий
 
