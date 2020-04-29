@@ -1,4 +1,4 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.forms;
 
 import lombok.Data;
 import java.sql.Timestamp;

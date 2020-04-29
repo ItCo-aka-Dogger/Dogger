@@ -31,7 +31,6 @@ public class Owner {
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
     private List<Dog> dogs;
 
     @JsonIgnore

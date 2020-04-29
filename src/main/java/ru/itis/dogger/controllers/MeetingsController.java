@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.dogger.dto.DetailedMeetingDto;
 import ru.itis.dogger.dto.MeetingDto;
-import ru.itis.dogger.dto.NewMeetingForm;
+import ru.itis.dogger.forms.NewMeetingForm;
+import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.MeetingsService;
@@ -39,5 +41,17 @@ public class MeetingsController {
         List<MeetingDto> meetingDtos = meetingsService.getAllMeetings().stream().map(mtg -> MeetingDto.from(mtg)).collect(Collectors.toList());
         return ResponseEntity.ok(meetingDtos);
     }
+
+    @GetMapping("/meetings/{meetingId}")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> getDetailedMeeting(@RequestHeader(name = "Authorization") String token, @PathVariable long meetingId) {
+        Meeting meeting = meetingsService.getMeetingById(meetingId).orElse(null);
+        if (meeting == null) {
+            return ResponseEntity.notFound().build();
+        } else
+            return ResponseEntity.ok(DetailedMeetingDto.from(meeting));
+    }
+
+
 
 }

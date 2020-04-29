@@ -1,15 +1,15 @@
 package ru.itis.dogger.services;
 
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.dogger.dto.NewMeetingForm;
+import ru.itis.dogger.forms.NewMeetingForm;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.MeetingsRepository;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MeetingsServiceImpl implements MeetingsService {
@@ -39,5 +39,10 @@ public class MeetingsServiceImpl implements MeetingsService {
     @Override
     public List<Meeting> getAllMeetings() {
         return meetingsRepository.findAll();
+    }
+
+    @Override
+    public Optional<Meeting> getMeetingById(long id) {
+        return meetingsRepository.findById(id);
     }
 }
