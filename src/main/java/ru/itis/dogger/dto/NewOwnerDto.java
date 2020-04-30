@@ -3,7 +3,7 @@ package ru.itis.dogger.dto;
 import lombok.Data;
 
 @Data
-public class OwnerDto {
+public class NewOwnerDto {
     private Long id;
     private String login;
     private String password;

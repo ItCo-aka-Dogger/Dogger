@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.DetailedMeetingDto;
 import ru.itis.dogger.dto.MeetingDto;
-import ru.itis.dogger.forms.NewMeetingForm;
+import ru.itis.dogger.dto.NewMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
@@ -29,7 +29,7 @@ public class MeetingsController {
 
     @PostMapping("/addMeeting")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addMeeting(@RequestBody NewMeetingForm meetingForm, @RequestHeader(name = "Authorization") String token,
+    public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto meetingForm, @RequestHeader(name = "Authorization") String token,
                                         Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         meetingsService.addMeeting(meetingForm, currentUser);
