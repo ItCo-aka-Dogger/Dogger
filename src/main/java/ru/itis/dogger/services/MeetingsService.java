@@ -13,7 +13,7 @@ public interface MeetingsService {
 
     List<Meeting> getAllMeetings();
 
-    Optional<Meeting> getMeetingById(long id);
+    Optional<Meeting> getMeetingById(Long id);
 
-    void joinMeeting(Owner currentUser, long meetingId);
+    boolean joinMeeting(Owner currentUser, Long meetingId);
 }

@@ -42,18 +42,23 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public Optional<Meeting> getMeetingById(long id) {
+    public Optional<Meeting> getMeetingById(Long id) {
         return meetingsRepository.findById(id);
     }
 
     @Override
-    public void joinMeeting(Owner currentUser, long meetingId) {
+    public boolean joinMeeting(Owner currentUser, Long meetingId) {
+        Optional<Meeting> meeting = meetingsRepository.findById(meetingId);
         boolean isAlreadyJoined = currentUser.getMeetings().stream()
                 .anyMatch(m -> m.getId().equals(meetingId));
-        if (!isAlreadyJoined) {
-            Meeting meeting = meetingsRepository.findById(meetingId).orElseThrow(IllegalArgumentException::new);
-            meeting.getParticipants().add(currentUser);
-            meetingsRepository.save(meeting);
+
+        if (!isAlreadyJoined && meeting.isPresent()) {
+            meeting.get().getParticipants().add(currentUser);
+            meetingsRepository.save(meeting.get());
+            return true;
         }
+        return false;
     }
+
 }
+
