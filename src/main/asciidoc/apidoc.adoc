@@ -159,12 +159,9 @@
         "creator": {
             "id": 1,
             "login": "aina",
-            "password": "$2a$10$EIcwg0/uD1qHxnb5yn/nVOcHRNkBcxHZ8qtKOyCmC9AW1wKsl0VY.",
             "fullName": "test test test",
             "email": "kamila.nigmet@gmail.com",
             "dateOfBirth": null,
-            "activationCode": "20b2977a-b1e8-4613-9bd9-069f44109c0c",
-            "active": false,
             "photo_path": null,
             "dogs": [
                 {
@@ -188,37 +185,14 @@
                     "information": "test"
                 }
             ],
-            "questions": [],
-            "answers": [],
-            "myMeetings": [
-                {
-                    "id": 3,
-                    "name": "Khakima 47-54",
-                    "description": "For dog walkers from our district",
-                    "date": "2020-04-30T17:00:00.000+0000",
-                    "coordinateX": 65.56348,
-                    "coordinateY": 63.14327
-                },
-                {
-                    "id": 7,
-                    "name": "Khakima 49-54",
-                    "description": "For dog walkers from our district",
-                    "date": "2020-04-30T17:00:00.000+0000",
-                    "coordinateX": 65.56348,
-                    "coordinateY": 63.14327
-                }
-            ]
         },
         "participants": [
             {
                 "id": 1,
                 "login": "aina",
-                "password": "$2a$10$EIcwg0/uD1qHxnb5yn/nVOcHRNkBcxHZ8qtKOyCmC9AW1wKsl0VY.",
                 "fullName": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
-                "activationCode": "20b2977a-b1e8-4613-9bd9-069f44109c0c",
-                "active": false,
                 "photo_path": null,
                 "dogs": [
                     {
@@ -242,41 +216,15 @@
                     "information": "test"
                     }
                 ],
-                "questions": [],
-                "answers": [],
-                "myMeetings": [
-                    {
-                    "id": 3,
-                    "name": "Khakima 47-54",
-                    "description": "For dog walkers from our district",
-                    "date": "2020-04-30T17:00:00.000+0000",
-                    "coordinateX": 65.56348,
-                    "coordinateY": 63.14327
-                    },
-                    {
-                    "id": 7,
-                    "name": "Khakima 49-54",
-                    "description": "For dog walkers from our district",
-                    "date": "2020-04-30T17:00:00.000+0000",
-                    "coordinateX": 65.56348,
-                    "coordinateY": 63.14327
-                    }
-                ]
             },
             {
                 "id": 2,
                 "login": "kamila",
-                "password": "$2a$10$tMOgLBRk87af5ubbKSPyQOUT00RZKOC8oAc4zOffWGmxZmo62oY6i",
                 "fullName": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
-                "activationCode": "02f6f7f5-126e-49c1-876f-c377c5a09a19",
-                "active": false,
                 "photo_path": null,
-                "dogs": [],
-                "questions": [],
-                "answers": [],
-                "myMeetings": []
+                "dogs": []
             }
         ]
     }

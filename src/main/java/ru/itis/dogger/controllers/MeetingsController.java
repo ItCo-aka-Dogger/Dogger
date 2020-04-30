@@ -6,7 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.DetailedMeetingDto;
-import ru.itis.dogger.dto.MeetingDto;
+import ru.itis.dogger.dto.SimpleMeetingDto;
 import ru.itis.dogger.dto.NewMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
@@ -39,7 +39,7 @@ public class MeetingsController {
     @GetMapping("/meetings")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMeetingsList(@RequestHeader(name = "Authorization") String token, Authentication authentication) {
-        List<MeetingDto> meetingDtos = meetingsService.getAllMeetings().stream().map(mtg -> MeetingDto.from(mtg)).collect(Collectors.toList());
+        List<SimpleMeetingDto> meetingDtos = meetingsService.getAllMeetings().stream().map(mtg -> SimpleMeetingDto.from(mtg)).collect(Collectors.toList());
         return ResponseEntity.ok(meetingDtos);
     }
 

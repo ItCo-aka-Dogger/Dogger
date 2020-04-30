@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MeetingDto {
+public class SimpleMeetingDto {
     private Long id;
     private String name;
     private String description;
@@ -23,8 +23,8 @@ public class MeetingDto {
     private String creatorLogin;
     private int participants_count;
 
-    public static MeetingDto from(Meeting meeting) {
-        MeetingDto meetingDto = new MeetingDto();
+    public static SimpleMeetingDto from(Meeting meeting) {
+        SimpleMeetingDto meetingDto = new SimpleMeetingDto();
         meetingDto.setId(meeting.getId());
         meetingDto.setName(meeting.getName());
         meetingDto.setDescription(meeting.getDescription());
