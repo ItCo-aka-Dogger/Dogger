@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.EditDto;
-import ru.itis.dogger.dto.OwnerDto;
+import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
@@ -34,7 +34,7 @@ public class UsersServiceImpl implements UsersService {
 
 
     @Override
-    public boolean signUp(OwnerDto dto) {
+    public boolean signUp(NewOwnerDto dto) {
         Optional<Owner> dbUser = usersRepository.findByLogin(dto.getLogin());
         if (dbUser.isPresent()) {
             return false;
@@ -55,7 +55,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public TokenDto login(OwnerDto dto) {
+    public TokenDto login(NewOwnerDto dto) {
         Optional<Owner> userCandidate = usersRepository.findByLogin(dto.getLogin());
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
@@ -72,6 +72,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Map<String, Object> userToMap(Owner owner) {
         Map<String, Object> ownerProperties = new HashMap<>();
+        ownerProperties.put("id", owner.getId());
         ownerProperties.put("login", owner.getLogin());
         ownerProperties.put("fullName", owner.getFullName());
         ownerProperties.put("dateOfBirth", owner.getDateOfBirth());

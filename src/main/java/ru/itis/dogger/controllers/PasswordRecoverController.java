@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dogger.dto.OwnerDto;
+import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.services.UsersService;
 
 @RestController
@@ -29,7 +29,7 @@ public class PasswordRecoverController {
 
     @PostMapping("/recover")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> forgotPassword(@RequestBody OwnerDto dto) {
+    public ResponseEntity<?> forgotPassword(@RequestBody NewOwnerDto dto) {
         if (usersService.findByLogin(dto.getLogin()).isPresent() || usersService.findByEmail(dto.getEmail()).isPresent()) {
             usersService.sendRecoverMail(dto.getEmail());
             return ResponseEntity.ok("Recover mail is sent. Check your mailbox");

@@ -31,6 +31,9 @@
 |`GET /meetings`
 |Получить список всех мероприятий
 
+|`POST /meetings/{id}`
+|Получить полную информацию о прогулке
+
 |`POST` /delete
 |Удалить пользователя из базы данных
 
@@ -145,7 +148,118 @@
     }
 
 При успешном запросе в базе данных появится мероприятие, автором которого будет текущий авторизованный
-пользователь. В списке всех митингов появится новый.
+пользователь (который автоматически попадает в список участников мероприятия). В списке всех митингов появится новый.
+
+=== Получить список всех мероприятий
+
+Можно отобразить список всех прогулок в ответ на *GET /meetings*:
+
+    [
+      {
+        "id": 3,
+        "name": "Khakima 47-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": 1,
+        "participants_count": 2
+      },
+      {
+        "id": 7,
+        "name": "Khakima 49-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": 1,
+        "participants_count": 0
+      }
+    ]
+
+=== Получить детальную информацию о прогулке
+
+Ответ выглядит следующим образом:
+
+    {
+        "id": 3,
+        "name": "Khakima 47-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": {
+            "id": 1,
+            "login": "aina",
+            "fullName": "test test test",
+            "email": "kamila.nigmet@gmail.com",
+            "dateOfBirth": null,
+            "photo_path": null,
+            "dogs": [
+                {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                },
+                {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                }
+            ],
+        },
+        "participants": [
+            {
+                "id": 1,
+                "login": "aina",
+                "fullName": "test test test",
+                "email": "kamila.nigmet@gmail.com",
+                "dateOfBirth": null,
+                "photo_path": null,
+                "dogs": [
+                    {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                    },
+                    {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                    }
+                ],
+            },
+            {
+                "id": 2,
+                "login": "kamila",
+                "fullName": "test test test",
+                "email": "kamila.nigmet@gmail.com",
+                "dateOfBirth": null,
+                "photo_path": null,
+                "dogs": []
+            }
+        ]
+    }
 
 === Удалить пользователя
 
