@@ -83,9 +83,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void editInfo(EditDto dto, String login) {
         Owner dbOwner = usersRepository.findByLogin(login).get();
-        String hashPassword = passwordEncoder.encode(dto.getPassword());
         dbOwner.setLogin(dto.getLogin());
-        dbOwner.setPassword(hashPassword);
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         usersRepository.save(dbOwner);
