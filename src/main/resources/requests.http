@@ -60,7 +60,7 @@ POST http://localhost:8080/addDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3QiLCJpZCI6Mn0.m7Oz8HaszHKNBP4-lOsLeAeMASit66XWTIYUtqzu4ege-bU-9rbmZGqDGqNfDSrhMK9us_6SCUyQln_opyDSFw
 
 {
   "name": "test",

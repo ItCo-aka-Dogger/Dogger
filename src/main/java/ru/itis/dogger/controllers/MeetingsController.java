@@ -37,8 +37,8 @@ public class MeetingsController {
     }
 
     @GetMapping("/meetings")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getMeetingsList(@RequestHeader(name = "Authorization") String token, Authentication authentication) {
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> getMeetingsList() {
         List<SimpleMeetingDto> meetingDtos = meetingsService.getAllMeetings().stream().map(mtg -> SimpleMeetingDto.from(mtg)).collect(Collectors.toList());
         return ResponseEntity.ok(meetingDtos);
     }
