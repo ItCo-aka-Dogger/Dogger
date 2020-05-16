@@ -41,6 +41,6 @@ public class ProfileController {
                                          @RequestHeader(name = "Authorization") String token) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.editInfo(dto, currentUser.getLogin());
-        return ResponseEntity.ok(usersService.findByLogin(dto.getLogin()));
+        return ResponseEntity.ok(currentUser);
     }
 }
