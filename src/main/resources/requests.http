@@ -4,10 +4,12 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "login": "test",
-  "password": "test",
-  "fullName": "test test test",
-  "email": "ainaard@mail.ru"
+  "login": "user",
+  "password": "user",
+  "fullName": "User",
+  "email": "ainaard@mail.ru",
+  "city": "Kazan",
+  "phoneNumber": "89177687676"
 }
 
 ###
