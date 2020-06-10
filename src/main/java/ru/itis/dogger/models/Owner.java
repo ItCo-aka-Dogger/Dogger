@@ -48,7 +48,7 @@ public class Owner {
     @OrderBy("date DESC")
     private List<Answer> answers;
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Meeting> myMeetings;
 
     public Owner(String login, String password, String fullName, String email) {

@@ -38,8 +38,30 @@ public class MeetingsController {
 
     @GetMapping("/meetings")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> getMeetingsList() {
-        List<SimpleMeetingDto> meetingDtos = meetingsService.getAllMeetings().stream().map(mtg -> SimpleMeetingDto.from(mtg)).collect(Collectors.toList());
+    public ResponseEntity<?> getAllMeetings() {
+        List<SimpleMeetingDto> meetingDtos = meetingsService.getAllMeetings().stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+        return ResponseEntity.ok(meetingDtos);
+    }
+
+    @GetMapping("/meetings/joined")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> getMeetingsInWhichUserParticipates(Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        List<SimpleMeetingDto> meetingDtos = meetingsService.getParticipatedMeetings(currentUser.getId())
+                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+        return ResponseEntity.ok(meetingDtos);
+    }
+
+    //TODO: переспросить у Тимура
+    //вообще созданные юзером митинги хранятся в самом юзере в отношении OneToMany
+    //поэтому нет смысла в этом методе, если Тимур будет хранить митинги оттуда
+    //но если кто-то создаст еще один митинг, Тимуру надо будет послать GET /profile заново что myMeetings обновились - удобно ли ему?
+    @GetMapping("/meetings/my")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> getMeetingsCreatedByMe(Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        List<SimpleMeetingDto> meetingDtos = currentUser.getMyMeetings()
+                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
         return ResponseEntity.ok(meetingDtos);
     }
 
@@ -53,7 +75,7 @@ public class MeetingsController {
             return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/meetings/{meetingId}")
+    @PostMapping("/meetings/{meetingId}/join")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> joinMeeting(@RequestHeader(name = "Authorization") String token,
                                          @PathVariable Long meetingId, Authentication authentication) {

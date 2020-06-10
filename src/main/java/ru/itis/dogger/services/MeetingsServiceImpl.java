@@ -42,6 +42,11 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
+    public List<Meeting> getParticipatedMeetings(Long id) {
+        return meetingsRepository.findAllMeetingsInWhichUserIsParticipated(id);
+    }
+
+    @Override
     public Optional<Meeting> getMeetingById(Long id) {
         return meetingsRepository.findById(id);
     }
