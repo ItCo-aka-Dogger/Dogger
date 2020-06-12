@@ -1,5 +1,6 @@
 package ru.itis.dogger.services;
 
+import org.springframework.security.core.Authentication;
 import ru.itis.dogger.dto.EditDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
@@ -28,4 +29,6 @@ public interface UsersService {
     boolean recover(Long userId);
 
     String delete(String login);
+
+    Optional<Owner> getCurrentUser(Authentication authentication);
 }

@@ -20,4 +20,6 @@ public interface MeetingsService {
     Optional<Meeting> getMeetingById(Long id);
 
     boolean joinMeeting(Owner currentUser, Long meetingId);
+
+    boolean unjoinMeeting(Owner currentUser, Long meetingId);
 }
