@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -12,6 +13,7 @@ import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
+import ru.itis.dogger.security.details.UserDetailsImpl;
 
 import java.util.*;
 
@@ -31,7 +33,6 @@ public class UsersServiceImpl implements UsersService {
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
     }
-
 
     @Override
     public boolean signUp(NewOwnerDto dto) {
@@ -146,6 +147,20 @@ public class UsersServiceImpl implements UsersService {
         } else {
             return "No such user in db";
         }
+    }
+
+    @Override
+    public Optional<Owner> getCurrentUser(Authentication authentication) {
+        if (authentication != null) {
+            Long currentUserId = ((UserDetailsImpl) authentication.getPrincipal()).getUser().getId();
+            return usersRepository.findById(currentUserId);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Owner> getUserById(Long id) {
+        return usersRepository.findById(id);
     }
 
     private String createToken(Owner user) {
