@@ -6,6 +6,7 @@ import ru.itis.dogger.dto.NewMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.MeetingsRepository;
+import ru.itis.dogger.repositories.UsersRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -15,10 +16,12 @@ import java.util.Optional;
 public class MeetingsServiceImpl implements MeetingsService {
 
     private MeetingsRepository meetingsRepository;
+    private UsersRepository usersRepository;
 
     @Autowired
-    public MeetingsServiceImpl(MeetingsRepository meetingsRepository) {
+    public MeetingsServiceImpl(MeetingsRepository meetingsRepository, UsersRepository usersRepository) {
         this.meetingsRepository = meetingsRepository;
+        this.usersRepository = usersRepository;
     }
 
     @Override
@@ -37,18 +40,8 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public List<Meeting> getAllMeetings() {
-        return meetingsRepository.findAll();
-    }
-
-    @Override
     public List<Meeting> getAllFutureMeetings() {
         return meetingsRepository.findAllFutureMeetings();
-    }
-
-    @Override
-    public List<Meeting> getParticipatedMeetings(Long id) {
-        return meetingsRepository.findAllMeetingsInWhichUserIsParticipated(id);
     }
 
     @Override
@@ -64,6 +57,20 @@ public class MeetingsServiceImpl implements MeetingsService {
 
         if (!isAlreadyJoined && meeting.isPresent()) {
             meeting.get().getParticipants().add(currentUser);
+            meetingsRepository.save(meeting.get());
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean unjoinMeeting(Owner currentUser, Long meetingId) {
+        Optional<Meeting> meeting = meetingsRepository.findById(meetingId);
+
+        boolean isJoined = currentUser.getMeetings().stream()
+                .anyMatch(m -> m.getId().equals(meetingId));
+        if (isJoined && meeting.isPresent()) {
+            meeting.get().getParticipants().remove(currentUser);
             meetingsRepository.save(meeting.get());
             return true;
         }

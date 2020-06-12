@@ -76,7 +76,9 @@
     {
         "login": "user",
         "password": "user1",
-        "fullName": "User user user"
+        "fullName": "User user user",
+        "city": "Kazan",
+        "phoneNumber": "89176564663"
     }
 
 === Авторизация

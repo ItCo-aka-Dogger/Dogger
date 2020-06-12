@@ -1,13 +1,13 @@
 package ru.itis.dogger.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @Data
 public class EditDto {
     private String fullName;
     private Timestamp dateOfBirth;
+    private String city;
+    private String phoneNumber;
 }

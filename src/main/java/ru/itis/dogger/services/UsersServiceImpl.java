@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -12,6 +13,7 @@ import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
+import ru.itis.dogger.security.details.UserDetailsImpl;
 
 import java.util.*;
 
@@ -32,7 +34,6 @@ public class UsersServiceImpl implements UsersService {
         this.emailService = emailService;
     }
 
-
     @Override
     public boolean signUp(NewOwnerDto dto) {
         Optional<Owner> dbUser = usersRepository.findByLogin(dto.getLogin());
@@ -40,7 +41,13 @@ public class UsersServiceImpl implements UsersService {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail());
+        Owner newUser = Owner.builder()
+                .login(dto.getLogin())
+                .password(hashPassword)
+                .fullName(dto.getFullName())
+                .email(dto.getEmail())
+                .city(dto.getCity())
+                .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
         usersRepository.save(newUser);
@@ -86,6 +93,8 @@ public class UsersServiceImpl implements UsersService {
         Owner dbOwner = usersRepository.findByLogin(login).get();
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
+        dbOwner.setCity(dto.getCity());
+        dbOwner.setPhoneNumber(dto.getPhoneNumber());
         usersRepository.save(dbOwner);
     }
 
@@ -138,6 +147,20 @@ public class UsersServiceImpl implements UsersService {
         } else {
             return "No such user in db";
         }
+    }
+
+    @Override
+    public Optional<Owner> getCurrentUser(Authentication authentication) {
+        if (authentication != null) {
+            Long currentUserId = ((UserDetailsImpl) authentication.getPrincipal()).getUser().getId();
+            return usersRepository.findById(currentUserId);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Owner> getUserById(Long id) {
+        return usersRepository.findById(id);
     }
 
     private String createToken(Owner user) {
