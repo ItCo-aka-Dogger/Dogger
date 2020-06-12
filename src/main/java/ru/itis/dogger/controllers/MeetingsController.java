@@ -47,20 +47,15 @@ public class MeetingsController {
         return ResponseEntity.ok(meetingDtos);
     }
 
-    @GetMapping("/meetings/joined")
+    @GetMapping("/meetings/joined/{userId}")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getMeetingsInWhichUserParticipates(@RequestHeader(name = "Authorization") String token,
-                                                                Authentication authentication) {
-        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
-        List<SimpleMeetingDto> meetingDtos = meetingsService.getParticipatedMeetings(currentUser.getId())
+    public ResponseEntity<?> getMeetingsInWhichUserParticipates(@PathVariable Long userId,
+                                                                @RequestHeader(name = "Authorization") String token) {
+        List<SimpleMeetingDto> meetingDtos = meetingsService.getParticipatedMeetings(userId)
                 .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
         return ResponseEntity.ok(meetingDtos);
     }
 
-    //TODO: переспросить у Тимура
-    //вообще созданные юзером митинги хранятся в самом юзере в отношении OneToMany
-    //поэтому нет смысла в этом методе, если Тимур будет хранить митинги оттуда
-    //но если кто-то создаст еще один митинг, Тимуру надо будет послать GET /profile заново что myMeetings обновились - удобно ли ему?
     @GetMapping("/meetings/my")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMeetingsCreatedByMe(@RequestHeader(name = "Authorization") String token,
