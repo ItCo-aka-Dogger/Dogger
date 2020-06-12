@@ -40,7 +40,14 @@ public class UsersServiceImpl implements UsersService {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail(), dto.getCity(), dto.getPhoneNumber());
+        Owner newUser = Owner.builder()
+                .login(dto.getLogin())
+                .password(hashPassword)
+                .fullName(dto.getFullName())
+                .email(dto.getEmail())
+                .city(dto.getCity())
+                .phoneNumber(dto.getPhoneNumber())
+                .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
         usersRepository.save(newUser);
