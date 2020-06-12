@@ -13,6 +13,8 @@ public interface MeetingsService {
 
     List<Meeting> getAllMeetings();
 
+    List<Meeting> getAllFutureMeetings();
+
     List<Meeting> getParticipatedMeetings(Long id);
 
     Optional<Meeting> getMeetingById(Long id);
