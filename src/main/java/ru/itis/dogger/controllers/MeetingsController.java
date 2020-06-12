@@ -42,7 +42,7 @@ public class MeetingsController {
                     .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
             return ResponseEntity.ok(meetingDtos);
         }
-        return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/meetings/all")
@@ -63,7 +63,7 @@ public class MeetingsController {
                     .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
             return ResponseEntity.ok(meetingDtos);
         }
-        return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/meetings/my")
@@ -76,7 +76,7 @@ public class MeetingsController {
                     .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
             return ResponseEntity.ok(meetingDtos);
         }
-        return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @GetMapping("/meetings/{meetingId}")
@@ -101,7 +101,7 @@ public class MeetingsController {
             } else
                 return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping("/meetings/{meetingId}/unjoin")
@@ -117,7 +117,7 @@ public class MeetingsController {
                 return ResponseEntity.notFound().build();
             }
         }
-        return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }
