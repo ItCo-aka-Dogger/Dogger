@@ -46,7 +46,6 @@ public class UsersServiceImpl implements UsersService {
                 .fullName(dto.getFullName())
                 .email(dto.getEmail())
                 .city(dto.getCity())
-                .phoneNumber(dto.getPhoneNumber())
                 .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
@@ -93,6 +92,8 @@ public class UsersServiceImpl implements UsersService {
         Owner dbOwner = usersRepository.findByLogin(login).get();
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
+        dbOwner.setCity(dto.getCity());
+        dbOwner.setPhoneNumber(dto.getPhoneNumber());
         usersRepository.save(dbOwner);
     }
 

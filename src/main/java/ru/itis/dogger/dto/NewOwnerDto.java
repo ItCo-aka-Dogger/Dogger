@@ -10,5 +10,4 @@ public class NewOwnerDto {
     private String fullName;
     private String email;
     private String city;
-    private String phoneNumber;
 }
