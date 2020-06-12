@@ -150,6 +150,11 @@ public class UsersServiceImpl implements UsersService {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<Owner> getUserById(Long id) {
+        return usersRepository.findById(id);
+    }
+
     private String createToken(Owner user) {
         return Jwts.builder()
                 .claim("login", user.getLogin())

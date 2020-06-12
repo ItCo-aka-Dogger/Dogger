@@ -31,4 +31,6 @@ public interface UsersService {
     String delete(String login);
 
     Optional<Owner> getCurrentUser(Authentication authentication);
+
+    Optional<Owner> getUserById(Long id);
 }

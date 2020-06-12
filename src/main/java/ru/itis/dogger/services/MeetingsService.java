@@ -11,11 +11,7 @@ import java.util.Optional;
 public interface MeetingsService {
     void addMeeting(NewMeetingDto form, Owner creator);
 
-    List<Meeting> getAllMeetings();
-
     List<Meeting> getAllFutureMeetings();
-
-    List<Meeting> getParticipatedMeetings(Long id);
 
     Optional<Meeting> getMeetingById(Long id);
 

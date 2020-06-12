@@ -40,18 +40,8 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public List<Meeting> getAllMeetings() {
-        return meetingsRepository.findAll();
-    }
-
-    @Override
     public List<Meeting> getAllFutureMeetings() {
         return meetingsRepository.findAllFutureMeetings();
-    }
-
-    @Override
-    public List<Meeting> getParticipatedMeetings(Long id) {
-        return meetingsRepository.findAllMeetingsInWhichUserIsParticipated(id);
     }
 
     @Override

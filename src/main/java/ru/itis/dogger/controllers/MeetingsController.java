@@ -57,9 +57,13 @@ public class MeetingsController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMeetingsInWhichUserParticipates(@PathVariable Long userId,
                                                                 @RequestHeader(name = "Authorization") String token) {
-        List<SimpleMeetingDto> meetingDtos = meetingsService.getParticipatedMeetings(userId)
-                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
-        return ResponseEntity.ok(meetingDtos);
+        Optional<Owner> currentUser = usersService.getUserById(userId);
+        if (currentUser.isPresent()){
+            List<SimpleMeetingDto> meetingDtos = currentUser.get().getMeetings()
+                    .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+            return ResponseEntity.ok(meetingDtos);
+        }
+        return new ResponseEntity<String>("Unauthorized", HttpStatus.UNAUTHORIZED);
     }
 
     @GetMapping("/meetings/my")
