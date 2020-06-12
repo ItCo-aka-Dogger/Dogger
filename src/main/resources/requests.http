@@ -33,14 +33,21 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/logout
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
 POST http://localhost:8080/login
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "login": "aina",
-  "password": "aina"
+  "login": "kamila",
+  "password": "kamila"
 }
 
 <> 2020-03-31T080522.200.json
@@ -88,23 +95,37 @@ POST http://localhost:8080/addMeeting
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
 
 {
-  "name": "Khakima 49-54",
+  "name": "new meeting 2",
   "description": "For dog walkers from our district",
-  "date": "2020-04-30T17:00:00.000000",
+  "date": "2020-07-30T17:00:00.000000",
   "coordinateX": "65.56348",
   "coordinateY": "63.14327"
 }
 
 ###
 
-GET http://localhost:8080/meetings
+GET http://localhost:8080/meetings/all
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+###
+
+GET http://localhost:8080/meetings/joined/2
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
+
+###
+
+GET http://localhost:8080/meetings/my
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
 
 ###
 
@@ -112,14 +133,21 @@ GET http://localhost:8080/meetings/12
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
 
 ###
 
-POST http://localhost:8080/meetings/10
+POST http://localhost:8080/meetings/11/join
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
+
+###
+
+POST http://localhost:8080/meetings/11/unjoin
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
 
 ###
