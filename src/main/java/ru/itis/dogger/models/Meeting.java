@@ -35,7 +35,7 @@ public class Meeting {
     private Owner creator;
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(
             name = "meeting_owner",
             joinColumns = @JoinColumn(name = "meeting_id"),
