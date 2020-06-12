@@ -14,12 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = "dogs")
+@Builder
 public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String login;
     private String password;
     private String fullName;
@@ -28,6 +28,8 @@ public class Owner {
     private String activationCode;
     private Boolean active;
     private String photo_path;
+    private String phoneNumber;
+    private String city;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -51,10 +53,12 @@ public class Owner {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Meeting> myMeetings;
 
-    public Owner(String login, String password, String fullName, String email) {
+    public Owner(String login, String password, String fullName, String email, String city, String phoneNumber) {
         this.login = login;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
+        this.city = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 }

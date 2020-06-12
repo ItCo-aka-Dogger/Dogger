@@ -40,7 +40,13 @@ public class UsersServiceImpl implements UsersService {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail());
+        Owner newUser = Owner.builder()
+                .login(dto.getLogin())
+                .password(hashPassword)
+                .fullName(dto.getFullName())
+                .email(dto.getEmail())
+                .city(dto.getCity())
+                .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
         usersRepository.save(newUser);
@@ -86,6 +92,8 @@ public class UsersServiceImpl implements UsersService {
         Owner dbOwner = usersRepository.findByLogin(login).get();
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
+        dbOwner.setCity(dto.getCity());
+        dbOwner.setPhoneNumber(dto.getPhoneNumber());
         usersRepository.save(dbOwner);
     }
 

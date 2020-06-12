@@ -6,8 +6,10 @@ Content-Type: application/json
 {
   "login": "test",
   "password": "test",
-  "fullName": "test test test",
-  "email": "ainaard@mail.ru"
+  "fullName": "test",
+  "email": "ainaard@mail.ru",
+  "city": "Ufa",
+  "phoneNumber": "891776874326"
 }
 
 ###
