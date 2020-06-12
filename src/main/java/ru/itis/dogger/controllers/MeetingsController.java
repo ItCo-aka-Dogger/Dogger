@@ -33,19 +33,24 @@ public class MeetingsController {
                                         Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         meetingsService.addMeeting(meetingForm, currentUser);
-        return ResponseEntity.ok().build();
+        List<SimpleMeetingDto> meetingDtos = meetingsService.getAllFutureMeetings()
+                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+        return ResponseEntity.ok(meetingDtos);
+
     }
 
-    @GetMapping("/meetings")
+    @GetMapping("/meetings/all")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> getAllMeetings() {
-        List<SimpleMeetingDto> meetingDtos = meetingsService.getAllMeetings().stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+        List<SimpleMeetingDto> meetingDtos = meetingsService.getAllFutureMeetings()
+                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
         return ResponseEntity.ok(meetingDtos);
     }
 
     @GetMapping("/meetings/joined")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getMeetingsInWhichUserParticipates(Authentication authentication) {
+    public ResponseEntity<?> getMeetingsInWhichUserParticipates(@RequestHeader(name = "Authorization") String token,
+                                                                Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         List<SimpleMeetingDto> meetingDtos = meetingsService.getParticipatedMeetings(currentUser.getId())
                 .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
@@ -58,7 +63,8 @@ public class MeetingsController {
     //но если кто-то создаст еще один митинг, Тимуру надо будет послать GET /profile заново что myMeetings обновились - удобно ли ему?
     @GetMapping("/meetings/my")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getMeetingsCreatedByMe(Authentication authentication) {
+    public ResponseEntity<?> getMeetingsCreatedByMe(@RequestHeader(name = "Authorization") String token,
+                                                    Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         List<SimpleMeetingDto> meetingDtos = currentUser.getMyMeetings()
                 .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
@@ -66,8 +72,8 @@ public class MeetingsController {
     }
 
     @GetMapping("/meetings/{meetingId}")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getDetailedMeeting(@RequestHeader(name = "Authorization") String token, @PathVariable Long meetingId) {
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> getDetailedMeeting(@PathVariable Long meetingId) {
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (meeting.isPresent()) {
             return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
