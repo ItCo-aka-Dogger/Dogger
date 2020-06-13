@@ -19,6 +19,6 @@ public class DeleteUserController {
     @PostMapping("/delete")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> deleteUser(@RequestBody Owner dto) {
-        return ResponseEntity.ok(new ResponseDto(usersService.delete(dto.getLogin())));
+        return ResponseEntity.ok(new ResponseDto(usersService.delete(dto.getEmail())));
     }
 }

@@ -4,15 +4,14 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "login": "test",
-  "password": "test",
-  "fullName": "test test test",
+  "password": "qwe",
+  "fullName": "qwe",
   "email": "ainaard@mail.ru"
 }
 
 ###
 
-GET http://localhost:8080/activate/386eb92a-b45c-4590-ad8f-5f661fc75137
+GET http://localhost:8080/activate/84882ee1-54d1-484d-8cf6-5eec4d986ca1
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
@@ -25,8 +24,8 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "login": "aina",
-  "password": "aina"
+  "email": "ainaard@mail.ru",
+  "password": "qwe"
 }
 
 <> 2020-03-31T080522.200.json
@@ -38,7 +37,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjoyMX0.HcoUpo4kGLtpDksqTOMBFp36zDqT0aexfRoJwJVJ5_7ItvTZDnhAnWPGby2z8j-QDwEHJYlcShqxprhIjyMBgw
 
 ###
 

@@ -23,7 +23,7 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String login;
+    private String email;
     private String password;
     private String fullName;
     private Date dateOfBirth;
@@ -54,8 +54,8 @@ public class Owner {
     @OrderBy("date DESC")
     private List<Answer> answers;
 
-    public Owner(String login, String password, String fullName) {
-        this.login = login;
+    public Owner(String email, String password, String fullName) {
+        this.email = email;
         this.password = password;
         this.fullName = fullName;
     }

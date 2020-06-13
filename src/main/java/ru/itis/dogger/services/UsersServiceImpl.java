@@ -35,28 +35,28 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean signUp(OwnerDto dto) {
-        Optional<Owner> dbUser = usersRepository.findByLogin(dto.getLogin());
+        Optional<Owner> dbUser = usersRepository.findByEmail(dto.getEmail());
         if (dbUser.isPresent()) {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName());
+        Owner newUser = new Owner(dto.getEmail(), hashPassword, dto.getFullName());
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
         usersRepository.save(newUser);
 
-        if (!StringUtils.isEmpty(newUser.getLogin())) {
+        if (!StringUtils.isEmpty(newUser.getEmail())) {
             String message = "Hello, \n" +
                     "Welcome to Dogger. Please, visit next link: https://gentle-plains-10374.herokuapp.com/activate/" +
                     newUser.getActivationCode();
-            emailService.sendMail(newUser.getLogin(), "Activation code", message);
+            emailService.sendMail(newUser.getEmail(), "Activation code", message);
         }
         return true;
     }
 
     @Override
     public TokenDto login(OwnerDto dto) {
-        Optional<Owner> userCandidate = usersRepository.findByLogin(dto.getLogin());
+        Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
             return new TokenDto(createToken(user));
@@ -66,13 +66,13 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Optional<Owner> findByLogin(String login) {
-        return usersRepository.findByLogin(login);
+        return usersRepository.findByEmail(login);
     }
 
     @Override
     public Map<String, Object> userToMap(Owner owner) {
         Map<String, Object> ownerProperties = new HashMap<>();
-        ownerProperties.put("login", owner.getLogin());
+        ownerProperties.put("email", owner.getEmail());
         ownerProperties.put("fullName", owner.getFullName());
         ownerProperties.put("dateOfBirth", owner.getDateOfBirth());
         ownerProperties.put("dogs", owner.getDogs());
@@ -81,10 +81,10 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void editInfo(EditDto dto, String login) {
-        Owner dbOwner = usersRepository.findByLogin(login).get();
+    public void editInfo(EditDto dto, String email) {
+        Owner dbOwner = usersRepository.findByEmail(email).get();
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        dbOwner.setLogin(dto.getLogin());
+        dbOwner.setEmail(dto.getEmail());
         dbOwner.setPassword(hashPassword);
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
@@ -115,7 +115,7 @@ public class UsersServiceImpl implements UsersService {
         String message = "Hello, \n" +
                 "to recover your password, please, visit next link: http://localhost:8080/recover/" +
                 user.getId();
-        emailService.sendMail(user.getLogin(), "Password recover", message);
+        emailService.sendMail(user.getEmail(), "Password recover", message);
         usersRepository.save(user);
     }
 
@@ -132,8 +132,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public String delete(String login) {
-        Optional<Owner> owner = usersRepository.findByLogin(login);
+    public String delete(String email) {
+        Optional<Owner> owner = usersRepository.findByEmail(email);
         if (owner.isPresent()) {
             usersRepository.delete(owner.get());
             return "User successfully deleted";
@@ -144,7 +144,7 @@ public class UsersServiceImpl implements UsersService {
 
     private String createToken(Owner user) {
         return Jwts.builder()
-                .claim("login", user.getLogin())
+                .claim("login", user.getEmail())
                 .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
