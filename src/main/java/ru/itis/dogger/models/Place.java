@@ -31,5 +31,5 @@ public class Place {
     @JoinColumn(name = "creator_id")
     private Owner creator;
 
-    //TODO: comments + likes in release 2.0
+    //TODO: comments + rating in release 2.0
 }
