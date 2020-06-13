@@ -40,16 +40,16 @@ public class UsersServiceImpl implements UsersService {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName(), dto.getEmail());
+        Owner newUser = new Owner(dto.getLogin(), hashPassword, dto.getFullName());
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
         usersRepository.save(newUser);
 
-        if (!StringUtils.isEmpty(newUser.getEmail())) {
+        if (!StringUtils.isEmpty(newUser.getLogin())) {
             String message = "Hello, \n" +
                     "Welcome to Dogger. Please, visit next link: https://gentle-plains-10374.herokuapp.com/activate/" +
                     newUser.getActivationCode();
-            emailService.sendMail(newUser.getEmail(), "Activation code", message);
+            emailService.sendMail(newUser.getLogin(), "Activation code", message);
         }
         return true;
     }
@@ -115,7 +115,7 @@ public class UsersServiceImpl implements UsersService {
         String message = "Hello, \n" +
                 "to recover your password, please, visit next link: http://localhost:8080/recover/" +
                 user.getId();
-        emailService.sendMail(user.getEmail(), "Password recover", message);
+        emailService.sendMail(user.getLogin(), "Password recover", message);
         usersRepository.save(user);
     }
 

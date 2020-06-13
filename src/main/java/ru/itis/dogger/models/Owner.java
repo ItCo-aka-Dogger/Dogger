@@ -26,7 +26,6 @@ public class Owner {
     private String login;
     private String password;
     private String fullName;
-    private String email;
     private Date dateOfBirth;
     private String activationCode;
     private Boolean active;
@@ -55,10 +54,9 @@ public class Owner {
     @OrderBy("date DESC")
     private List<Answer> answers;
 
-    public Owner(String login, String password, String fullName, String email) {
+    public Owner(String login, String password, String fullName) {
         this.login = login;
         this.password = password;
         this.fullName = fullName;
-        this.email = email;
     }
 }

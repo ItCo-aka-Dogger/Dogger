@@ -30,8 +30,8 @@ public class PasswordRecoverController {
     @PostMapping("/recover")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> forgotPassword(@RequestBody OwnerDto dto) {
-        if (usersService.findByLogin(dto.getLogin()).isPresent() || usersService.findByEmail(dto.getEmail()).isPresent()) {
-            usersService.sendRecoverMail(dto.getEmail());
+        if (usersService.findByLogin(dto.getLogin()).isPresent() || usersService.findByEmail(dto.getLogin()).isPresent()) {
+            usersService.sendRecoverMail(dto.getLogin());
             return ResponseEntity.ok("Recover mail is sent. Check your mailbox");
         } else {
             return ResponseEntity.ok("No user with such email or login. Please verify your data.");
