@@ -10,6 +10,7 @@ import ru.itis.dogger.models.Place;
 import ru.itis.dogger.repositories.PlacesRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,5 +45,10 @@ public class PlacesServiceImpl implements PlacesService {
         newPlace.setAmenities(amenities);
 
         return placesRepository.save(newPlace);
+    }
+
+    @Override
+    public Optional<Place> getPlaceById(Long placeId) {
+        return placesRepository.findById(placeId);
     }
 }

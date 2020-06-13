@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.dogger.dto.DetailedMeetingDto;
 import ru.itis.dogger.dto.NewPlaceDto;
+import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.models.Place;
 import ru.itis.dogger.services.PlacesService;
@@ -44,5 +46,15 @@ public class PlacesController {
             return ResponseEntity.ok(newPlace);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @GetMapping("/places/{placeId}")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> getPlacePageInfo(@PathVariable Long placeId) {
+        Optional<Place> place = placesService.getPlaceById(placeId);
+        if (place.isPresent()) {
+            return ResponseEntity.ok(place);
+        } else
+            return ResponseEntity.notFound().build();
     }
 }
