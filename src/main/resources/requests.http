@@ -35,6 +35,13 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/logout
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
 POST http://localhost:8080/login
 Accept: */*
 Cache-Control: no-cache
@@ -55,6 +62,13 @@ Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+###
+
+GET http://localhost:8080/profile/3
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
 
 ###
 
@@ -102,7 +116,22 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
 
 ###
 
-GET http://localhost:8080/meetings
+GET http://localhost:8080/meetings/all
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+GET http://localhost:8080/meetings/joined/2
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+###
+
+GET http://localhost:8080/meetings/my
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
@@ -114,14 +143,21 @@ GET http://localhost:8080/meetings/12
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
 
 ###
 
-POST http://localhost:8080/meetings/10
+POST http://localhost:8080/meetings/11/join
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
+
+###
+
+POST http://localhost:8080/meetings/11/unjoin
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
 
 ###

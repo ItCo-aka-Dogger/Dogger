@@ -1,6 +1,7 @@
 package ru.itis.dogger.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -32,6 +33,17 @@ public class ProfileController {
             return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/profile/{userId}")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> getAnotherUserProfilePage(@PathVariable Long userId) {
+        Optional<Owner> userCandidate = usersService.getUserById(userId);
+        if (userCandidate.isPresent()) {
+            return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
+        } else {
+            return new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
         }
     }
 
