@@ -161,3 +161,29 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImthbWlsYSIsImlkIjoyfQ.l89teY21A9FZ8yI9MRMzoABpxws6TS6kDes5X4xsNmZT4sGtnccwh-dnWcDsUqaif1D0x3XFMld5ooBRQ3rn0Q
 
 ###
+
+GET http://localhost:8080/places/all
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/addPlace
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+{
+  "name": "test place",
+  "description": "coffee shop",
+  "photoPath": "test_url",
+  "placeType": "COFFEE",
+  "coordinateX": "55.73",
+  "coordinateY": "55.76",
+  "amenities": [ "WATER", "FOOD"]
+}
+
+###
+
