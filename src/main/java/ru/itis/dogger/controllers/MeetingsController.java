@@ -53,9 +53,9 @@ public class MeetingsController {
         return ResponseEntity.ok(meetingDtos);
     }
 
-    @GetMapping("/meetings/joined/{userId}")
+    @GetMapping("/meetings/joined")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getMeetingsInWhichUserParticipates(@PathVariable Long userId,
+    public ResponseEntity<?> getMeetingsInWhichUserParticipates(@RequestParam Long userId,
                                                                 @RequestHeader(name = "Authorization") String token) {
         Optional<Owner> currentUser = usersService.getUserById(userId);
         if (currentUser.isPresent()){
