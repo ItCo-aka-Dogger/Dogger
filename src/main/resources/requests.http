@@ -123,7 +123,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/meetings/joined/2
+GET http://localhost:8080/meetings/joined?userId=2
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
