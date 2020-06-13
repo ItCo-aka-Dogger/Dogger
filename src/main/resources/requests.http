@@ -73,6 +73,24 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3QiLCJpZCI6Mn0.m7Oz8HaszHKN
 
 ###
 
+POST http://localhost:8080/editDogs
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3QiLCJpZCI6Mn0.m7Oz8HaszHKNBP4-lOsLeAeMASit66XWTIYUtqzu4ege-bU-9rbmZGqDGqNfDSrhMK9us_6SCUyQln_opyDSFw
+
+[
+  {
+    "id": 5,
+    "name": "tesla",
+    "breed": "jack rassel",
+    "dateOfBirth": "",
+    "information": "good girl"
+  }
+]
+
+###
+
 POST http://localhost:8080/delete
 Accept: */*
 Cache-Control: no-cache

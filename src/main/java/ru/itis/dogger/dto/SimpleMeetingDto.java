@@ -14,9 +14,7 @@ public class SimpleMeetingDto {
     private Long id;
     private String name;
     private String description;
-
     private Timestamp date;
-
     private Double coordinateX;
     private Double coordinateY;
     private Long creatorId;
@@ -34,7 +32,6 @@ public class SimpleMeetingDto {
         meetingDto.setCreatorId(meeting.getCreator().getId());
         meetingDto.setCreatorLogin(meeting.getCreator().getLogin());
         meetingDto.setParticipants_count(meeting.getParticipants().size());
-
         return meetingDto;
     }
 }
