@@ -17,9 +17,6 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class DetailedMeetingDto {
 
-    @Autowired
-    UsersService usersService;
-
     private Long id;
     private String name;
     private String description;

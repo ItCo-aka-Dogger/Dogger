@@ -46,7 +46,7 @@ public class UserDetailsImpl implements UserDetails, UserDetailsService {
 
     @Override
     public String getUsername() {
-        return user.getLogin();
+        return user.getEmail();
     }
 
     @Override
@@ -70,10 +70,10 @@ public class UserDetailsImpl implements UserDetails, UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Optional<Owner> user = usersRepository.findByLogin(login);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<Owner> user = usersRepository.findByEmail(email);
         if (!user.isPresent()) {
-            throw new UsernameNotFoundException("User not found with login: " + login);
+            throw new UsernameNotFoundException("User not found with login: " + email);
         }
         return new UserDetailsImpl(user.get());
     }

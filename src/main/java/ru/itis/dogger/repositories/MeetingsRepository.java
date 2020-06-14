@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface MeetingsRepository extends JpaRepository<Meeting, Long> {
 
-    @Query("select m from Meeting m join m.participants p where p.id = :id")
-    List<Meeting> findAllMeetingsInWhichUserIsParticipated(@Param("id") Long id);
+    @Query("select m from Meeting m where m.date > CURRENT_TIMESTAMP")
+    List<Meeting> findAllFutureMeetings();
 }
