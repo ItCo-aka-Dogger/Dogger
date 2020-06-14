@@ -41,18 +41,23 @@ public class DogsServiceImpl implements DogsService {
 
     private void editDogInfo(EditDogDto dto) {
         Dog dog = dogsRepository.findById(dto.getId()).get();
-        if (!dto.getName().equals("")) {
-            dog.setName(dto.getName());
-        }
-        if (!dto.getBreed().equals("")) {
-            dog.setBreed(dto.getBreed());
-        }
-        if (!dto.getInformation().equals("")) {
-            dog.setInformation(dto.getInformation());
-        }
-        if (dto.getDateOfBirth() != null) {
-            dog.setDateOfBirth(dto.getDateOfBirth());
-        }
+        dog.setBreed(dto.getBreed());
+        dog.setDateOfBirth(dto.getDateOfBirth());
+        dog.setInformation(dto.getInformation());
+        dog.setName(dto.getName());
+
+//        if (!dto.getName().equals("")) {
+//            dog.setName(dto.getName());
+//        }
+//        if (!dto.getBreed().equals("")) {
+//            dog.setBreed(dto.getBreed());
+//        }
+//        if (!dto.getInformation().equals("")) {
+//            dog.setInformation(dto.getInformation());
+//        }
+//        if (dto.getDateOfBirth() != null) {
+//            dog.setDateOfBirth(dto.getDateOfBirth());
+//        }
         dogsRepository.save(dog);
     }
 }
