@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.EditDto;
+import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.UsersService;
@@ -52,5 +53,11 @@ public class ProfileController {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.editInfo(dto, currentUser.getEmail());
         return ResponseEntity.ok(usersService.findByEmail(dto.getEmail()));
+    }
+
+    @PostMapping("/delete")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> deleteUser(@RequestParam("userId") Long userId) {
+        return ResponseEntity.ok(new ResponseDto(usersService.delete(userId)));
     }
 }

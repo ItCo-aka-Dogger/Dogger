@@ -109,7 +109,7 @@
 Для регистрации данные отправляются в формате *Json*:
 
     {
-        "login": "user",
+        "email": "user@mail.ru",
         "password": "user1",
         "fullName": "User user user",
         "city": "Kazan",
@@ -121,7 +121,7 @@
 Для авторизации отправляется *Json*:
 
     {
-        "login": "user",
+        "email": "user@mail.ru",
         "password": "user1"
     }
 
@@ -170,7 +170,7 @@
       "fullName": "Aina aina aina",
       "dateOfBirth": "1999-02-13T19:00:00.000+0000",
       "meetings": [],
-      "login": "aina"
+      "email": "user@mail.ru"
     }
 
 Для получения страницы профиля другого пользователя токен отсылать не нужно. Ответ выглядит так:
@@ -190,7 +190,7 @@
             }
         ],
         "id": 3,
-        "login": "test"
+        "email": "user@mail.ru"
     }
 
 === Добавить собаку
@@ -233,7 +233,6 @@
 Чтобы восстановить забытый пароль, нужно отправить *Json*:
 
     {
-        "login": "test",
         "email": "ainaard@mail.ru"
     }
 
@@ -241,11 +240,7 @@
 
 === Удалить пользователя
 
-Можно удалить пользователя из базы данных, отправив запрос:
-
-    {
-        "login": "test"
-    }
+Можно удалить пользователя из базы данных, отправив запрос c параметром userId=*id пользователя*.
 
 === Добавить прогулку
 
@@ -338,7 +333,6 @@
         "coordinateY": 63.14327,
         "creator": {
             "id": 1,
-            "login": "aina",
             "fullName": "test test test",
             "email": "kamila.nigmet@gmail.com",
             "dateOfBirth": null,
@@ -369,7 +363,6 @@
         "participants": [
             {
                 "id": 1,
-                "login": "aina",
                 "fullName": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
@@ -399,7 +392,6 @@
             },
             {
                 "id": 2,
-                "login": "kamila",
                 "fullName": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
@@ -437,7 +429,6 @@
         ],
         "creator": {
             "id": 1,
-            "login": "aina",
             "fullName": "test test test",
             "email": "kamila.nigmet@gmail.com",
             "dateOfBirth": null,
@@ -523,7 +514,6 @@
         ],
         "creator": {
             "id": 1,
-            "login": "aina",
             "fullName": "test test test",
             "email": "kamila.nigmet@gmail.com",
             "dateOfBirth": null,
