@@ -11,11 +11,11 @@ import java.util.Optional;
 public interface MeetingsService {
     void addMeeting(NewMeetingDto form, Owner creator);
 
-    List<Meeting> getAllMeetings();
-
-    List<Meeting> getParticipatedMeetings(Long id);
+    List<Meeting> getAllFutureMeetings();
 
     Optional<Meeting> getMeetingById(Long id);
 
     boolean joinMeeting(Owner currentUser, Long meetingId);
+
+    boolean unjoinMeeting(Owner currentUser, Long meetingId);
 }
