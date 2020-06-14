@@ -33,11 +33,11 @@ public class MeetingsController {
 
     @PostMapping("/addMeeting")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto meetingForm, @RequestHeader(name = "Authorization") String token,
+    public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto dto, @RequestHeader(name = "Authorization") String token,
                                         Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         if (currentUser.isPresent()) {
-            Meeting newMeeting = meetingsService.addMeeting(meetingForm, currentUser.get());
+            Meeting newMeeting = meetingsService.addMeeting(dto, currentUser.get());
             return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
