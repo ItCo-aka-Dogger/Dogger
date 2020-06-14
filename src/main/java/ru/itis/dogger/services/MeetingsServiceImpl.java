@@ -25,7 +25,7 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public void addMeeting(NewMeetingDto meetingForm, Owner creator) {
+    public Meeting addMeeting(NewMeetingDto meetingForm, Owner creator) {
         Meeting newMeeting = new Meeting();
 
         newMeeting.setCoordinateX(meetingForm.getCoordinateX());
@@ -36,7 +36,7 @@ public class MeetingsServiceImpl implements MeetingsService {
         newMeeting.setCreator(creator);
         newMeeting.setParticipants(Collections.singletonList(creator));
 
-        meetingsRepository.save(newMeeting);
+        return meetingsRepository.save(newMeeting);
     }
 
     @Override

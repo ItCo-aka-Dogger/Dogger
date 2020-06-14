@@ -9,7 +9,7 @@ import java.util.Optional;
 
 
 public interface MeetingsService {
-    void addMeeting(NewMeetingDto form, Owner creator);
+    Meeting addMeeting(NewMeetingDto form, Owner creator);
 
     List<Meeting> getAllFutureMeetings();
 

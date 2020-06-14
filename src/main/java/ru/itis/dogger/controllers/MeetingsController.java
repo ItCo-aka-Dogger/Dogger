@@ -33,19 +33,17 @@ public class MeetingsController {
 
     @PostMapping("/addMeeting")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto meetingForm, @RequestHeader(name = "Authorization") String token,
+    public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto dto, @RequestHeader(name = "Authorization") String token,
                                         Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         if (currentUser.isPresent()) {
-            meetingsService.addMeeting(meetingForm, currentUser.get());
-            List<SimpleMeetingDto> meetingDtos = meetingsService.getAllFutureMeetings()
-                    .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
-            return ResponseEntity.ok(meetingDtos);
+            Meeting newMeeting = meetingsService.addMeeting(dto, currentUser.get());
+            return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-    @GetMapping("/meetings/all")
+    @GetMapping("/meetings/future")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> getAllMeetings() {
         List<SimpleMeetingDto> meetingDtos = meetingsService.getAllFutureMeetings()
