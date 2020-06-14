@@ -1,10 +1,7 @@
 package ru.itis.dogger.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -17,12 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(exclude = "dogs")
+@Builder
 public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String email;
     private String password;
     private String fullName;
@@ -30,18 +27,16 @@ public class Owner {
     private String activationCode;
     private Boolean active;
     private String photo_path;
+    private String phoneNumber;
+    private String city;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
     private List<Dog> dogs;
 
-    @ManyToMany
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(
-            name = "meeting_owner",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    @ManyToMany(mappedBy = "participants")
     private List<Meeting> meetings;
 
     @OneToMany(mappedBy = "author")
@@ -54,9 +49,14 @@ public class Owner {
     @OrderBy("date DESC")
     private List<Answer> answers;
 
-    public Owner(String email, String password, String fullName) {
-        this.email = email;
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Meeting> myMeetings;
+
+    public Owner(String password, String fullName, String email, String city, String phoneNumber) {
         this.password = password;
         this.fullName = fullName;
+        this.email = email;
+        this.city = phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 }

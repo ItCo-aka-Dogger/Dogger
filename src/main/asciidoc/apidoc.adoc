@@ -2,6 +2,8 @@
 
 == Методы
 
+=== Пользователь
+
 |===
 |Метод | Назначение
 |`POST /signUp`
@@ -11,7 +13,10 @@
 |Авторизовать зарегистрированного пользователя
 
 |`GET /profile`
-|Получить информацию о пользователе
+|Получить информацию о текущем пользователе
+
+|`GET /profile/{user-id}`
+|Получить информацию о другом пользователе
 
 |`POST /profile`
 |Редактировать профиль пользователя
@@ -30,6 +35,72 @@
 
 |===
 
+=== Прогулки
+
+|===
+|Метод | Назначение | isAuthenticated | Return type
+
+|`POST /addMeeting`
+| Добавить новую прогулку
+| true
+| массив всех будущих прогулок (мб пустой)
+
+|`GET /meetings/all`
+| Получить список всех прогулок
+| false
+| массив всех будущих прогулок (мб пустой)
+
+|`GET /meetings/joined?userId={user-id}`
+| Получить список всех прогулок, в которых участвует пользователь
+| true
+| массив прогулок, в которых участвует пользователь (мб пустой)
+
+|`GET /meetings/my`
+| Получить список всех прогулок, созданных текущим пользователем
+| true
+| массив прогулок, созданных пользователем (мб пустой)
+
+|`GET /meetings/{meeting-id}`
+| Получить полную информацию о прогулке
+| false
+| Детальная информация о прогулке или not found
+
+|`POST /meetings/{meeting-id}/join`
+| Присоединиться к прогулке
+| true
+| ok если присоединился, not found если уже участвуешь/нет такой прогулки,
+401 если неавторизован
+
+|`POST /meetings/{meeting-id}/unjoin`
+| Отсоединиться от прогулки
+| true
+| ok если отсоединился, not found если не участвуешь/нет такой прогулки,
+401 если неавторизован
+
+|===
+
+=== Места (парки, кафе, площадки)
+
+|===
+|Метод | Назначение | isAuthenticated | Return type
+
+|`GET /places/all`
+| Получить все места
+| false
+| массив всех мест
+
+|`POST /addPlace`
+| Добавить новое место
+| true
+| информация о новом месте
+
+|`GET /places/{place-id}`
+| Получить информацию о месте
+| false
+| информация о месте
+
+|===
+
 === Регистрация
 
 Для регистрации данные отправляются в формате *Json*:
@@ -37,7 +108,9 @@
     {
         "login": "user",
         "password": "user1",
-        "fullName": "User user user"
+        "fullName": "User user user",
+        "city": "Kazan",
+        "phoneNumber": "89176564663"
     }
 
 === Авторизация
@@ -60,10 +133,102 @@
 Для редактирования профиля пользователя отправляется *Json*:
 
     {
-        "login": "kama",
-        "password": "kama",
-        "fullName": "Kamila Nigmetzyanova",
-        "dateOfBirth": "1999-03-09"
+        "dogs": [
+                  {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                  },
+                  {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                  }
+                ],
+        "fullName": "test test test",
+        "dateOfBirth": null,
+        "meetings":
+                [
+                  {
+                    "id": 3,
+                    "name": "Khakima 47-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                  },
+                  {
+                    "id": 8,
+                    "name": "Khakima 49-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                  }
+                ],
+        "id": 1,
+        "login": "aina"
+    }
+
+В ответе приходит *Json*:
+
+    {
+            "dogs": [
+        {
+          "id": 4,
+          "name": "test",
+          "breed": "test",
+          "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+          "sex": "test",
+          "size": "test",
+          "photo_path": null,
+          "information": "test"
+        },
+        {
+          "id": 5,
+          "name": "dog one",
+          "breed": "labrador",
+          "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+          "sex": "male",
+          "size": "big",
+          "photo_path": null,
+          "information": "good"
+        }
+      ],
+      "fullName": "Aina aina aina",
+      "dateOfBirth": "1999-02-13T19:00:00.000+0000",
+      "meetings": [],
+      "login": "aina"
+    }
+
+Для получения страницы профиля другого пользователя токен отсылать не нужно. Ответ выглядит так:
+
+    {
+        "dogs": [],
+        "fullName": "Test Test",
+        "dateOfBirth": null,
+        "meetings": [
+            {
+                "id": 18,
+                "name": "Khakima 49-54",
+                "description": "For dog walkers from our district",
+                "date": "2020-04-30T17:00:00.000+0000",
+                "coordinateX": 65.56348,
+                "coordinateY": 63.14327
+            }
+        ],
+        "id": 3,
+        "login": "test"
     }
 
 === Добавить собаку
@@ -99,4 +264,330 @@
 
     {
         "login": "test"
+    }
+
+=== Добавить прогулку
+
+Пользователь может добавить новую прогулку/встречу.
+Чтобы добавить мероприятие, следует отправить *Json*:
+
+    {
+        "name": "Khakima 49-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000000",
+        "coordinateX": "65.56348",
+        "coordinateY": "63.14327"
+    }
+
+При успешном запросе в базе данных появится мероприятие, автором которого будет текущий авторизованный пользователь
+(который автоматически попадает в список участников мероприятия).
+В списке всех митингов появится новый. В ответ придет список всех будущих митингов.
+
+=== Получить список всех прогулок
+
+Можно отобразить список всех будущих прогулок в ответ на *GET /meetings/all*. Пример ответа:
+
+    [
+      {
+        "id": 3,
+        "name": "Khakima 47-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": 1,
+        "participants_count": 2
+      },
+      {
+        "id": 7,
+        "name": "Khakima 49-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": 1,
+        "participants_count": 0
+      }
+    ]
+
+=== Получить список всех прогулок, в которых участвует пользователь
+
+Можно отобразить список всех прогулок в ответ на *GET /meetings/joined/?userId={user-id}*. Пример ответа:
+
+    [
+      {
+        "id": 3,
+        "name": "Khakima 47-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": 1,
+        "participants_count": 2
+      }
+    ]
+
+=== Получить список всех прогулок, созданных пользователем
+
+Можно отобразить список всех прогулок в ответ на *GET /meetings/my*. Пример ответа:
+
+    [
+      {
+        "id": 3,
+        "name": "Khakima 47-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": 1,
+        "participants_count": 2
+      }
+    ]
+
+=== Получить детальную информацию о прогулке
+
+Ответ выглядит следующим образом:
+
+    {
+        "id": 3,
+        "name": "Khakima 47-54",
+        "description": "For dog walkers from our district",
+        "date": "2020-04-30T17:00:00.000+0000",
+        "coordinateX": 65.56348,
+        "coordinateY": 63.14327,
+        "creator": {
+            "id": 1,
+            "login": "aina",
+            "fullName": "test test test",
+            "email": "kamila.nigmet@gmail.com",
+            "dateOfBirth": null,
+            "photo_path": null,
+            "dogs": [
+                {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                },
+                {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                }
+            ],
+        },
+        "participants": [
+            {
+                "id": 1,
+                "login": "aina",
+                "fullName": "test test test",
+                "email": "kamila.nigmet@gmail.com",
+                "dateOfBirth": null,
+                "photo_path": null,
+                "dogs": [
+                    {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                    },
+                    {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                    }
+                ],
+            },
+            {
+                "id": 2,
+                "login": "kamila",
+                "fullName": "test test test",
+                "email": "kamila.nigmet@gmail.com",
+                "dateOfBirth": null,
+                "photo_path": null,
+                "dogs": []
+            }
+        ]
+    }
+
+=== Присоединиться к прогулке
+
+После получения запроса проверяется, участвует ли пользователь в выбранной прогулке или еще нет, затем пользователь
+добавляется в участники, если не был там.
+
+=== Отсоединиться от прогулки
+
+После получения запроса проверяется, участвует ли пользователь в выбранной прогулке или еще нет, затем пользователь
+убирается из участников, если был там.
+
+=== Получить список всех мест
+
+Можно отобразить список всех мест в ответ на *GET /places/all*. Пример ответа:
+
+    {
+        "id": 1,
+        "name": "test place",
+        "photo_path": "test_url",
+        "description": "coffee shop",
+        "coordinateX": 55.73,
+        "coordinateY": 55.76,
+        "type": "COFFEE",
+        "amenities": [
+            "WATER",
+            "FOOD"
+        ],
+        "creator": {
+            "id": 1,
+            "login": "aina",
+            "fullName": "test test test",
+            "email": "kamila.nigmet@gmail.com",
+            "dateOfBirth": null,
+            "photo_path": null,
+            "dogs": [
+                {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                },
+                {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                }
+            ],
+            "questions": [],
+            "answers": [],
+            "myMeetings": [
+                {
+                    "id": 7,
+                    "name": "Khakima 49-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                },
+                {
+                    "id": 8,
+                    "name": "Khakima 49-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                }
+            ]
+        }
+    }
+
+=== Добавить место
+
+Пользователь может добавить новое заведение/лес/площадку.
+Чтобы добавить, следует отправить *Json*:
+
+    {
+      "name": "test place",
+      "description": "coffee shop",
+      "photoPath": "test_url",
+      "placeType": "COFFEE",
+      "coordinateX": "55.73",
+      "coordinateY": "55.76",
+      "amenities": [ "WATER", "FOOD"]
+    }
+
+При успешном запросе в базе данных появится место, автором которого будет текущий авторизованный пользователь.
+В ответ придет информация о новом созданном месте.
+
+=== Получить детальную информацию о месте
+
+Ответ может выглядеть так:
+
+    {
+        "id": 1,
+        "name": "test place",
+        "photo_path": "test_url",
+        "description": "coffee shop",
+        "coordinateX": 55.73,
+        "coordinateY": 55.76,
+        "type": "COFFEE",
+        "amenities": [
+            "WATER",
+            "FOOD"
+        ],
+        "creator": {
+            "id": 1,
+            "login": "aina",
+            "fullName": "test test test",
+            "email": "kamila.nigmet@gmail.com",
+            "dateOfBirth": null,
+            "photo_path": null,
+            "dogs": [
+                {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                },
+                {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                }
+            ],
+            "questions": [],
+            "answers": [],
+            "myMeetings": [
+                {
+                    "id": 7,
+                    "name": "Khakima 49-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                },
+                {
+                    "id": 8,
+                    "name": "Khakima 49-54",
+                    "description": "For dog walkers from our district",
+                    "date": "2020-04-30T17:00:00.000+0000",
+                    "coordinateX": 65.56348,
+                    "coordinateY": 63.14327
+                }
+            ]
+        }
     }

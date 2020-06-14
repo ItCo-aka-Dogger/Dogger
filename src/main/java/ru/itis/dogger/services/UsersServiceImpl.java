@@ -4,14 +4,16 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.EditDto;
-import ru.itis.dogger.dto.OwnerDto;
+import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
+import ru.itis.dogger.security.details.UserDetailsImpl;
 
 import java.util.*;
 
@@ -32,15 +34,19 @@ public class UsersServiceImpl implements UsersService {
         this.emailService = emailService;
     }
 
-
     @Override
-    public boolean signUp(OwnerDto dto) {
+    public boolean signUp(NewOwnerDto dto) {
         Optional<Owner> dbUser = usersRepository.findByEmail(dto.getEmail());
         if (dbUser.isPresent()) {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
-        Owner newUser = new Owner(dto.getEmail(), hashPassword, dto.getFullName());
+        Owner newUser = Owner.builder()
+                .password(hashPassword)
+                .fullName(dto.getFullName())
+                .email(dto.getEmail())
+                .city(dto.getCity())
+                .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
         usersRepository.save(newUser);
@@ -55,7 +61,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public TokenDto login(OwnerDto dto) {
+    public TokenDto login(NewOwnerDto dto) {
         Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
@@ -73,6 +79,7 @@ public class UsersServiceImpl implements UsersService {
     public Map<String, Object> userToMap(Owner owner) {
         Map<String, Object> ownerProperties = new HashMap<>();
         ownerProperties.put("email", owner.getEmail());
+        ownerProperties.put("id", owner.getId());
         ownerProperties.put("fullName", owner.getFullName());
         ownerProperties.put("dateOfBirth", owner.getDateOfBirth());
         ownerProperties.put("dogs", owner.getDogs());
@@ -85,9 +92,11 @@ public class UsersServiceImpl implements UsersService {
         Owner dbOwner = usersRepository.findByEmail(email).get();
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         dbOwner.setEmail(dto.getEmail());
-        dbOwner.setPassword(hashPassword);
+        dbOwner.setPassword(hashPassword);r
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
+        dbOwner.setCity(dto.getCity());
+        dbOwner.setPhoneNumber(dto.getPhoneNumber());
         usersRepository.save(dbOwner);
     }
 
@@ -140,6 +149,20 @@ public class UsersServiceImpl implements UsersService {
         } else {
             return "No such user in db";
         }
+    }
+
+    @Override
+    public Optional<Owner> getCurrentUser(Authentication authentication) {
+        if (authentication != null) {
+            Long currentUserId = ((UserDetailsImpl) authentication.getPrincipal()).getUser().getId();
+            return usersRepository.findById(currentUserId);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Owner> getUserById(Long id) {
+        return usersRepository.findById(id);
     }
 
     private String createToken(Owner user) {
