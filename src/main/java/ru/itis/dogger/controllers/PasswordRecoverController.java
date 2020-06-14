@@ -30,7 +30,7 @@ public class PasswordRecoverController {
     @PostMapping("/recover")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> forgotPassword(@RequestBody NewOwnerDto dto) {
-        if (usersService.findByEmail(dto.getEmail().isPresent()) {
+        if (usersService.findByEmail(dto.getEmail()).isPresent()) {
             usersService.sendRecoverMail(dto.getEmail());
             return ResponseEntity.ok("Recover mail is sent. Check your mailbox");
         } else {

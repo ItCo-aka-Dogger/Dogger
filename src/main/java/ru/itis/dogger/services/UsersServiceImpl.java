@@ -92,7 +92,7 @@ public class UsersServiceImpl implements UsersService {
         Owner dbOwner = usersRepository.findByEmail(email).get();
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         dbOwner.setEmail(dto.getEmail());
-        dbOwner.setPassword(hashPassword);r
+        dbOwner.setPassword(hashPassword);
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
