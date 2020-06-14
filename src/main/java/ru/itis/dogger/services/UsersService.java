@@ -27,5 +27,5 @@ public interface UsersService {
 
     boolean recover(Long userId);
 
-    String delete(String login);
+    String delete(Long id);
 }

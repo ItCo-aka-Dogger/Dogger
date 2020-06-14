@@ -132,8 +132,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public String delete(String email) {
-        Optional<Owner> owner = usersRepository.findByEmail(email);
+    public String delete(Long id) {
+        Optional<Owner> owner = usersRepository.findById(id);
         if (owner.isPresent()) {
             usersRepository.delete(owner.get());
             return "User successfully deleted";
