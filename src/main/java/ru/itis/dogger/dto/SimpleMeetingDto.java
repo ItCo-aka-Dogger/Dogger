@@ -14,13 +14,11 @@ public class SimpleMeetingDto {
     private Long id;
     private String name;
     private String description;
-
     private Timestamp date;
-
     private Double coordinateX;
     private Double coordinateY;
     private Long creatorId;
-    private String creatorLogin;
+    private String creatorEmail;
     private int participants_count;
 
     public static SimpleMeetingDto from(Meeting meeting) {
@@ -32,9 +30,8 @@ public class SimpleMeetingDto {
         meetingDto.setCoordinateX(meeting.getCoordinateX());
         meetingDto.setCoordinateY(meeting.getCoordinateY());
         meetingDto.setCreatorId(meeting.getCreator().getId());
-        meetingDto.setCreatorLogin(meeting.getCreator().getLogin());
+        meetingDto.setCreatorEmail(meeting.getCreator().getEmail());
         meetingDto.setParticipants_count(meeting.getParticipants().size());
-
         return meetingDto;
     }
 }

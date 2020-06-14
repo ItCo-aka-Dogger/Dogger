@@ -25,7 +25,6 @@ public class OwnerDto {
     private String email;
     private String password;
     private String fullName;
-    private String fullName;
     private Date dateOfBirth;
     private String photo_path;
     private List<Dog> dogs;
