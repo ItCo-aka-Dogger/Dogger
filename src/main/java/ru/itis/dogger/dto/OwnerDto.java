@@ -22,9 +22,10 @@ import java.util.List;
 @AllArgsConstructor
 public class OwnerDto {
     private Long id;
-    private String login;
-    private String fullName;
     private String email;
+    private String password;
+    private String fullName;
+    private String fullName;
     private Date dateOfBirth;
     private String photo_path;
     private List<Dog> dogs;
@@ -32,16 +33,13 @@ public class OwnerDto {
 
     public static OwnerDto from(Owner owner) {
         OwnerDto ownerDto = new OwnerDto();
-
         ownerDto.setId(owner.getId());
-        ownerDto.setLogin(owner.getLogin());
         ownerDto.setFullName(owner.getFullName());
         ownerDto.setEmail(owner.getEmail());
         ownerDto.setDateOfBirth(owner.getDateOfBirth());
         ownerDto.setPhoto_path(owner.getPhoto_path());
         ownerDto.setDogs(owner.getDogs());
         ownerDto.setMeetings(owner.getMeetings());
-
         return ownerDto;
     }
 }

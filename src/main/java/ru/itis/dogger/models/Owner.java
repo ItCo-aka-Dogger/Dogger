@@ -20,10 +20,9 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String login;
+    private String email;
     private String password;
     private String fullName;
-    private String email;
     private Date dateOfBirth;
     private String activationCode;
     private Boolean active;
@@ -53,8 +52,7 @@ public class Owner {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Meeting> myMeetings;
 
-    public Owner(String login, String password, String fullName, String email, String city, String phoneNumber) {
-        this.login = login;
+    public Owner(String password, String fullName, String email, String city, String phoneNumber) {
         this.password = password;
         this.fullName = fullName;
         this.email = email;

@@ -36,13 +36,12 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean signUp(NewOwnerDto dto) {
-        Optional<Owner> dbUser = usersRepository.findByLogin(dto.getLogin());
+        Optional<Owner> dbUser = usersRepository.findByEmail(dto.getEmail());
         if (dbUser.isPresent()) {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         Owner newUser = Owner.builder()
-                .login(dto.getLogin())
                 .password(hashPassword)
                 .fullName(dto.getFullName())
                 .email(dto.getEmail())
@@ -63,7 +62,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public TokenDto login(NewOwnerDto dto) {
-        Optional<Owner> userCandidate = usersRepository.findByLogin(dto.getLogin());
+        Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
             return new TokenDto(createToken(user));
@@ -73,14 +72,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Optional<Owner> findByLogin(String login) {
-        return usersRepository.findByLogin(login);
+        return usersRepository.findByEmail(login);
     }
 
     @Override
     public Map<String, Object> userToMap(Owner owner) {
         Map<String, Object> ownerProperties = new HashMap<>();
+        ownerProperties.put("email", owner.getEmail());
         ownerProperties.put("id", owner.getId());
-        ownerProperties.put("login", owner.getLogin());
         ownerProperties.put("fullName", owner.getFullName());
         ownerProperties.put("dateOfBirth", owner.getDateOfBirth());
         ownerProperties.put("dogs", owner.getDogs());
@@ -89,8 +88,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void editInfo(EditDto dto, String login) {
-        Owner dbOwner = usersRepository.findByLogin(login).get();
+    public void editInfo(EditDto dto, String email) {
+        Owner dbOwner = usersRepository.findByEmail(email).get();
+        String hashPassword = passwordEncoder.encode(dto.getPassword());
+        dbOwner.setEmail(dto.getEmail());
+        dbOwner.setPassword(hashPassword);r
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
@@ -139,8 +141,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public String delete(String login) {
-        Optional<Owner> owner = usersRepository.findByLogin(login);
+    public String delete(Long id) {
+        Optional<Owner> owner = usersRepository.findById(id);
         if (owner.isPresent()) {
             usersRepository.delete(owner.get());
             return "User successfully deleted";
@@ -165,7 +167,7 @@ public class UsersServiceImpl implements UsersService {
 
     private String createToken(Owner user) {
         return Jwts.builder()
-                .claim("login", user.getLogin())
+                .claim("login", user.getEmail())
                 .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
