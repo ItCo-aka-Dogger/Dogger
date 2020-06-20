@@ -56,7 +56,7 @@ public class Owner {
         this.password = password;
         this.fullName = fullName;
         this.email = email;
-        this.city = phoneNumber;
+        this.city = city;
         this.phoneNumber = phoneNumber;
     }
 }

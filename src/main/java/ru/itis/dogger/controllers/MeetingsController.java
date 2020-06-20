@@ -56,7 +56,7 @@ public class MeetingsController {
     public ResponseEntity<?> getMeetingsInWhichUserParticipates(@RequestParam Long userId,
                                                                 @RequestHeader(name = "Authorization") String token) {
         Optional<Owner> currentUser = usersService.getUserById(userId);
-        if (currentUser.isPresent()){
+        if (currentUser.isPresent()) {
             List<SimpleMeetingDto> meetingDtos = currentUser.get().getMeetings()
                     .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
             return ResponseEntity.ok(meetingDtos);
@@ -92,7 +92,7 @@ public class MeetingsController {
     public ResponseEntity<?> joinMeeting(@RequestHeader(name = "Authorization") String token,
                                          @PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        if (currentUser.isPresent()){
+        if (currentUser.isPresent()) {
             boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meetingId);
             if (isJoined) {
                 return ResponseEntity.ok().build();
@@ -107,15 +107,12 @@ public class MeetingsController {
     public ResponseEntity<?> unjoinMeeting(@RequestHeader(name = "Authorization") String token,
                                            @PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        if (currentUser.isPresent()) {
-            boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meetingId);
-            if (isUnjoined) {
-                return ResponseEntity.ok().build();
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+        boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meetingId);
+        if (isUnjoined) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }

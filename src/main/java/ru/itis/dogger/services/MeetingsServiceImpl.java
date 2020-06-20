@@ -66,12 +66,15 @@ public class MeetingsServiceImpl implements MeetingsService {
     @Override
     public boolean unjoinMeeting(Owner currentUser, Long meetingId) {
         Optional<Meeting> meeting = meetingsRepository.findById(meetingId);
-
         boolean isJoined = currentUser.getMeetings().stream()
                 .anyMatch(m -> m.getId().equals(meetingId));
         if (isJoined && meeting.isPresent()) {
             meeting.get().getParticipants().remove(currentUser);
-            meetingsRepository.save(meeting.get());
+            if (meeting.get().getParticipants().size() == 0) {
+                meetingsRepository.deleteMeetingById(meetingId);
+            } else {
+                meetingsRepository.save(meeting.get());
+            }
             return true;
         }
         return false;
