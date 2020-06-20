@@ -41,5 +41,10 @@ public class Place {
     @JoinColumn(name = "creator_id")
     private Owner creator;
 
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comment> comments;
+
+
+
     //TODO: comments + rating in release 2.0
 }

@@ -52,6 +52,12 @@ public class Owner {
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Meeting> myMeetings;
 
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Place> createdPlaces;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comment> comments;
+
     public Owner(String password, String fullName, String email, String city, String phoneNumber) {
         this.password = password;
         this.fullName = fullName;
