@@ -47,30 +47,27 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public boolean joinMeeting(Owner currentUser, Long meetingId) {
-        Optional<Meeting> meeting = meetingsRepository.findById(meetingId);
+    public boolean joinMeeting(Owner currentUser, Meeting meeting) {
         boolean isAlreadyJoined = currentUser.getMeetings().stream()
-                .anyMatch(m -> m.getId().equals(meetingId));
-
-        if (!isAlreadyJoined && meeting.isPresent()) {
-            meeting.get().getParticipants().add(currentUser);
-            meetingsRepository.save(meeting.get());
+                .anyMatch(m -> m.getId().equals(meeting.getId()));
+        if (!isAlreadyJoined) {
+            meeting.getParticipants().add(currentUser);
+            meetingsRepository.save(meeting);
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean unjoinMeeting(Owner currentUser, Long meetingId) {
-        Optional<Meeting> meeting = meetingsRepository.findById(meetingId);
+    public boolean unjoinMeeting(Owner currentUser, Meeting meeting) {
         boolean isJoined = currentUser.getMeetings().stream()
-                .anyMatch(m -> m.getId().equals(meetingId));
-        if (isJoined && meeting.isPresent()) {
-            meeting.get().getParticipants().remove(currentUser);
-            if (meeting.get().getParticipants().size() == 0) {
-                meetingsRepository.deleteMeetingById(meetingId);
+                .anyMatch(m -> m.getId().equals(meeting.getId()));
+        if (isJoined) {
+            meeting.getParticipants().remove(currentUser);
+            if (meeting.getParticipants().size() == 0) {
+                meetingsRepository.deleteMeetingById(meeting.getId());
             } else {
-                meetingsRepository.save(meeting.get());
+                meetingsRepository.save(meeting);
             }
             return true;
         }

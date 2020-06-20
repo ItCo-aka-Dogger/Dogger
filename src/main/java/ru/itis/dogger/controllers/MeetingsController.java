@@ -97,11 +97,16 @@ public class MeetingsController {
     public ResponseEntity<?> joinMeeting(@RequestHeader(name = "Authorization") String token,
                                          @PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meetingId);
-        if (isJoined) {
-            return ResponseEntity.ok().build();
-        } else
-            return ResponseEntity.notFound().build();
+        Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
+        if(meeting.isPresent()){
+            boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meeting.get());
+            if (isJoined) {
+                return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
+            } else
+                return new ResponseEntity<>("User has already joined meeting", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>("There is no such meeting", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/meetings/{meetingId}/unjoin")
@@ -109,11 +114,16 @@ public class MeetingsController {
     public ResponseEntity<?> unjoinMeeting(@RequestHeader(name = "Authorization") String token,
                                            @PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meetingId);
-        if (isUnjoined) {
-            return ResponseEntity.ok().build();
+        Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
+        if (meeting.isPresent()){
+            boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meeting.get());
+            if (isUnjoined) {
+                return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
+            } else {
+                return new ResponseEntity<>("User is not participating in meeting", HttpStatus.BAD_REQUEST);
+            }
         } else {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>("There is no such meeting", HttpStatus.BAD_REQUEST);
         }
     }
 
