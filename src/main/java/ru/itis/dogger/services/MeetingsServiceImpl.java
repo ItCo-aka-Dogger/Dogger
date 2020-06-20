@@ -6,7 +6,6 @@ import ru.itis.dogger.dto.NewMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.MeetingsRepository;
-import ru.itis.dogger.repositories.UsersRepository;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,12 +15,10 @@ import java.util.Optional;
 public class MeetingsServiceImpl implements MeetingsService {
 
     private MeetingsRepository meetingsRepository;
-    private UsersRepository usersRepository;
 
     @Autowired
-    public MeetingsServiceImpl(MeetingsRepository meetingsRepository, UsersRepository usersRepository) {
+    public MeetingsServiceImpl(MeetingsRepository meetingsRepository) {
         this.meetingsRepository = meetingsRepository;
-        this.usersRepository = usersRepository;
     }
 
     @Override
@@ -78,6 +75,17 @@ public class MeetingsServiceImpl implements MeetingsService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Meeting editMeeting(NewMeetingDto dto, Owner owner, Long meetingId) {
+        Meeting meeting = meetingsRepository.getOne(meetingId);
+        meeting.setName(dto.getName());
+        meeting.setDescription(dto.getDescription());
+        meeting.setCoordinateX(dto.getCoordinateX());
+        meeting.setCoordinateY(dto.getCoordinateY());
+        meeting.setDate(dto.getDate());
+        return meetingsRepository.save(meeting);
     }
 
 }

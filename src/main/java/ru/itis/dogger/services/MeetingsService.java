@@ -18,4 +18,6 @@ public interface MeetingsService {
     boolean joinMeeting(Owner currentUser, Long meetingId);
 
     boolean unjoinMeeting(Owner currentUser, Long meetingId);
+
+    Meeting editMeeting(NewMeetingDto dto, Owner owner, Long meetingId);
 }
