@@ -197,3 +197,16 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 ###
+
+POST http://localhost:8080/places/1/addComment
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+{
+  "text": "beautiful place",
+  "rating": "5"
+}
+
+###

@@ -66,11 +66,13 @@ public class Owner {
 
     //TODO: forum release 2.0
 
+    @JsonIgnore
     @OneToMany(mappedBy = "author")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OrderBy("date DESC")
     private List<Question> questions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "author")
     @LazyCollection(LazyCollectionOption.FALSE)
     @OrderBy("date DESC")

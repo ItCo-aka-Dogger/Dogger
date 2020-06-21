@@ -28,6 +28,7 @@ public class Comment {
     @JoinColumn(name = "author_id")
     private Owner author;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "place_id")
     private Place place;
