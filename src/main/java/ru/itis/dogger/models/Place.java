@@ -8,7 +8,6 @@ import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.PlaceType;
 
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +46,11 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
-    /*@ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "place_contact", foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "fk_place_to_contact"), joinColumns = @JoinColumn(name = "id"))
-    @MapKeyColumn(name = "contact_value")
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "place_contact")
+    @MapKeyColumn(name = "contact_type")
     @MapKeyClass(Contact.class)
     @MapKeyEnumerated(EnumType.STRING)
-    @Column(name = "contact_type")
-    private Map<Contact, String> contacts;*/
+    @Column(name = "contact_value")
+    private Map<Contact, String> contacts;
 }

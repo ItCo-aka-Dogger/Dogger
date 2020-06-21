@@ -21,11 +21,16 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+
+    @JsonIgnore
     private String password;
+    @JsonIgnore
+    private String activationCode;
+    @JsonIgnore
+    private Boolean active;
+
     private String fullName;
     private Date dateOfBirth;
-    private String activationCode;
-    private Boolean active;
     private String photo_path;
     private String phoneNumber;
     private String city;
@@ -39,23 +44,16 @@ public class Owner {
     @ManyToMany(mappedBy = "participants")
     private List<Meeting> meetings;
 
-    @OneToMany(mappedBy = "author")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OrderBy("date DESC")
-    private List<Question> questions;
-
-    @OneToMany(mappedBy = "author")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OrderBy("date DESC")
-    private List<Answer> answers;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Meeting> myMeetings;
 
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private List<Place> createdPlaces;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     public Owner(String password, String fullName, String email, String city, String phoneNumber) {
@@ -65,4 +63,16 @@ public class Owner {
         this.city = phoneNumber;
         this.phoneNumber = phoneNumber;
     }
+
+    //TODO: forum release 2.0
+
+    @OneToMany(mappedBy = "author")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OrderBy("date DESC")
+    private List<Question> questions;
+
+    @OneToMany(mappedBy = "author")
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OrderBy("date DESC")
+    private List<Answer> answers;
 }
