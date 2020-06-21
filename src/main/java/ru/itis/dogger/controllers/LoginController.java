@@ -29,7 +29,7 @@ public class LoginController {
         if (token.getStatus() == TokenStatus.INVALID) {
             return new ResponseEntity<>(token.getValue(), HttpStatus.BAD_REQUEST);
         } else {
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok(token.getValue());
         }
     }
 }
