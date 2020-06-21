@@ -484,13 +484,18 @@
 Чтобы добавить, следует отправить *Json*:
 
     {
-      "name": "test place",
-      "description": "coffee shop",
-      "photoPath": "test_url",
-      "placeType": "COFFEE",
-      "coordinateX": "55.73",
-      "coordinateY": "55.76",
-      "amenities": [ "WATER", "FOOD"]
+        "name": "test place",
+        "description": "coffee shop",
+        "photoPath": "test_url",
+        "placeType": "COFFEESHOP",
+        "coordinateX": "55.73",
+        "coordinateY": "55.76",
+        "amenities": [ "WATER", "FOOD"],
+        "contacts":
+            {
+                "instagram" : "kamilamie",
+                "site": "dogger.website"
+            }
     }
 
 При успешном запросе в базе данных появится место, автором которого будет текущий авторизованный пользователь.
