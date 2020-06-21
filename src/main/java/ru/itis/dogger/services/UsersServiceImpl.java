@@ -12,11 +12,15 @@ import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.EditDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
+import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -64,15 +68,21 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public TokenDto login(NewOwnerDto dto) {
         Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
+        TokenDto tokenDto = new TokenDto();
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
             if (BCrypt.checkpw(dto.getPassword(), user.getPassword())) {
-                return new TokenDto(createToken(user));
+                tokenDto.setValue(createToken(user));
+                tokenDto.setStatus(TokenStatus.VALID);
             } else {
-                throw new IllegalArgumentException("Incorrect password");
+                tokenDto.setValue("Incorrect password");
+                tokenDto.setStatus(TokenStatus.INVALID);
             }
+        } else {
+            tokenDto.setValue("Can't find user with this email");
+            tokenDto.setStatus(TokenStatus.INVALID);
         }
-        throw new NoSuchElementException("Can not find such user");
+        return tokenDto;
     }
 
     @Override
