@@ -29,8 +29,7 @@ public class DogsController {
 
     @PostMapping("/addDog")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addDog(@RequestBody DogDto dto, @RequestHeader(name = "Authorization") String token,
-                                    Authentication authentication) {
+    public ResponseEntity<?> addDog(@RequestBody DogDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         dogsService.addDog(dto, currentUser);
         return ResponseEntity.ok().build();
@@ -38,7 +37,7 @@ public class DogsController {
 
     @PostMapping("/editDogs")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editDog(@RequestHeader(name = "Authorization") String token, @RequestBody List<EditDogDto> dtos) {
+    public ResponseEntity<?> editDog(@RequestBody List<EditDogDto> dtos) {
         if(dtos.isEmpty()) {
             return new ResponseEntity<>("No changes in dogs",HttpStatus.OK);
         }

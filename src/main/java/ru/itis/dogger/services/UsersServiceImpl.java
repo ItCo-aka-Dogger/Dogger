@@ -5,6 +5,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -65,7 +66,11 @@ public class UsersServiceImpl implements UsersService {
         Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
-            return new TokenDto(createToken(user));
+            if (BCrypt.checkpw(dto.getPassword(), user.getPassword())) {
+                return new TokenDto(createToken(user));
+            } else {
+                throw new IllegalArgumentException("Incorrect password");
+            }
         }
         throw new NoSuchElementException("Can not find such user");
     }
@@ -163,6 +168,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Optional<Owner> getUserById(Long id) {
         return usersRepository.findById(id);
+    }
+
+    @Override
+    public boolean checkForUniqueness(String email) {
+        return !usersRepository.findByEmail(email).isPresent();
     }
 
     private String createToken(Owner user) {

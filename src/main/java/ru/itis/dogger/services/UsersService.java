@@ -33,4 +33,6 @@ public interface UsersService {
     Optional<Owner> getCurrentUser(Authentication authentication);
 
     Optional<Owner> getUserById(Long id);
+
+    boolean checkForUniqueness(String email);
 }

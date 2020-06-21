@@ -6,7 +6,7 @@ Content-Type: application/json
 {
   "password": "test",
   "fullName": "test",
-  "email": "ainaard@mail.ru",
+  "email": "ainaard1@mail.ru",
   "city": "Ufa",
   "phoneNumber": "891776874326"
 }
@@ -33,8 +33,8 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "ainaard@mail.ru",
-  "password": "qwe"
+  "email": "ainaard1@mail.ru",
+  "password": "test"
 }
 
 <> 2020-03-31T080522.200.json

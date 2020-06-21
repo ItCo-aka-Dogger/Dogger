@@ -26,7 +26,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getProfilePage(@RequestHeader(name = "Authorization") String token, Authentication authentication) {
+    public ResponseEntity<?> getProfilePage(Authentication authentication) {
         Optional<Owner> userCandidate = usersService.findByLogin(authentication.getName());
         if (userCandidate.isPresent()) {
             return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
@@ -48,8 +48,7 @@ public class ProfileController {
 
     @PostMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication,
-                                         @RequestHeader(name = "Authorization") String token) {
+    public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.editInfo(dto, currentUser.getEmail());
         return ResponseEntity.ok(usersService.findByEmail(dto.getEmail()));
