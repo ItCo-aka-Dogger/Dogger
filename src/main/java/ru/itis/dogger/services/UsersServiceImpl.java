@@ -5,17 +5,22 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.EditDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
+import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -63,11 +68,21 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public TokenDto login(NewOwnerDto dto) {
         Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
+        TokenDto tokenDto = new TokenDto();
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
-            return new TokenDto(createToken(user));
+            if (BCrypt.checkpw(dto.getPassword(), user.getPassword())) {
+                tokenDto.setValue(createToken(user));
+                tokenDto.setStatus(TokenStatus.VALID);
+            } else {
+                tokenDto.setValue("Incorrect password");
+                tokenDto.setStatus(TokenStatus.INVALID);
+            }
+        } else {
+            tokenDto.setValue("Can't find user with this email");
+            tokenDto.setStatus(TokenStatus.INVALID);
         }
-        throw new NoSuchElementException("Can not find such user");
+        return tokenDto;
     }
 
     @Override
@@ -163,6 +178,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Optional<Owner> getUserById(Long id) {
         return usersRepository.findById(id);
+    }
+
+    @Override
+    public boolean checkForUniqueness(String email) {
+        return !usersRepository.findByEmail(email).isPresent();
     }
 
     private String createToken(Owner user) {
