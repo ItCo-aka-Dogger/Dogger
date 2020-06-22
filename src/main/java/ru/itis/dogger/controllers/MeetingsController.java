@@ -35,11 +35,8 @@ public class MeetingsController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto dto, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        if (currentUser.isPresent()) {
-            Meeting newMeeting = meetingsService.addMeeting(dto, currentUser.get());
-            return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        Meeting newMeeting = meetingsService.addMeeting(dto, currentUser.get());
+        return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
     }
 
     @GetMapping("/meetings/future")
@@ -54,24 +51,18 @@ public class MeetingsController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMeetingsInWhichUserParticipates(@RequestParam Long userId) {
         Optional<Owner> currentUser = usersService.getUserById(userId);
-        if (currentUser.isPresent()){
-            List<SimpleMeetingDto> meetingDtos = currentUser.get().getMeetings()
-                    .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
-            return ResponseEntity.ok(meetingDtos);
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        List<SimpleMeetingDto> meetingDtos = currentUser.get().getMeetings()
+                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+        return ResponseEntity.ok(meetingDtos);
     }
 
     @GetMapping("/meetings/my")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMeetingsCreatedByMe(Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        if (currentUser.isPresent()) {
-            List<SimpleMeetingDto> meetingDtos = currentUser.get().getMyMeetings()
-                    .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
-            return ResponseEntity.ok(meetingDtos);
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        List<SimpleMeetingDto> meetingDtos = currentUser.get().getMyMeetings()
+                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+        return ResponseEntity.ok(meetingDtos);
     }
 
     @GetMapping("/meetings/{meetingId}")
@@ -84,32 +75,50 @@ public class MeetingsController {
             return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/editMeeting")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> editMeeting(@RequestParam("meetingId") Long meetingId, @RequestBody NewMeetingDto dto, Authentication authentication) {
+        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
+        Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
+        if (meeting.isPresent() && meeting.get().getCreator().equals(currentUser.get())) {
+            Meeting newMeeting = meetingsService.editMeeting(dto, currentUser.get(), meetingId);
+            return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
+        } else {
+            return new ResponseEntity<>("User does not have rights to edit this meeting", HttpStatus.FORBIDDEN);
+        }
+
+    }
+
     @PostMapping("/meetings/{meetingId}/join")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> joinMeeting(@PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        if (currentUser.isPresent()){
-            boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meetingId);
+        Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
+        if(meeting.isPresent()){
+            boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meeting.get());
             if (isJoined) {
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
             } else
-                return ResponseEntity.notFound().build();
+                return new ResponseEntity<>("User has already joined meeting", HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>("There is no such meeting", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @PostMapping("/meetings/{meetingId}/unjoin")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> unjoinMeeting(@PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        if (currentUser.isPresent()) {
-            boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meetingId);
+        Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
+        if (meeting.isPresent()){
+            boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meeting.get());
             if (isUnjoined) {
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
             } else {
-                return ResponseEntity.notFound().build();
+                return new ResponseEntity<>("User is not participating in meeting", HttpStatus.BAD_REQUEST);
             }
+        } else {
+            return new ResponseEntity<>("There is no such meeting", HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 }
