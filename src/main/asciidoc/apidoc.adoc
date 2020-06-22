@@ -24,6 +24,9 @@
 |`POST /addDog`
 |Добавить собаку пользователю
 
+|`POST` /editDogs
+|Редактировать питомцев пользователя
+
 |`POST` /recover/{user-id}
 |Восстановить пароль пользователя
 
@@ -104,8 +107,10 @@
 | false
 | информация о месте
 
-|`POST` /editDogs
-|Редактировать питомцев пользователя
+|`POST /places/{place-id}/addComment`
+| Добавить комментарий к месту
+| true
+| информация о новом комментарии
 
 |===
 
@@ -507,13 +512,18 @@
 Чтобы добавить, следует отправить *Json*:
 
     {
-      "name": "test place",
-      "description": "coffee shop",
-      "photoPath": "test_url",
-      "placeType": "COFFEE",
-      "coordinateX": "55.73",
-      "coordinateY": "55.76",
-      "amenities": [ "WATER", "FOOD"]
+        "name": "test place",
+        "description": "coffee shop",
+        "photoPath": "test_url",
+        "placeType": "COFFEESHOP",
+        "coordinateX": "55.73",
+        "coordinateY": "55.76",
+        "amenities": [ "WATER", "FOOD"],
+        "contacts":
+            {
+                "instagram" : "kamilamie",
+                "site": "dogger.website"
+            }
     }
 
 При успешном запросе в базе данных появится место, автором которого будет текущий авторизованный пользователь.
@@ -585,3 +595,22 @@
             ]
         }
     }
+
+=== Добавить комментарий
+
+Пользователь может добавить комментарий к заведению/лесу/площадке.
+Чтобы добавить, следует отправить *Json*:
+
+    {
+        "text": "beautiful place",
+        "rating": "5"
+    }
+
+или просто оценку:
+
+    {
+        "rating": "5"
+    }
+
+В ответ придет 400 ошибка, если такого места нет или если запрос был составлен некорректно,
+и информация о комментарии, если все прошло успешно.

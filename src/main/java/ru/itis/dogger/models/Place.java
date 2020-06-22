@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.dogger.enums.AmenityForDog;
+import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.PlaceType;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -41,5 +43,14 @@ public class Place {
     @JoinColumn(name = "creator_id")
     private Owner creator;
 
-    //TODO: comments + rating in release 2.0
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Comment> comments;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "place_contact")
+    @MapKeyColumn(name = "contact_type")
+    @MapKeyClass(Contact.class)
+    @MapKeyEnumerated(EnumType.STRING)
+    @Column(name = "contact_value")
+    private Map<Contact, String> contacts;
 }
