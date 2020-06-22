@@ -27,9 +27,9 @@ public class LoginController {
     public ResponseEntity<?> login(@RequestBody NewOwnerDto dto) {
         TokenDto token = usersService.login(dto);
         if (token.getStatus() == TokenStatus.INVALID) {
-            return new ResponseEntity<>(token.getValue(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(token, HttpStatus.BAD_REQUEST);
         } else {
-            return ResponseEntity.ok(token.getValue());
+            return ResponseEntity.ok(token);
         }
     }
 }
