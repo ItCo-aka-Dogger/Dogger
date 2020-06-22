@@ -65,12 +65,14 @@ public class PlacesServiceImpl implements PlacesService {
 
     @Override
     public Comment addComment(Owner currentUser, Map<String, String> dto, Long placeId) {
-        if (!dto.containsKey("text") || !dto.containsKey("rating"))
+        if (!dto.containsKey("rating"))
             return null;
         Optional<Place> place = placesRepository.findById(placeId);
         if (place.isPresent()) {
             Comment newComment = new Comment();
-            newComment.setText(dto.get("text"));
+            if(dto.containsKey("text")){
+                newComment.setText(dto.get("text"));
+            }
             newComment.setRating(Integer.parseInt(dto.get("rating")));
             newComment.setAuthor(currentUser);
             newComment.setDate(new Timestamp(System.currentTimeMillis()));
