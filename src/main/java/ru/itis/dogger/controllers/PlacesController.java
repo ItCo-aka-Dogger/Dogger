@@ -39,8 +39,7 @@ public class PlacesController {
 
     @PostMapping("/addPlace")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addPlace(@RequestBody NewPlaceDto placeDto, @RequestHeader(name = "Authorization") String token,
-                                      Authentication authentication) {
+    public ResponseEntity<?> addPlace(@RequestBody NewPlaceDto placeDto, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Place newPlace = placesService.addPlace(placeDto, currentUser.get());
         return ResponseEntity.ok(newPlace);
