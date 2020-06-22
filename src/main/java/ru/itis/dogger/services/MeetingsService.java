@@ -15,7 +15,9 @@ public interface MeetingsService {
 
     Optional<Meeting> getMeetingById(Long id);
 
-    boolean joinMeeting(Owner currentUser, Long meetingId);
+    boolean joinMeeting(Owner currentUser, Meeting meeting);
 
-    boolean unjoinMeeting(Owner currentUser, Long meetingId);
+    boolean unjoinMeeting(Owner currentUser, Meeting meeting);
+
+    Meeting editMeeting(NewMeetingDto dto, Owner owner, Long meetingId);
 }
