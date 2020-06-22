@@ -6,15 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dogger.dto.DetailedMeetingDto;
+
 import ru.itis.dogger.dto.NewPlaceDto;
-import ru.itis.dogger.models.Meeting;
+import ru.itis.dogger.models.Comment;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.models.Place;
 import ru.itis.dogger.services.PlacesService;
 import ru.itis.dogger.services.UsersService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -38,13 +39,10 @@ public class PlacesController {
 
     @PostMapping("/addPlace")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addPlace(@RequestBody NewPlaceDto placeDto, Authentication authentication){
+    public ResponseEntity<?> addPlace(@RequestBody NewPlaceDto placeDto, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        if (currentUser.isPresent()) {
-            Place newPlace = placesService.addPlace(placeDto, currentUser.get());
-            return ResponseEntity.ok(newPlace);
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        Place newPlace = placesService.addPlace(placeDto, currentUser.get());
+        return ResponseEntity.ok(newPlace);
     }
 
     @GetMapping("/places/{placeId}")
@@ -55,5 +53,19 @@ public class PlacesController {
             return ResponseEntity.ok(place);
         } else
             return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/places/{placeId}/addComment")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> leaveComment(@PathVariable Long placeId, @RequestBody Map<String, String> dto,
+                                          Authentication authentication) {
+        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
+        Comment savedComment = placesService.addComment(currentUser.get(), dto, placeId);
+        if (savedComment != null) {
+            return ResponseEntity.ok(savedComment);
+        } else {
+            return new ResponseEntity<>("Comment has not been added", HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

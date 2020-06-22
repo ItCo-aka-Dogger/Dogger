@@ -3,6 +3,7 @@ package ru.itis.dogger.dto;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 public class NewPlaceDto {
@@ -15,4 +16,5 @@ public class NewPlaceDto {
     private String placeType;
 
     private List<String> amenities;
+    private Map<String, String> contacts;
 }
