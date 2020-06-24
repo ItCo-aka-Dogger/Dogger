@@ -1,0 +1,176 @@
+= Описание API по заведениям
+
+|===
+|Запрос | Назначение | isAuthenticated | Response
+
+|`GET /places/all`
+| Получить все заведения
+| false
+a|
+* *200* - возвращается массив всех заведений
+
+
+|`POST /addPlace`
+| Добавить новое заведение
+| true
+a|
+* *200* - возвращается информация о новом заведении
+* *400* - значит запрос построен неправильно
+* *401* - значит запрос не содержал токен
+
+
+|`GET /places/{place-id}`
+| Получить информацию о заведении
+| false
+a|
+* *200* - возвращается информация о заведении
+* *400* - значит нет заведения с таким id
+
+
+|`POST /places/{place-id}/addComment`
+| Добавить комментарий к заведению
+| true
+a|
+* *200* - возвращается информация о новом комментарии
+* *400* - значит запрос составлен неправильно или нет такого заведения
+* *401* - значит запрос не содержал токен
+
+|===
+
+== Примеры запросов
+
+=== `GET /places/all` - получить список всех заведений
+
+Пример ответа в случае успеха (массив содержит 1 заведение):
+
+    {
+        "id": 1,
+        "name": "test place",
+        "photo_path": "test_url",
+        "description": "coffee shop",
+        "coordinateX": 55.73,
+        "coordinateY": 55.76,
+        "type": "COFFEESHOP",
+        "amenities": [
+            "WATER",
+            "FOOD"
+        ],
+        "creator": {
+            "id": 1,
+            "fullName": "test test test",
+            "email": "kamila.nigmet@gmail.com",
+            "dateOfBirth": null,
+            "photo_path": null,
+            "phoneNumber": null,
+            "city": null,
+            "dogs": [
+                {
+                    "id": 1,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                },
+                {
+                    "id": 2,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": null,
+                    "information": "test"
+                }
+            ]
+        },
+        "comments": [
+            {
+                "id": 6,
+                "text": "beautiful place",
+                "date": "2020-06-21T17:54:12.555+0000",
+                "rating": 5,
+                "author": {
+                  "id": 5,
+                  "email": "ainaard@mail.ru",
+                  "fullName": "test",
+                  "dateOfBirth": null,
+                  "photo_path": null,
+                  "phoneNumber": null,
+                  "city": "Ufa",
+                  "dogs": []
+                }
+            }
+        ],
+        "contacts":
+            {
+                "SITE": "dogger.website",
+                "INSTAGRAM": "kamilamie"
+            }
+    }
+
+=== `POST /addPlace` - добавить заведение
+
+Пользователь может добавить новое заведение/лес/площадку, для этого клиент посылает *Json*:
+
+    {
+        "name": "test place",
+        "description": "coffee shop",
+        "photoPath": "test_url",
+        "placeType": "COFFEESHOP",
+        "coordinateX": "55.73",
+        "coordinateY": "55.76",
+        "amenities": [ "WATER", "FOOD"],
+        "contacts":
+            {
+                "instagram" : "kamilamie",
+                "site": "dogger.website"
+            }
+    }
+
+При успешном запросе в базе данных появится заведение, автором будет текущий авторизованный пользователь.
+В ответ придет информация о новом созданном заведении.
+
+Пример ответа в случае успеха: см. `GET /places/all`
+
+=== `GET /places/{place-id}` - получить информацию о заведении
+
+Пример ответа в случае успеха: см. `GET /places/all`
+
+=== `POST /places/{place-id}/addComment` - добавить комментарий
+
+Пользователь может добавить комментарий к заведению/лесу/площадке, для этого клиент посылает *Json*:
+
+оценка и текст комментария:
+
+    {
+        "text": "beautiful place",
+        "rating": "5"
+    }
+
+или просто оценка:
+
+    {
+        "rating": "4"
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "id": 10,
+        "text": "beautiful place",
+        "date": "2020-06-24T14:43:28.500+0000",
+        "rating": 5,
+        "author": {
+            "id": 5,
+            "email": "ainaard@mail.ru",
+            "fullName": "test",
+            "dateOfBirth": null,
+            "photo_path": null,
+            "phoneNumber": null,
+            "city": "Ufa",
+            "dogs": []
+        }
+    }
