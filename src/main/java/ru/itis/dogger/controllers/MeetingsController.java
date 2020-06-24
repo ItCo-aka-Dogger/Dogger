@@ -36,7 +36,11 @@ public class MeetingsController {
     public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto dto, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Meeting newMeeting = meetingsService.addMeeting(dto, currentUser.get());
-        return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
+        if (newMeeting == null) {
+            return new ResponseEntity<>("Meeting was not added. Check meeting's date validation.", HttpStatus.BAD_REQUEST);
+        } else {
+            return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
+        }
     }
 
     @GetMapping("/meetings/future")
@@ -94,7 +98,7 @@ public class MeetingsController {
     public ResponseEntity<?> joinMeeting(@PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
-        if(meeting.isPresent()){
+        if (meeting.isPresent()) {
             boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meeting.get());
             if (isJoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
@@ -110,7 +114,7 @@ public class MeetingsController {
     public ResponseEntity<?> unjoinMeeting(@PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
-        if (meeting.isPresent()){
+        if (meeting.isPresent()) {
             boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meeting.get());
             if (isUnjoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
