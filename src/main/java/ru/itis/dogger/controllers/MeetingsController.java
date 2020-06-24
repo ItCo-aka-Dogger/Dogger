@@ -50,10 +50,14 @@ public class MeetingsController {
     @GetMapping("/meetings/joined")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMeetingsInWhichUserParticipates(@RequestParam Long userId) {
-        Optional<Owner> currentUser = usersService.getUserById(userId);
-        List<SimpleMeetingDto> meetingDtos = currentUser.get().getMeetings()
-                .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
-        return ResponseEntity.ok(meetingDtos);
+        Optional<Owner> user = usersService.getUserById(userId);
+        if (user.isPresent()) {
+            List<SimpleMeetingDto> meetingDtos = user.get().getMeetings()
+                    .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
+            return ResponseEntity.ok(meetingDtos);
+        } else {
+            return new ResponseEntity<>("There is no user with such id", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/meetings/my")
@@ -72,7 +76,7 @@ public class MeetingsController {
         if (meeting.isPresent()) {
             return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
         } else
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/editMeeting")
@@ -80,13 +84,15 @@ public class MeetingsController {
     public ResponseEntity<?> editMeeting(@RequestParam("meetingId") Long meetingId, @RequestBody NewMeetingDto dto, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
-        if (meeting.isPresent() && meeting.get().getCreator().equals(currentUser.get())) {
+        if (!meeting.isPresent()) {
+            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.BAD_REQUEST);
+        }
+        if (meeting.get().getCreator().equals(currentUser.get())) {
             Meeting newMeeting = meetingsService.editMeeting(dto, currentUser.get(), meetingId);
             return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
         } else {
             return new ResponseEntity<>("User does not have rights to edit this meeting", HttpStatus.FORBIDDEN);
         }
-
     }
 
     @PostMapping("/meetings/{meetingId}/join")
@@ -94,7 +100,7 @@ public class MeetingsController {
     public ResponseEntity<?> joinMeeting(@PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
-        if(meeting.isPresent()){
+        if (meeting.isPresent()) {
             boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meeting.get());
             if (isJoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
@@ -110,7 +116,7 @@ public class MeetingsController {
     public ResponseEntity<?> unjoinMeeting(@PathVariable Long meetingId, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
-        if (meeting.isPresent()){
+        if (meeting.isPresent()) {
             boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meeting.get());
             if (isUnjoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
