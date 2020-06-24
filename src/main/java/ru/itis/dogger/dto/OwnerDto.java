@@ -1,19 +1,16 @@
 package ru.itis.dogger.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import ru.itis.dogger.models.*;
+import ru.itis.dogger.enums.Contact;
+import ru.itis.dogger.models.Dog;
+import ru.itis.dogger.models.Meeting;
+import ru.itis.dogger.models.Owner;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /*excluded personal info like activeCode, password hash and etc*/
 
@@ -24,21 +21,29 @@ public class OwnerDto {
     private Long id;
     private String email;
     private String password;
+    private String name;
     private String fullName;
     private Date dateOfBirth;
+    private String city;
+    private String district;
     private String photo_path;
     private List<Dog> dogs;
     private List<Meeting> meetings;
+    private Map<Contact, String> contacts;
 
     public static OwnerDto from(Owner owner) {
         OwnerDto ownerDto = new OwnerDto();
         ownerDto.setId(owner.getId());
+        ownerDto.setName(owner.getName());
         ownerDto.setFullName(owner.getFullName());
         ownerDto.setEmail(owner.getEmail());
         ownerDto.setDateOfBirth(owner.getDateOfBirth());
+        ownerDto.setCity(owner.getCity());
+        ownerDto.setDistrict(owner.getDistrict());
         ownerDto.setPhoto_path(owner.getPhoto_path());
         ownerDto.setDogs(owner.getDogs());
         ownerDto.setMeetings(owner.getMeetings());
+        ownerDto.setContacts(owner.getContacts());
         return ownerDto;
     }
 }

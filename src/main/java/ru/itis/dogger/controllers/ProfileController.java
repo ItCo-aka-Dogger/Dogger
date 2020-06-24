@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.EditDto;
+import ru.itis.dogger.dto.OwnerDto;
 import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
@@ -29,7 +30,7 @@ public class ProfileController {
     public ResponseEntity<?> getProfilePage(Authentication authentication) {
         Optional<Owner> userCandidate = usersService.findByLogin(authentication.getName());
         if (userCandidate.isPresent()) {
-            return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
+            return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -51,7 +52,7 @@ public class ProfileController {
     public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.editInfo(dto, currentUser.getEmail());
-        return ResponseEntity.ok(usersService.findByEmail(dto.getEmail()));
+        return ResponseEntity.ok(usersService.findByEmail(currentUser.getEmail()));
     }
 
     @PostMapping("/delete")

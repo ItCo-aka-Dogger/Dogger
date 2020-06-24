@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.EditDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
+import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
@@ -47,10 +48,10 @@ public class UsersServiceImpl implements UsersService {
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         Owner newUser = Owner.builder()
-                .password(hashPassword)
-                .fullName(dto.getFullName())
                 .email(dto.getEmail())
-                .city(dto.getCity())
+                .password(hashPassword)
+                .name(dto.getName())
+                .fullName(dto.getFullName())
                 .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
@@ -105,13 +106,19 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void editInfo(EditDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
-        String hashPassword = passwordEncoder.encode(dto.getPassword());
-        dbOwner.setEmail(dto.getEmail());
-        dbOwner.setPassword(hashPassword);
+//        String hashPassword = passwordEncoder.encode(dto.getPassword());
+//        dbOwner.setPassword(hashPassword);
+//        dbOwner.setEmail(dto.getEmail());
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
         dbOwner.setPhoneNumber(dto.getPhoneNumber());
+        dbOwner.setDistrict(dto.getDistrict());
+        Map<Contact, String> contacts = new HashMap<>();
+        for (Map.Entry<String, String> e : dto.getContacts().entrySet()) {
+            contacts.put(Contact.valueOf(e.getKey().toUpperCase()), e.getValue());
+        }
+        dbOwner.setContacts(contacts);
         usersRepository.save(dbOwner);
     }
 

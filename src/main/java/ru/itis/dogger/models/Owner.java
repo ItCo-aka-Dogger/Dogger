@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import ru.itis.dogger.enums.Contact;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -29,11 +31,13 @@ public class Owner {
     @JsonIgnore
     private Boolean active;
 
+    private String name;
     private String fullName;
     private Date dateOfBirth;
     private String photo_path;
     private String phoneNumber;
     private String city;
+    private String district;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -55,6 +59,14 @@ public class Owner {
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "user_contact")
+    @MapKeyColumn(name = "contact_type")
+    @MapKeyClass(Contact.class)
+    @MapKeyEnumerated(EnumType.STRING)
+    @Column(name = "contact_value")
+    private Map<Contact, String> contacts;
 
     public Owner(String password, String fullName, String email, String city, String phoneNumber) {
         this.password = password;

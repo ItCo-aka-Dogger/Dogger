@@ -6,9 +6,8 @@ Content-Type: application/json
 {
   "password": "test",
   "fullName": "test",
-  "email": "ainaard1@mail.ru",
-  "city": "Ufa",
-  "phoneNumber": "891776874326"
+  "email": "aina@mail.ru",
+  "name": "Aina"
 }
 
 ###
@@ -33,7 +32,7 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "ainaard12@mail.ru",
+  "email": "aina@mail.ru",
   "password": "test"
 }
 
@@ -46,7 +45,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjoyMX0.HcoUpo4kGLtpDksqTOMBFp36zDqT0aexfRoJwJVJ5_7ItvTZDnhAnWPGby2z8j-QDwEHJYlcShqxprhIjyMBgw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
 
 ###
 
@@ -54,6 +53,30 @@ GET http://localhost:8080/profile/3
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
+
+###
+
+POST http://localhost:8080/profile
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
+
+{
+
+  "name": "Aina",
+  "fullName": "Ard",
+  "dateOfBirth": "1999-04-15",
+  "city": "Kazan",
+  "district": "Sovetskii",
+  "phoneNumber": "891782235",
+  "contacts": {
+    "instagram": "@britny1999",
+    "vk": "dogger.website",
+    "telegram": "@AinaLikesSuicide"
+  }
+}
+
 
 ###
 
@@ -197,12 +220,14 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
   "placeType": "COFFEESHOP",
   "coordinateX": "55.73",
   "coordinateY": "55.76",
-  "amenities": [ "WATER", "FOOD"],
-  "contacts":
-      {
-        "instagram" : "kamilamie",
-        "site": "dogger.website"
-      }
+  "amenities": [
+    "WATER",
+    "FOOD"
+  ],
+  "contacts": {
+    "instagram": "kamilamie",
+    "site": "dogger.website"
+  }
 }
 
 ###

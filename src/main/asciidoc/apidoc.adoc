@@ -121,9 +121,8 @@
     {
         "email": "user@mail.ru",
         "password": "user1",
-        "fullName": "User user user",
-        "city": "Kazan",
-        "phoneNumber": "89176564663"
+        "name": "User"
+        "fullName": "User user user"
     }
 
 === Авторизация
@@ -146,10 +145,19 @@
 Для редактирования профиля пользователя отправляется *Json*:
 
     {
-        "fullName": "New fullName",
-        "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+        "email": "ainaard1@mail.ru",
+        "password": "test",
+        "name": "Aina",
+        "fullName": "Ardashirova",
+        "dateOfBirth": "2018-04-15",
         "city": "Kazan",
-        "phoneNumber": "891789099878"
+        "district": "Sovetskii",
+        "phoneNumber": "89178096655",
+        "contacts": {
+            "instagram" : "@britny1999",
+            "vk": "dogger.website",
+            "telegram": "@AinaLikesSuicide"
+        }
     }
 
 В ответе приходит *Json*:
