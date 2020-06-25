@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.NewOwnerDto;
-import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.services.UsersService;
 
 import javax.validation.Valid;
