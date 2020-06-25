@@ -56,7 +56,7 @@ public class MeetingsController {
                     .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
             return ResponseEntity.ok(meetingDtos);
         } else {
-            return new ResponseEntity<>("There is no user with such id", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("There is no user with such id", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -76,7 +76,7 @@ public class MeetingsController {
         if (meeting.isPresent()) {
             return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
         } else
-            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/editMeeting")
@@ -85,7 +85,7 @@ public class MeetingsController {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (!meeting.isPresent()) {
-            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.NOT_FOUND);
         }
         if (meeting.get().getCreator().equals(currentUser.get())) {
             Meeting newMeeting = meetingsService.editMeeting(dto, currentUser.get(), meetingId);
@@ -107,7 +107,7 @@ public class MeetingsController {
             } else
                 return new ResponseEntity<>("User has already joined meeting", HttpStatus.BAD_REQUEST);
         } else {
-            return new ResponseEntity<>("There is no such meeting", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("There is no such meeting", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -124,7 +124,7 @@ public class MeetingsController {
                 return new ResponseEntity<>("User is not participating in meeting", HttpStatus.BAD_REQUEST);
             }
         } else {
-            return new ResponseEntity<>("There is no such meeting", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("There is no such meeting", HttpStatus.NOT_FOUND);
         }
     }
 }
