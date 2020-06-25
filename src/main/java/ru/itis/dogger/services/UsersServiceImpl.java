@@ -42,13 +42,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean signUp(NewOwnerDto dto) {
-        Optional<Owner> dbUser = usersRepository.findByEmail(dto.getEmail());
+        String email = dto.getEmail();
+        Optional<Owner> dbUser = usersRepository.findByEmail(email.toLowerCase());
         if (dbUser.isPresent()) {
             return false;
         }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         Owner newUser = Owner.builder()
-                .email(dto.getEmail())
+                .email(email.toLowerCase())
                 .password(hashPassword)
                 .name(dto.getName())
                 .fullName(dto.getFullName())
@@ -68,7 +69,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public TokenDto login(NewOwnerDto dto) {
-        Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
+        String email = dto.getEmail();
+        Optional<Owner> userCandidate = usersRepository.findByEmail(email.toLowerCase());
         TokenDto tokenDto = new TokenDto();
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
@@ -104,11 +106,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void editInfo(EditDto dto, String email) {
+    public TokenDto editInfo(EditDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
-//        String hashPassword = passwordEncoder.encode(dto.getPassword());
-//        dbOwner.setPassword(hashPassword);
-//        dbOwner.setEmail(dto.getEmail());
+        String hashPassword = passwordEncoder.encode(dto.getPassword());
+        dbOwner.setPassword(hashPassword);
+        dbOwner.setEmail(dto.getEmail());
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
@@ -120,6 +122,7 @@ public class UsersServiceImpl implements UsersService {
         }
         dbOwner.setContacts(contacts);
         usersRepository.save(dbOwner);
+        return refreshToken(dbOwner);
     }
 
     @Override
@@ -198,5 +201,12 @@ public class UsersServiceImpl implements UsersService {
                 .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
+    }
+
+    private TokenDto refreshToken(Owner dbOwner) {
+        TokenDto newToken = new TokenDto();
+        newToken.setStatus(TokenStatus.VALID);
+        newToken.setValue(createToken(dbOwner));
+        return newToken;
     }
 }
