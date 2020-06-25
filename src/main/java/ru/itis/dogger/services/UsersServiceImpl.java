@@ -156,14 +156,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public String delete(Long id) {
-        Optional<Owner> owner = usersRepository.findById(id);
-        if (owner.isPresent()) {
-            usersRepository.delete(owner.get());
-            return "User successfully deleted";
-        } else {
-            return "No such user in db";
-        }
+    public void delete(Owner user) {
+        usersRepository.delete(user);
     }
 
     @Override

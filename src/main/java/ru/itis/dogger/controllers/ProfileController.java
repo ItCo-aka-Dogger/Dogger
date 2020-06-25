@@ -31,7 +31,7 @@ public class ProfileController {
         if (userCandidate.isPresent()) {
             return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
         } else {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -42,11 +42,11 @@ public class ProfileController {
         if (userCandidate.isPresent()) {
             return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
         } else {
-            return new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
         }
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/editProfile")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
@@ -57,6 +57,12 @@ public class ProfileController {
     @PostMapping("/delete")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> deleteUser(@RequestParam("userId") Long userId) {
-        return ResponseEntity.ok(new ResponseDto(usersService.delete(userId)));
+        Optional<Owner> user = usersService.getUserById(userId);
+        if (user.isPresent()) {
+            usersService.delete(user.get());
+            return new ResponseEntity<>("User was successfully deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("There is no user with such id", HttpStatus.NOT_FOUND);
+        }
     }
 }

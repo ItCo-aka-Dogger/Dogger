@@ -28,7 +28,7 @@ public interface UsersService {
 
     boolean recover(Long userId);
 
-    String delete(Long id);
+    void delete(Owner user);
 
     Optional<Owner> getCurrentUser(Authentication authentication);
 
