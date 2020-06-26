@@ -9,7 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.itis.dogger.dto.EditDto;
+import ru.itis.dogger.dto.CredentialsDto;
+import ru.itis.dogger.dto.EditUserInfoDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.enums.Contact;
@@ -106,11 +107,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public TokenDto editInfo(EditDto dto, String email) {
+    public TokenDto editInfo(EditUserInfoDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
-        String hashPassword = passwordEncoder.encode(dto.getPassword());
-        dbOwner.setPassword(hashPassword);
-        dbOwner.setEmail(dto.getEmail());
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
@@ -193,6 +191,15 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean checkForUniqueness(String email) {
         return !usersRepository.findByEmail(email).isPresent();
+    }
+
+    @Override
+    public TokenDto changeCreds(CredentialsDto dto, Owner currentUser) {
+        currentUser.setEmail(dto.getEmail());
+        String hashedPassword = passwordEncoder.encode(dto.getPassword());
+        currentUser.setPassword(hashedPassword);
+        usersRepository.save(currentUser);
+        return refreshToken(currentUser);
     }
 
     private String createToken(Owner user) {

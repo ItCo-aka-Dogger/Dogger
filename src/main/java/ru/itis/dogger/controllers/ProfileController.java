@@ -6,9 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dogger.dto.EditDto;
-import ru.itis.dogger.dto.OwnerDto;
-import ru.itis.dogger.dto.ResponseDto;
+import ru.itis.dogger.dto.*;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.UsersService;
@@ -49,10 +47,18 @@ public class ProfileController {
 
     @PostMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication) {
+    public ResponseEntity<?> editProfile(@RequestBody EditUserInfoDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.editInfo(dto, currentUser.getEmail());
         return ResponseEntity.ok(usersService.findByEmail(currentUser.getEmail()));
+    }
+
+    @PostMapping("/editCredentials")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> editCredentials(@RequestBody CredentialsDto dto, Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        TokenDto tokenDto = usersService.changeCreds(dto, currentUser);
+        return ResponseEntity.ok(tokenDto);
     }
 
     @PostMapping("/delete")

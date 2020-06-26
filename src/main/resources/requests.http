@@ -45,7 +45,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmExMjM0NTZAbWFpbC5ydSIsImlkIjoyNX0.juut1isPWU8PkBdlVbboT-klbeRPUsBQBP-Vc4G5Zl7ZbewJwl0x33XD8P-76W1Yc6NapnXwf9IMKUGc_M_XuA
 
 ###
 
@@ -84,15 +84,15 @@ POST http://localhost:8080/addDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3QiLCJpZCI6Mn0.m7Oz8HaszHKNBP4-lOsLeAeMASit66XWTIYUtqzu4ege-bU-9rbmZGqDGqNfDSrhMK9us_6SCUyQln_opyDSFw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
 
 {
-  "name": "test",
-  "size": "test",
-  "breed": "test",
+  "name": "test1",
+  "size": "test1",
+  "breed": "test1",
   "dateOfBirth": "2018-04-15",
-  "sex": "test",
-  "information": "test"
+  "sex": "male",
+  "information": "test1"
 }
 
 ###
@@ -248,6 +248,19 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
 {
   "text": "beautiful place",
   "rating": "5"
+}
+
+###
+
+POST http://localhost:8080/editCredentials
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
+
+{
+  "email": "aina123456@mail.ru",
+  "password": "123456"
 }
 
 ###

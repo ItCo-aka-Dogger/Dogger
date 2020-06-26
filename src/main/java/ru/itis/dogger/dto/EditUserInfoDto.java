@@ -6,9 +6,7 @@ import java.sql.Timestamp;
 import java.util.Map;
 
 @Data
-public class EditDto {
-    private String email;
-    private String password;
+public class EditUserInfoDto {
     private String name;
     private String fullName;
     private Timestamp dateOfBirth;
