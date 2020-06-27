@@ -1,7 +1,6 @@
 package ru.itis.dogger.services;
 
 import org.springframework.security.core.Authentication;
-import ru.itis.dogger.dto.CredentialsDto;
 import ru.itis.dogger.dto.EditUserInfoDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
@@ -37,5 +36,7 @@ public interface UsersService {
 
     boolean checkForUniqueness(String email);
 
-    TokenDto changeCreds(CredentialsDto dto, Owner currentUser);
+    TokenDto changeEmail(String email, Owner currentUser);
+
+    void changePassword(String password, Owner currentUser);
 }

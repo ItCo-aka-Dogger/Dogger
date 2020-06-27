@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.itis.dogger.dto.CredentialsDto;
 import ru.itis.dogger.dto.EditUserInfoDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
@@ -194,12 +193,17 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public TokenDto changeCreds(CredentialsDto dto, Owner currentUser) {
-        currentUser.setEmail(dto.getEmail());
-        String hashedPassword = passwordEncoder.encode(dto.getPassword());
-        currentUser.setPassword(hashedPassword);
+    public TokenDto changeEmail(String email, Owner currentUser) {
+        currentUser.setEmail(email);
         usersRepository.save(currentUser);
         return refreshToken(currentUser);
+    }
+
+    @Override
+    public void changePassword(String password, Owner currentUser) {
+        String hashedPassword = passwordEncoder.encode(password);
+        currentUser.setPassword(hashedPassword);
+        usersRepository.save(currentUser);
     }
 
     private String createToken(Owner user) {

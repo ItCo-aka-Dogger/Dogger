@@ -45,7 +45,7 @@ public class ProfileController {
         }
     }
 
-    @PostMapping("/profile")
+    @PostMapping("/editUserInfo")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> editProfile(@RequestBody EditUserInfoDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
@@ -53,12 +53,20 @@ public class ProfileController {
         return ResponseEntity.ok(usersService.findByEmail(currentUser.getEmail()));
     }
 
-    @PostMapping("/editCredentials")
+    @PostMapping("/editEmail")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editCredentials(@RequestBody CredentialsDto dto, Authentication authentication) {
+    public ResponseEntity<?> editEmail(@RequestParam(value = "email") String email, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
-        TokenDto tokenDto = usersService.changeCreds(dto, currentUser);
+        TokenDto tokenDto = usersService.changeEmail(email, currentUser);
         return ResponseEntity.ok(tokenDto);
+    }
+
+    @PostMapping("/editPassword")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> editPassword(@RequestParam(value = "password") String password, Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        usersService.changePassword(password, currentUser);
+        return ResponseEntity.ok(OwnerDto.from(currentUser));
     }
 
     @PostMapping("/delete")

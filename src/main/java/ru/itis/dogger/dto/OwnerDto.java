@@ -20,7 +20,6 @@ import java.util.Map;
 public class OwnerDto {
     private Long id;
     private String email;
-    private String password;
     private String name;
     private String fullName;
     private Date dateOfBirth;
