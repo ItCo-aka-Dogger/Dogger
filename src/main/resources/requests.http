@@ -226,3 +226,10 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
 }
 
 ###
+
+GET http://localhost:8080/amenities
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
