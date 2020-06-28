@@ -11,6 +11,7 @@ import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.models.Place;
 import ru.itis.dogger.repositories.CommentsRepository;
 import ru.itis.dogger.repositories.PlacesRepository;
+import ru.itis.dogger.repositories.TimecardsRepository;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -21,11 +22,13 @@ public class PlacesServiceImpl implements PlacesService {
 
     private PlacesRepository placesRepository;
     private CommentsRepository commentsRepository;
+    private TimecardsRepository timecardsRepository;
 
     @Autowired
-    public PlacesServiceImpl(PlacesRepository placesRepository, CommentsRepository commentsRepository) {
+    public PlacesServiceImpl(PlacesRepository placesRepository, CommentsRepository commentsRepository, TimecardsRepository timecardsRepository) {
         this.placesRepository = placesRepository;
         this.commentsRepository = commentsRepository;
+        this.timecardsRepository = timecardsRepository;
     }
 
     @Override
@@ -54,6 +57,9 @@ public class PlacesServiceImpl implements PlacesService {
         List<AmenityForDog> amenities = placeDto.getAmenities().stream()
                 .map(amenityStr -> AmenityForDog.valueOf(amenityStr.toUpperCase())).collect(Collectors.toList());
         newPlace.setAmenities(amenities);
+
+        timecardsRepository.save(placeDto.getTimecard());
+        newPlace.setTimecard(placeDto.getTimecard());
 
         return placesRepository.save(newPlace);
     }

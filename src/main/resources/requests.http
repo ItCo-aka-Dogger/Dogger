@@ -202,7 +202,17 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
       {
         "instagram" : "kamilamie",
         "site": "dogger.website"
-      }
+      },
+  "timecard": {
+      "monday": "09:00-19:00",
+      "tuesday": "09:00-19:00",
+      "wednesday": "09:00-19:00",
+      "thursday": "09:00-19:00",
+      "friday": "09:00-19:00",
+      "saturday": "09:00-14:00",
+      "sunday": "09:00-14:00",
+      "launch": "12:00-13:00"
+  }
 }
 
 ###
