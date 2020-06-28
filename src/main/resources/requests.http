@@ -32,8 +32,8 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "aina@mail.ru",
-  "password": "test"
+  "email": "aina123456@mail.ru",
+  "password": "123456"
 }
 
 <> 2020-03-31T080522.200.json
@@ -45,7 +45,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmExMjM0NTZAbWFpbC5ydSIsImlkIjoyNX0.juut1isPWU8PkBdlVbboT-klbeRPUsBQBP-Vc4G5Zl7ZbewJwl0x33XD8P-76W1Yc6NapnXwf9IMKUGc_M_XuA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
 
 ###
 
@@ -56,27 +56,49 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/profile
+POST http://localhost:8080/editUserInfo
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
 
 {
-
   "name": "Aina",
   "fullName": "Ard",
   "dateOfBirth": "1999-04-15",
   "city": "Kazan",
   "district": "Sovetskii",
-  "phoneNumber": "891782235",
   "contacts": {
+    "phone": "891782235",
     "instagram": "@britny1999",
     "vk": "dogger.website",
     "telegram": "@AinaLikesSuicide"
   }
 }
 
+###
+
+POST http://localhost:8080/editEmail
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmExMjM0NTZAbWFpbC5ydSIsImlkIjoyNX0.juut1isPWU8PkBdlVbboT-klbeRPUsBQBP-Vc4G5Zl7ZbewJwl0x33XD8P-76W1Yc6NapnXwf9IMKUGc_M_XuA
+
+{
+  "email": "ainaard@mail.ru"
+}
+
+###
+
+POST http://localhost:8080/editPassword
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
+
+{
+  "password": "newpass"
+}
 
 ###
 
@@ -252,15 +274,3 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
 
 ###
 
-POST http://localhost:8080/editCredentials
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
-
-{
-  "email": "aina123456@mail.ru",
-  "password": "123456"
-}
-
-###

@@ -35,7 +35,6 @@ public class Owner {
     private String fullName;
     private Date dateOfBirth;
     private String photo_path;
-    private String phoneNumber;
     private String city;
     private String district;
 
@@ -68,12 +67,11 @@ public class Owner {
     @Column(name = "contact_value")
     private Map<Contact, String> contacts;
 
-    public Owner(String password, String fullName, String email, String city, String phoneNumber) {
+    public Owner(String password, String fullName, String email, String city) {
         this.password = password;
         this.fullName = fullName;
         this.email = email;
         this.city = city;
-        this.phoneNumber = phoneNumber;
     }
 
     //TODO: forum release 2.0

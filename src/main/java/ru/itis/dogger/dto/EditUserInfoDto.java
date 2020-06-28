@@ -11,7 +11,6 @@ public class EditUserInfoDto {
     private String fullName;
     private Timestamp dateOfBirth;
     private String city;
-    private String phoneNumber;
     private String district;
     private Map<String, String> contacts;
 }

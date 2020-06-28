@@ -111,7 +111,6 @@ public class UsersServiceImpl implements UsersService {
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
-        dbOwner.setPhoneNumber(dto.getPhoneNumber());
         dbOwner.setDistrict(dto.getDistrict());
         Map<Contact, String> contacts = new HashMap<>();
         for (Map.Entry<String, String> e : dto.getContacts().entrySet()) {

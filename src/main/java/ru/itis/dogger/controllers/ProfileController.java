@@ -55,7 +55,7 @@ public class ProfileController {
 
     @PostMapping("/editEmail")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editEmail(@RequestParam(value = "email") String email, Authentication authentication) {
+    public ResponseEntity<?> editEmail(@RequestBody String email, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         TokenDto tokenDto = usersService.changeEmail(email, currentUser);
         return ResponseEntity.ok(tokenDto);
@@ -63,7 +63,7 @@ public class ProfileController {
 
     @PostMapping("/editPassword")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editPassword(@RequestParam(value = "password") String password, Authentication authentication) {
+    public ResponseEntity<?> editPassword(@RequestBody String password, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.changePassword(password, currentUser);
         return ResponseEntity.ok(OwnerDto.from(currentUser));
