@@ -11,6 +11,7 @@ import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.UsersService;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -55,18 +56,18 @@ public class ProfileController {
 
     @PostMapping("/editEmail")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editEmail(@RequestBody String email, Authentication authentication) {
+    public ResponseEntity<?> editEmail(@RequestBody Map<String, String> dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
-        TokenDto tokenDto = usersService.changeEmail(email, currentUser);
+        TokenDto tokenDto = usersService.changeEmail(dto.get("email"), currentUser);
         return ResponseEntity.ok(tokenDto);
     }
 
     @PostMapping("/editPassword")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editPassword(@RequestBody String password, Authentication authentication) {
+    public ResponseEntity<?> editPassword(@RequestBody Map<String, String> dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
-        usersService.changePassword(password, currentUser);
-        return ResponseEntity.ok(OwnerDto.from(currentUser));
+        usersService.changePassword(dto.get("password"), currentUser);
+        return ResponseEntity.ok(usersService.userToMap(currentUser));
     }
 
     @PostMapping("/delete")

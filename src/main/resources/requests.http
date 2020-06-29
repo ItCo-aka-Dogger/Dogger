@@ -6,7 +6,7 @@ Content-Type: application/json
 {
   "password": "test",
   "fullName": "test",
-  "email": "aina@mail.ru",
+  "email": "test@mail.ru",
   "name": "Aina"
 }
 
@@ -32,8 +32,8 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "aina123456@mail.ru",
-  "password": "123456"
+  "email": "test@mail.ru",
+  "password": "test1"
 }
 
 <> 2020-03-31T080522.200.json
@@ -45,7 +45,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 ###
 
@@ -82,10 +82,10 @@ POST http://localhost:8080/editEmail
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmExMjM0NTZAbWFpbC5ydSIsImlkIjoyNX0.juut1isPWU8PkBdlVbboT-klbeRPUsBQBP-Vc4G5Zl7ZbewJwl0x33XD8P-76W1Yc6NapnXwf9IMKUGc_M_XuA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 {
-  "email": "ainaard@mail.ru"
+  "email": "test@mail.ru"
 }
 
 ###
@@ -94,10 +94,10 @@ POST http://localhost:8080/editPassword
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 {
-  "password": "newpass"
+  "password": "test1"
 }
 
 ###
