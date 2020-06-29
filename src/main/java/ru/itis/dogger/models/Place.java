@@ -46,6 +46,10 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
+    @OneToOne
+    @JoinColumn(name = "timecard_id")
+    private Timecard timecard;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "place_contact")
     @MapKeyColumn(name = "contact_type")

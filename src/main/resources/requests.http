@@ -164,7 +164,7 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
 {
   "name": "Khakima 49-54",
   "description": "For dog walkers from our district",
-  "date": "2020-04-30T17:00:00.000000",
+  "date": "2020-06-30T17:00:00.000000",
   "coordinateX": "65.56348",
   "coordinateY": "63.14327"
 }
@@ -253,13 +253,21 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
   "placeType": "COFFEESHOP",
   "coordinateX": "55.73",
   "coordinateY": "55.76",
-  "amenities": [
-    "WATER",
-    "FOOD"
-  ],
-  "contacts": {
-    "instagram": "kamilamie",
-    "site": "dogger.website"
+  "amenities": [ "WATER", "FOOD"],
+  "contacts":
+      {
+        "instagram" : "kamilamie",
+        "site": "dogger.website"
+      },
+  "timecard": {
+      "monday": "09:00-19:00",
+      "tuesday": "09:00-19:00",
+      "wednesday": "09:00-19:00",
+      "thursday": "09:00-19:00",
+      "friday": "09:00-19:00",
+      "saturday": "09:00-14:00",
+      "sunday": "09:00-14:00",
+      "launch": "12:00-13:00"
   }
 }
 
@@ -285,3 +293,9 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
 
 ###
 
+GET http://localhost:8080/amenities
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###

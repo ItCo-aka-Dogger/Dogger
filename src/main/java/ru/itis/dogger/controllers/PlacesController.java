@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import ru.itis.dogger.dto.NewPlaceDto;
+import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.models.Comment;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.models.Place;
@@ -67,5 +68,11 @@ public class PlacesController {
             return new ResponseEntity<>("Comment has not been added", HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @GetMapping("/amenities")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> getAllAmenitiesList() {
+        return ResponseEntity.ok(AmenityForDog.values());
     }
 }

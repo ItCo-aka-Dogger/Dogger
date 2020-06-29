@@ -1,6 +1,7 @@
 package ru.itis.dogger.dto;
 
 import lombok.Data;
+import ru.itis.dogger.models.Timecard;
 
 import java.util.List;
 import java.util.Map;
@@ -15,4 +16,5 @@ public class NewPlaceDto {
     private String placeType;
     private List<String> amenities;
     private Map<String, String> contacts;
+    private Timecard timecard;
 }

@@ -48,7 +48,7 @@ public class Owner {
     private List<Meeting> meetings;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private List<Meeting> myMeetings;
 
     @JsonIgnore
