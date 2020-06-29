@@ -39,7 +39,6 @@ public class PlacesServiceImpl implements PlacesService {
     @Override
     public Place addPlace(NewPlaceDto placeDto, Owner creator) {
         Place newPlace = new Place();
-
         newPlace.setName(placeDto.getName());
         newPlace.setDescription(placeDto.getDescription());
         newPlace.setPhoto_path(placeDto.getPhotoPath());
@@ -57,10 +56,8 @@ public class PlacesServiceImpl implements PlacesService {
         List<AmenityForDog> amenities = placeDto.getAmenities().stream()
                 .map(amenityStr -> AmenityForDog.valueOf(amenityStr.toUpperCase())).collect(Collectors.toList());
         newPlace.setAmenities(amenities);
-
         timecardsRepository.save(placeDto.getTimecard());
         newPlace.setTimecard(placeDto.getTimecard());
-
         return placesRepository.save(newPlace);
     }
 
