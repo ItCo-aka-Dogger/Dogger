@@ -1,6 +1,7 @@
 package ru.itis.dogger.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,9 @@ public class SignUpController {
     @PostMapping("/signUp")
     public ResponseEntity<?> signUpNewUser(@Valid @RequestBody NewOwnerDto dto) {
         if (!usersService.signUp(dto)) {
-            return ResponseEntity.ok(new ResponseDto("User already in the system"));
+            return new ResponseEntity<>("Email is already taken", HttpStatus.CONFLICT);
         } else {
-            return ResponseEntity.ok(new ResponseDto("Successfully added user"));
+            return new ResponseEntity<>("Successfully added user", HttpStatus.OK);
         }
     }
 

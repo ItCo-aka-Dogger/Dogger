@@ -106,7 +106,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public TokenDto editInfo(EditUserInfoDto dto, String email) {
+    public void editInfo(EditUserInfoDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
@@ -118,7 +118,6 @@ public class UsersServiceImpl implements UsersService {
         }
         dbOwner.setContacts(contacts);
         usersRepository.save(dbOwner);
-        return refreshToken(dbOwner);
     }
 
     @Override
@@ -193,7 +192,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public TokenDto changeEmail(String email, Owner currentUser) {
-        if(usersRepository.findByEmail(email).isPresent()) {
+        if (usersRepository.findByEmail(email).isPresent()) {
             return new TokenDto("email is taken", TokenStatus.INVALID);
         }
         currentUser.setEmail(email);

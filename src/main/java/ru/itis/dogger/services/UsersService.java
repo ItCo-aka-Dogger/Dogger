@@ -18,7 +18,7 @@ public interface UsersService {
 
     Map<String, Object> userToMap(Owner owner);
 
-    TokenDto editInfo(EditUserInfoDto dto, String login);
+    void editInfo(EditUserInfoDto dto, String login);
 
     boolean activateUser(String code);
 
