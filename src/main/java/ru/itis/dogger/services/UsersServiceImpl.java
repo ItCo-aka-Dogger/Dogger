@@ -43,10 +43,6 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean signUp(NewOwnerDto dto) {
         String email = dto.getEmail();
-        Optional<Owner> dbUser = usersRepository.findByEmail(email.toLowerCase());
-        if (dbUser.isPresent()) {
-            return false;
-        }
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         Owner newUser = Owner.builder()
                 .email(email.toLowerCase())
@@ -192,7 +188,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public TokenDto changeEmail(String email, Owner currentUser) {
-        if (usersRepository.findByEmail(email).isPresent()) {
+        if (!checkForUniqueness(email)) {
             return new TokenDto("email is taken", TokenStatus.INVALID);
         }
         currentUser.setEmail(email);
