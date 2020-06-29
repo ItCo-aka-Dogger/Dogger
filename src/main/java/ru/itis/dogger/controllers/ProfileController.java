@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.*;
+import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.UsersService;
@@ -59,6 +60,9 @@ public class ProfileController {
     public ResponseEntity<?> editEmail(@RequestBody Map<String, String> dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         TokenDto tokenDto = usersService.changeEmail(dto.get("email"), currentUser);
+        if(tokenDto.getStatus().equals(TokenStatus.INVALID)) {
+            return new ResponseEntity<>("email is already taken", HttpStatus.CONFLICT);
+        }
         return ResponseEntity.ok(tokenDto);
     }
 

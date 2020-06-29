@@ -193,6 +193,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public TokenDto changeEmail(String email, Owner currentUser) {
+        if(usersRepository.findByEmail(email).isPresent()) {
+            return new TokenDto("email is taken", TokenStatus.INVALID);
+        }
         currentUser.setEmail(email);
         usersRepository.save(currentUser);
         return refreshToken(currentUser);
