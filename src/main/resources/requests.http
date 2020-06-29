@@ -1,12 +1,23 @@
+POST http://localhost:8080/checkUserEmail
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "email": "test@mail.ru"
+}
+
+###
+
 POST http://localhost:8080/signUp
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 
 {
+  "email": "test@mail.ru",
   "password": "test",
   "fullName": "test",
-  "email": "test@mail.ru",
   "name": "Aina"
 }
 
