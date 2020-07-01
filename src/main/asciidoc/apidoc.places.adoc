@@ -46,73 +46,72 @@ a|
 
 Пример ответа в случае успеха (массив содержит 1 заведение):
 
-    {
-        "id": 1,
-        "name": "test place",
-        "photo_path": "test_url",
-        "description": "coffee shop",
-        "coordinateX": 55.73,
-        "coordinateY": 55.76,
-        "type": "COFFEESHOP",
-        "amenities": [
-            "WATER",
-            "FOOD"
-        ],
-        "creator": {
+    [
+        {
             "id": 1,
-            "fullName": "test test test",
-            "email": "kamila.nigmet@gmail.com",
-            "dateOfBirth": null,
-            "photo_path": null,
-            "phoneNumber": null,
-            "city": null,
-            "dogs": [
+            "name": "test place",
+            "photo_path": "test_url",
+            "description": "coffee shop",
+            "coordinateX": 55.73,
+            "coordinateY": 55.76,
+            "type": "COFFEESHOP",
+            "amenities": [
+                "WATER",
+                "FOOD"
+            ],
+            "comments": [
                 {
-                    "id": 1,
-                    "name": "test",
-                    "breed": "test",
-                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                    "sex": "test",
-                    "size": "test",
-                    "photo_path": null,
-                    "information": "test"
-                },
-                {
-                    "id": 2,
-                    "name": "test",
-                    "breed": "test",
-                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                    "sex": "test",
-                    "size": "test",
-                    "photo_path": null,
-                    "information": "test"
+                    "id": 6,
+                    "text": "beautiful place",
+                    "date": "2020-06-21T17:54:12.555+0000",
+                    "rating": 5,
+                    "author": {
+                        "id": 5,
+                        "email": "ainaard@mail.ru",
+                        "name": "test",
+                        "fullName": "test",
+                        "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                        "photo_path": null,
+                        "city": "Ufa",
+                        "district": "Sovetskiy",
+                        "dogs": [
+                            {
+                                "id": 4,
+                                "name": "test",
+                                "breed": "test",
+                                "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                                "sex": "test",
+                                "size": "test",
+                                "photo_path": null,
+                                "information": "test"
+                            }
+                        ],
+                        "contacts": {
+                            "PHONE": "891782235",
+                            "INSTAGRAM": "@britny1999",
+                            "VK": "dogger.website",
+                            "TELEGRAM": "dogger"
+                        }
+                    }
                 }
-            ]
-        },
-        "comments": [
-            {
-                "id": 6,
-                "text": "beautiful place",
-                "date": "2020-06-21T17:54:12.555+0000",
-                "rating": 5,
-                "author": {
-                  "id": 5,
-                  "email": "ainaard@mail.ru",
-                  "fullName": "test",
-                  "dateOfBirth": null,
-                  "photo_path": null,
-                  "phoneNumber": null,
-                  "city": "Ufa",
-                  "dogs": []
-                }
-            }
-        ],
-        "contacts":
-            {
+            ],
+            "timecard": {
+                "id": 7,
+                "monday": "09:00-19:00",
+                "tuesday": "09:00-19:00",
+                "wednesday": "09:00-19:00",
+                "thursday": "09:00-19:00",
+                "friday": "09:00-19:00",
+                "saturday": "09:00-19:00",
+                "sunday": "09:00-19:00",
+                "launch": "12:00-13:00"
+            },
+            "contacts": {
                 "SITE": "dogger.website",
                 "INSTAGRAM": "kamilamie"
             }
-    }
+        }
+    ]
 
 === `POST /addPlace` - добавить заведение
 
@@ -126,11 +125,20 @@ a|
         "coordinateX": "55.73",
         "coordinateY": "55.76",
         "amenities": [ "WATER", "FOOD"],
-        "contacts":
-            {
-                "instagram" : "kamilamie",
-                "site": "dogger.website"
-            }
+        "contacts": {
+            "instagram" : "kamilamie",
+            "site": "dogger.website"
+        },
+        "timecard": {
+            "monday": "09:00-19:00",
+            "tuesday": "09:00-19:00",
+            "wednesday": "09:00-19:00",
+            "thursday": "09:00-19:00",
+            "friday": "09:00-19:00",
+            "saturday": "09:00-14:00",
+            "sunday": "09:00-14:00",
+            "launch": "12:00-13:00"
+        }
     }
 
 При успешном запросе в базе данных появится заведение, автором будет текущий авторизованный пользователь.
@@ -144,16 +152,16 @@ a|
 
 === `POST /places/{place-id}/addComment` - добавить комментарий
 
-Пользователь может добавить комментарий к заведению/лесу/площадке, для этого клиент посылает *Json*:
+Пользователь может добавить комментарий к заведению/лесу/площадке, для этого клиент посылает *Json* c:
 
-оценка и текст комментария:
+оценкой и текстом комментария:
 
     {
         "text": "beautiful place",
         "rating": "5"
     }
 
-или просто оценка:
+или просто оценкой:
 
     {
         "rating": "4"
@@ -169,11 +177,29 @@ a|
         "author": {
             "id": 5,
             "email": "ainaard@mail.ru",
+            "name": "aina",
             "fullName": "test",
-            "dateOfBirth": null,
-            "photo_path": null,
-            "phoneNumber": null,
+            "dateOfBirth": "2020-07-01T22:30:35.929+0000",
+            "photo_path": "test_url",
             "city": "Ufa",
-            "dogs": []
+            "district": "Sovetskiy",
+            "dogs": [
+                {
+                    "id": 4,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": "test_url",
+                    "information": "test"
+                }
+            ],
+            "contacts": {
+                "PHONE": "891782235",
+                "INSTAGRAM": "@britny1999",
+                "VK": "dogger.website",
+                "TELEGRAM": "dogger"
+            }
         }
     }
