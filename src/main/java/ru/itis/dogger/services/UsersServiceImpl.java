@@ -9,9 +9,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.itis.dogger.dto.EditDto;
+import ru.itis.dogger.dto.EditUserInfoDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
+import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
@@ -41,16 +42,13 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean signUp(NewOwnerDto dto) {
-        Optional<Owner> dbUser = usersRepository.findByEmail(dto.getEmail());
-        if (dbUser.isPresent()) {
-            return false;
-        }
+        String email = dto.getEmail();
         String hashPassword = passwordEncoder.encode(dto.getPassword());
         Owner newUser = Owner.builder()
+                .email(email.toLowerCase())
                 .password(hashPassword)
+                .name(dto.getName())
                 .fullName(dto.getFullName())
-                .email(dto.getEmail())
-                .city(dto.getCity())
                 .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
@@ -67,7 +65,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public TokenDto login(NewOwnerDto dto) {
-        Optional<Owner> userCandidate = usersRepository.findByEmail(dto.getEmail());
+        String email = dto.getEmail();
+        Optional<Owner> userCandidate = usersRepository.findByEmail(email.toLowerCase());
         TokenDto tokenDto = new TokenDto();
         if (userCandidate.isPresent()) {
             Owner user = userCandidate.get();
@@ -103,15 +102,17 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void editInfo(EditDto dto, String email) {
+    public void editInfo(EditUserInfoDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
-        String hashPassword = passwordEncoder.encode(dto.getPassword());
-        dbOwner.setEmail(dto.getEmail());
-        dbOwner.setPassword(hashPassword);
         dbOwner.setFullName(dto.getFullName());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
-        dbOwner.setPhoneNumber(dto.getPhoneNumber());
+        dbOwner.setDistrict(dto.getDistrict());
+        Map<Contact, String> contacts = new HashMap<>();
+        for (Map.Entry<String, String> e : dto.getContacts().entrySet()) {
+            contacts.put(Contact.valueOf(e.getKey().toUpperCase()), e.getValue());
+        }
+        dbOwner.setContacts(contacts);
         usersRepository.save(dbOwner);
     }
 
@@ -185,11 +186,35 @@ public class UsersServiceImpl implements UsersService {
         return !usersRepository.findByEmail(email).isPresent();
     }
 
+    @Override
+    public TokenDto changeEmail(String email, Owner currentUser) {
+        if (!checkForUniqueness(email)) {
+            return new TokenDto("email is taken", TokenStatus.INVALID);
+        }
+        currentUser.setEmail(email);
+        usersRepository.save(currentUser);
+        return refreshToken(currentUser);
+    }
+
+    @Override
+    public void changePassword(String password, Owner currentUser) {
+        String hashedPassword = passwordEncoder.encode(password);
+        currentUser.setPassword(hashedPassword);
+        usersRepository.save(currentUser);
+    }
+
     private String createToken(Owner user) {
         return Jwts.builder()
                 .claim("login", user.getEmail())
                 .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
+    }
+
+    private TokenDto refreshToken(Owner dbOwner) {
+        TokenDto newToken = new TokenDto();
+        newToken.setStatus(TokenStatus.VALID);
+        newToken.setValue(createToken(dbOwner));
+        return newToken;
     }
 }
