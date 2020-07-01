@@ -6,11 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dogger.dto.EditDto;
+import ru.itis.dogger.dto.EditUserInfoDto;
+import ru.itis.dogger.dto.OwnerDto;
+import ru.itis.dogger.dto.TokenDto;
+import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.UsersService;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,7 +32,7 @@ public class ProfileController {
     public ResponseEntity<?> getProfilePage(Authentication authentication) {
         Optional<Owner> userCandidate = usersService.findByLogin(authentication.getName());
         if (userCandidate.isPresent()) {
-            return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
+            return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
         } else {
             return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
         }
@@ -45,12 +49,31 @@ public class ProfileController {
         }
     }
 
-    @PostMapping("/editProfile")
+    @PostMapping("/editUserInfo")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editProfile(@RequestBody EditDto dto, Authentication authentication) {
+    public ResponseEntity<?> editProfile(@RequestBody EditUserInfoDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.editInfo(dto, currentUser.getEmail());
-        return ResponseEntity.ok(usersService.findByEmail(dto.getEmail()));
+        return ResponseEntity.ok(usersService.findByEmail(currentUser.getEmail()));
+    }
+
+    @PostMapping("/editEmail")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> editEmail(@RequestBody Map<String, String> dto, Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        TokenDto tokenDto = usersService.changeEmail(dto.get("email"), currentUser);
+        if (tokenDto.getStatus().equals(TokenStatus.INVALID)) {
+            return new ResponseEntity<>("Email is already taken", HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.ok(tokenDto);
+    }
+
+    @PostMapping("/editPassword")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> editPassword(@RequestBody Map<String, String> dto, Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        usersService.changePassword(dto.get("password"), currentUser);
+        return ResponseEntity.ok(usersService.userToMap(currentUser));
     }
 
     @PostMapping("/delete")

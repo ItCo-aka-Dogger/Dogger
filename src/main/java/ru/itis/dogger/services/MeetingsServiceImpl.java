@@ -2,11 +2,12 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.dogger.dto.NewMeetingDto;
+import ru.itis.dogger.dto.meetings.NewMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.MeetingsRepository;
 
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,10 @@ public class MeetingsServiceImpl implements MeetingsService {
 
     @Override
     public Meeting addMeeting(NewMeetingDto meetingForm, Owner creator) {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        if (meetingForm.getDate().before(now)) {
+            return null;
+        }
         Meeting newMeeting = new Meeting();
 
         newMeeting.setCoordinateX(meetingForm.getCoordinateX());

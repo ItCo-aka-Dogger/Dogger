@@ -1,14 +1,24 @@
+POST http://localhost:8080/checkUserEmail
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "email": "test@mail.ru"
+}
+
+###
+
 POST http://localhost:8080/signUp
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 
 {
+  "email": "test@mail.ru",
   "password": "test",
   "fullName": "test",
-  "email": "ainaard1@mail.ru",
-  "city": "Ufa",
-  "phoneNumber": "891776874326"
+  "name": "Aina"
 }
 
 ###
@@ -33,8 +43,8 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "ainaard12@mail.ru",
-  "password": "test"
+  "email": "test@mail.ru",
+  "password": "test1"
 }
 
 <> 2020-03-31T080522.200.json
@@ -46,7 +56,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjoyMX0.HcoUpo4kGLtpDksqTOMBFp36zDqT0aexfRoJwJVJ5_7ItvTZDnhAnWPGby2z8j-QDwEHJYlcShqxprhIjyMBgw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 ###
 
@@ -57,19 +67,65 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/editUserInfo
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
+
+{
+  "name": "Aina",
+  "fullName": "Ard",
+  "dateOfBirth": "1999-04-15",
+  "city": "Kazan",
+  "district": "Sovetskii",
+  "contacts": {
+    "phone": "891782235",
+    "instagram": "@britny1999",
+    "vk": "dogger.website",
+    "telegram": "@AinaLikesSuicide"
+  }
+}
+
+###
+
+POST http://localhost:8080/editEmail
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+
+{
+  "email": "test@mail.ru"
+}
+
+###
+
+POST http://localhost:8080/editPassword
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+
+{
+  "password": "test1"
+}
+
+###
+
 POST http://localhost:8080/addDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3QiLCJpZCI6Mn0.m7Oz8HaszHKNBP4-lOsLeAeMASit66XWTIYUtqzu4ege-bU-9rbmZGqDGqNfDSrhMK9us_6SCUyQln_opyDSFw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
 
 {
-  "name": "test",
-  "size": "test",
-  "breed": "test",
+  "name": "test1",
+  "size": "test1",
+  "breed": "test1",
   "dateOfBirth": "2018-04-15",
-  "sex": "test",
-  "information": "test"
+  "sex": "male",
+  "information": "test1"
 }
 
 ###
@@ -125,7 +181,7 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
 {
   "name": "Khakima 49-54",
   "description": "For dog walkers from our district",
-  "date": "2020-04-30T17:00:00.000000",
+  "date": "2020-06-30T17:00:00.000000",
   "coordinateX": "65.56348",
   "coordinateY": "63.14327"
 }
@@ -219,7 +275,17 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
       {
         "instagram" : "kamilamie",
         "site": "dogger.website"
-      }
+      },
+  "timecard": {
+      "monday": "09:00-19:00",
+      "tuesday": "09:00-19:00",
+      "wednesday": "09:00-19:00",
+      "thursday": "09:00-19:00",
+      "friday": "09:00-19:00",
+      "saturday": "09:00-14:00",
+      "sunday": "09:00-14:00",
+      "launch": "12:00-13:00"
+  }
 }
 
 ###
@@ -241,5 +307,12 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
   "text": "beautiful place",
   "rating": "5"
 }
+
+###
+
+GET http://localhost:8080/amenities
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
 
 ###

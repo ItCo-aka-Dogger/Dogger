@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dogger.dto.DetailedMeetingDto;
-import ru.itis.dogger.dto.SimpleMeetingDto;
-import ru.itis.dogger.dto.NewMeetingDto;
+import ru.itis.dogger.dto.meetings.DetailedMeetingDto;
+import ru.itis.dogger.dto.meetings.NewMeetingDto;
+import ru.itis.dogger.dto.meetings.SimpleMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.services.MeetingsService;
@@ -36,7 +36,11 @@ public class MeetingsController {
     public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto dto, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Meeting newMeeting = meetingsService.addMeeting(dto, currentUser.get());
-        return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
+        if (newMeeting == null) {
+            return new ResponseEntity<>("Meeting was not added. Check meeting's date validation.", HttpStatus.BAD_REQUEST);
+        } else {
+            return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
+        }
     }
 
     @GetMapping("/meetings/future")

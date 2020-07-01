@@ -1,5 +1,6 @@
 package ru.itis.dogger.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,12 +40,17 @@ public class Place {
     @Column(name = "amenity") // Column name in place_amenity
     private List<AmenityForDog> amenities;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private Owner creator;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> comments;
+
+    @OneToOne
+    @JoinColumn(name = "timecard_id")
+    private Timecard timecard;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "place_contact")

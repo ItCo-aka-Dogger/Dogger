@@ -1,7 +1,7 @@
 package ru.itis.dogger.services;
 
 import org.springframework.security.core.Authentication;
-import ru.itis.dogger.dto.EditDto;
+import ru.itis.dogger.dto.EditUserInfoDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
@@ -18,7 +18,7 @@ public interface UsersService {
 
     Map<String, Object> userToMap(Owner owner);
 
-    void editInfo(EditDto dto, String login);
+    void editInfo(EditUserInfoDto dto, String login);
 
     boolean activateUser(String code);
 
@@ -35,4 +35,8 @@ public interface UsersService {
     Optional<Owner> getUserById(Long id);
 
     boolean checkForUniqueness(String email);
+
+    TokenDto changeEmail(String email, Owner currentUser);
+
+    void changePassword(String password, Owner currentUser);
 }
