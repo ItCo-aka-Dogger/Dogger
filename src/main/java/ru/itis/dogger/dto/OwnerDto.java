@@ -1,17 +1,10 @@
 package ru.itis.dogger.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 import ru.itis.dogger.models.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import java.util.Date;
 import java.util.List;
 
@@ -23,12 +16,10 @@ import java.util.List;
 public class OwnerDto {
     private Long id;
     private String email;
-    private String password;
     private String fullName;
     private Date dateOfBirth;
     private String photo_path;
     private List<Dog> dogs;
-    private List<Meeting> meetings;
 
     public static OwnerDto from(Owner owner) {
         OwnerDto ownerDto = new OwnerDto();
@@ -38,7 +29,6 @@ public class OwnerDto {
         ownerDto.setDateOfBirth(owner.getDateOfBirth());
         ownerDto.setPhoto_path(owner.getPhoto_path());
         ownerDto.setDogs(owner.getDogs());
-        ownerDto.setMeetings(owner.getMeetings());
         return ownerDto;
     }
 }

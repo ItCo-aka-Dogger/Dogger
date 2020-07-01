@@ -1,37 +1,41 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.dto.meetings;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.dogger.dto.SimpleOwnerDto;
 import ru.itis.dogger.models.Meeting;
 
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/* Shorted info about meeting for list*/
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class SimpleMeetingDto {
+
     private Long id;
     private String name;
-    private String description;
     private Timestamp date;
     private Double coordinateX;
     private Double coordinateY;
-    private Long creatorId;
-    private String creatorEmail;
-    private int participants_count;
+    private List<SimpleOwnerDto> participants;
 
     public static SimpleMeetingDto from(Meeting meeting) {
         SimpleMeetingDto meetingDto = new SimpleMeetingDto();
         meetingDto.setId(meeting.getId());
         meetingDto.setName(meeting.getName());
-        meetingDto.setDescription(meeting.getDescription());
         meetingDto.setDate(meeting.getDate());
         meetingDto.setCoordinateX(meeting.getCoordinateX());
         meetingDto.setCoordinateY(meeting.getCoordinateY());
-        meetingDto.setCreatorId(meeting.getCreator().getId());
-        meetingDto.setCreatorEmail(meeting.getCreator().getEmail());
-        meetingDto.setParticipants_count(meeting.getParticipants().size());
+
+        List<SimpleOwnerDto> dtos = meeting.getParticipants().stream()
+                .map(SimpleOwnerDto::from).collect(Collectors.toList());
+        meetingDto.setParticipants(dtos);
+
         return meetingDto;
     }
 }

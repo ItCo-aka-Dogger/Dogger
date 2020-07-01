@@ -1,6 +1,6 @@
 package ru.itis.dogger.services;
 
-import ru.itis.dogger.dto.NewMeetingDto;
+import ru.itis.dogger.dto.meetings.NewMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 
