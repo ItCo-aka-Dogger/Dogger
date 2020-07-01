@@ -2,7 +2,7 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.dogger.dto.NewPlaceDto;
+import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.PlaceType;

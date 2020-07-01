@@ -27,7 +27,6 @@ public class OwnerDto {
     private String district;
     private String photo_path;
     private List<Dog> dogs;
-    private List<Meeting> meetings;
     private Map<Contact, String> contacts;
 
     public static OwnerDto from(Owner owner) {
@@ -41,7 +40,6 @@ public class OwnerDto {
         ownerDto.setDistrict(owner.getDistrict());
         ownerDto.setPhoto_path(owner.getPhoto_path());
         ownerDto.setDogs(owner.getDogs());
-        ownerDto.setMeetings(owner.getMeetings());
         ownerDto.setContacts(owner.getContacts());
         return ownerDto;
     }

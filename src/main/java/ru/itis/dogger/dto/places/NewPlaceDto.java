@@ -1,4 +1,4 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.dto.places;
 
 import lombok.Data;
 import ru.itis.dogger.models.Timecard;

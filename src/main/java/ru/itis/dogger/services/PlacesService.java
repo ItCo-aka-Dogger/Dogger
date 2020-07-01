@@ -1,6 +1,6 @@
 package ru.itis.dogger.services;
 
-import ru.itis.dogger.dto.NewPlaceDto;
+import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.models.Comment;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.models.Place;

@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import ru.itis.dogger.dto.NewPlaceDto;
+import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.models.Comment;
 import ru.itis.dogger.models.Owner;
@@ -67,7 +67,6 @@ public class PlacesController {
         } else {
             return new ResponseEntity<>("Comment has not been added", HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @GetMapping("/amenities")
