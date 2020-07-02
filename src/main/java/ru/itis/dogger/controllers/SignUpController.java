@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.NewOwnerDto;
-import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.services.UsersService;
 
 import javax.validation.Valid;
@@ -43,11 +42,10 @@ public class SignUpController {
     @GetMapping("/activate/{code}")
     public ResponseEntity<?> activate(@PathVariable String code) {
         boolean isActivated = usersService.activateUser(code);
-
         if (isActivated) {
-            return ResponseEntity.ok(new ResponseDto("User successfully activated"));
+            return new ResponseEntity<>("User successfully activated", HttpStatus.OK);
         } else {
-            return ResponseEntity.ok(new ResponseDto("User not found"));
+            return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
         }
     }
 }
