@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.EditUserInfoDto;
 import ru.itis.dogger.dto.OwnerDto;
-import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Owner;
@@ -35,7 +34,7 @@ public class ProfileController {
         if (userCandidate.isPresent()) {
             return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
         } else {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -44,9 +43,9 @@ public class ProfileController {
     public ResponseEntity<?> getAnotherUserProfilePage(@PathVariable Long userId) {
         Optional<Owner> userCandidate = usersService.getUserById(userId);
         if (userCandidate.isPresent()) {
-            return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
+            return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
         } else {
-            return new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -74,12 +73,18 @@ public class ProfileController {
     public ResponseEntity<?> editPassword(@RequestBody Map<String, String> dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.changePassword(dto.get("password"), currentUser);
-        return ResponseEntity.ok(usersService.userToMap(currentUser));
+        return ResponseEntity.ok(usersService.findByEmail(currentUser.getEmail()));
     }
 
     @PostMapping("/delete")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> deleteUser(@RequestParam("userId") Long userId) {
-        return ResponseEntity.ok(new ResponseDto(usersService.delete(userId)));
+        Optional<Owner> user = usersService.getUserById(userId);
+        if (user.isPresent()) {
+            usersService.delete(user.get());
+            return new ResponseEntity<>("User was successfully deleted", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("There is no user with such id", HttpStatus.NOT_FOUND);
+        }
     }
 }

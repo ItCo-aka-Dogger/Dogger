@@ -53,7 +53,7 @@ public class PlacesController {
         if (place.isPresent()) {
             return ResponseEntity.ok(place);
         } else
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/places/{placeId}/addComment")

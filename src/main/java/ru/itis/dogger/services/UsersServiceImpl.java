@@ -90,18 +90,6 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Map<String, Object> userToMap(Owner owner) {
-        Map<String, Object> ownerProperties = new HashMap<>();
-        ownerProperties.put("email", owner.getEmail());
-        ownerProperties.put("id", owner.getId());
-        ownerProperties.put("fullName", owner.getFullName());
-        ownerProperties.put("dateOfBirth", owner.getDateOfBirth());
-        ownerProperties.put("dogs", owner.getDogs());
-        ownerProperties.put("meetings", owner.getMeetings());
-        return ownerProperties;
-    }
-
-    @Override
     public void editInfo(EditUserInfoDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
         dbOwner.setFullName(dto.getFullName());
@@ -157,14 +145,8 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public String delete(Long id) {
-        Optional<Owner> owner = usersRepository.findById(id);
-        if (owner.isPresent()) {
-            usersRepository.delete(owner.get());
-            return "User successfully deleted";
-        } else {
-            return "No such user in db";
-        }
+    public void delete(Owner user) {
+        usersRepository.delete(user);
     }
 
     @Override
