@@ -149,7 +149,7 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6
 
 {
   "password": "test",
-  "fullName": "test1",
+  "surname": "test1",
   "email": "ainaard1@mail.ru",
   "city": "Ufa",
   "dateOfBirth": "2018-04-15",
