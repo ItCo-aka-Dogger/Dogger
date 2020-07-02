@@ -119,62 +119,40 @@ a|
       {
         "id": 3,
         "name": "Khakima 47-54",
-        "description": "For dog walkers from our district",
         "date": "2020-04-30T17:00:00.000+0000",
         "coordinateX": 65.56348,
         "coordinateY": 63.14327,
-        "creatorId": 3,
-        "creatorEmail": "test@mail.ru",
-        "participants_count": 2
+        "participants": [
+          {
+            "id": 2,
+            "fullName": "test test test",
+            "photo_path": null
+          }
+        ]
       },
       {
         "id": 7,
         "name": "Khakima 49-54",
-        "description": "For dog walkers from our district",
         "date": "2020-04-30T17:00:00.000+0000",
         "coordinateX": 65.56348,
         "coordinateY": 63.14327,
-        "creatorId": 3,
-        "creatorEmail": "test@mail.ru",
-        "participants_count": 0
+        "participants": [
+          {
+            "id": 2,
+            "fullName": "test test test",
+            "photo_path": null
+          }
+        ]
       }
     ]
 
 === `GET /meetings/joined/?userId={user-id}` - получить список всех прогулок, в которых участвует пользователь
 
-Пример ответа в случае успеха:
-
-    [
-      {
-        "id": 3,
-        "name": "Khakima 47-54",
-        "description": "For dog walkers from our district",
-        "date": "2020-04-30T17:00:00.000+0000",
-        "coordinateX": 65.56348,
-        "coordinateY": 63.14327,
-        "creatorId": 3,
-        "creatorEmail": "test@mail.ru",
-        "participants_count": 2
-      }
-    ]
+Пример ответа в случае успеха: см. `GET /meetings/future`
 
 === `GET /meetings/my` - получить список всех прогулок, созданных пользователем
 
-Пример ответа в случае успеха:
-
-    [
-      {
-        "id": 3,
-        "name": "Khakima 47-54",
-        "description": "For dog walkers from our district",
-        "date": "2020-04-30T17:00:00.000+0000",
-        "coordinateX": 65.56348,
-        "coordinateY": 63.14327,
-        "creatorId": 3,
-        "creatorEmail": "test@mail.ru",
-        "participants_count": 2
-      }
-    ]
+Пример ответа в случае успеха: см. `GET /meetings/future`
 
 === `GET /meetings/{meeting-id}` - получить детальную информацию о прогулке
 
@@ -187,43 +165,17 @@ a|
         "date": "2020-04-30T17:00:00.000+0000",
         "coordinateX": 65.56348,
         "coordinateY": 63.14327,
-        "creator": {
-            "id": 1,
-            "fullName": "test test test",
-            "email": "kamila.nigmet@gmail.com",
-            "password": null,
-            "dateOfBirth": null,
-            "photo_path": null,
-            "dogs": [
-                {
-                    "id": 1,
-                    "name": "test",
-                    "breed": "test",
-                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                    "sex": "test",
-                    "size": "test",
-                    "photo_path": null,
-                    "information": "test"
-                },
-                {
-                    "id": 2,
-                    "name": "test",
-                    "breed": "test",
-                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                    "sex": "test",
-                    "size": "test",
-                    "photo_path": null,
-                    "information": "test"
-                }
-            ],
-        },
+        "creatorId": 3,
         "participants": [
             {
                 "id": 1,
+                "name": "test",
                 "fullName": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
-                "photo_path": null,
+                "city": "Ufa",
+                "district": "Sovetskiy",
+                "photo_path": "test_url",
                 "dogs": [
                     {
                     "id": 1,
@@ -246,14 +198,12 @@ a|
                     "information": "test"
                     }
                 ],
-            },
-            {
-                "id": 2,
-                "fullName": "test test test",
-                "email": "kamila.nigmet@gmail.com",
-                "dateOfBirth": null,
-                "photo_path": null,
-                "dogs": []
+                "contacts": {
+                    "PHONE": "891782235",
+                    "INSTAGRAM": "@britny1999",
+                    "VK": "dogger.website",
+                    "TELEGRAM": "dogger"
+                }
             }
         ]
     }
