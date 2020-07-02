@@ -43,7 +43,7 @@ public class ProfileController {
     public ResponseEntity<?> getAnotherUserProfilePage(@PathVariable Long userId) {
         Optional<Owner> userCandidate = usersService.getUserById(userId);
         if (userCandidate.isPresent()) {
-            return ResponseEntity.ok(usersService.userToMap(userCandidate.get()));
+            return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
         } else {
             return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
         }
@@ -73,7 +73,7 @@ public class ProfileController {
     public ResponseEntity<?> editPassword(@RequestBody Map<String, String> dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         usersService.changePassword(dto.get("password"), currentUser);
-        return ResponseEntity.ok(usersService.userToMap(currentUser));
+        return ResponseEntity.ok(usersService.findByEmail(currentUser.getEmail()));
     }
 
     @PostMapping("/delete")

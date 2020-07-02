@@ -6,12 +6,18 @@
 |===
 |Запрос | Назначение | isAuthenticated | Response
 
+|`POST /checkUserEmail`
+| Проверить уникальность почты
+| false
+a|
+* *200* - значит введенный email не занят
+* *409* - значит введенный email уже занят
+
 |`POST /signUp`
 | Зарегистрировать пользователя
 | false
 a|
 * *200* - пользователь зарегистрирован
-* *409* - значит введенный email уже занят
 
 |`POST /login`
 |Авторизовать зарегистрированного пользователя
@@ -35,8 +41,25 @@ a|
 * *200* - возвращается информация о пользователе
 * *404* - значит пользователь не найден
 
-|`POST /editProfile`
+|`POST /editUserInfo`
 | Редактировать профиль пользователя
+| true
+a|
+* *200* - возвращается обновленная информация о пользователе
+* *400* - значит запрос построен неправильно
+* *401* - значит запрос не содержал токен
+
+|`POST /editEmail`
+| Редактировать почту пользователя
+| true
+a|
+* *200* - возвращается обновленный токен пользователя
+* *400* - значит запрос построен неправильно
+* *401* - значит запрос не содержал токен
+* *409* - значит введенный email уже занят
+
+|`POST /editPassword`
+| Редактировать почту пользователя
 | true
 a|
 * *200* - возвращается обновленная информация о пользователе
@@ -91,15 +114,23 @@ a|
 
 == Примеры запросов
 
+=== `POST /checkUserEmail` - регистрация
+
+При вводе пользователем email для регистрации, клиент отправляет *Json*:
+
+    {
+        "email": "test@mail.ru"
+    }
+
 === `POST /signUp` - регистрация
 
 Для регистрации данные отправляются в формате *Json*:
 
     {
-        "email": "user@mail.ru",
-        "password": "user1",
-        "fullName": "User user user",
-        "city": "Kazan"
+        "email": "test3@mail.ru",
+        "password": "test",
+        "fullName": "test",
+        "name": "Aina"
     }
 
 === `POST /login` - авторизация
@@ -111,7 +142,7 @@ a|
         "password": "user1"
     }
 
-При успешной авторизации в ответе придет строка - токен.
+При успешной авторизации в ответе придет объект токена.
 Пример ответа в случае успеха:
 
     {
@@ -124,6 +155,14 @@ a|
 Пример ответа в случае успеха:
 
     {
+        "id": 5,
+        "email": "ainaard1@mail.ru",
+        "name": null,
+        "fullName": "test1",
+        "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+        "city": "Ufa",
+        "district": null,
+        "photo_path": null,
         "dogs": [
             {
                 "id": 4,
@@ -136,28 +175,59 @@ a|
                 "information": "test"
             }
         ],
-        "fullName": "test1",
-        "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-        "meetings": [],
-        "id": 5,
-        "email": "ainaard1@mail.ru"
+        "contacts": {
+            "PHONE": "891782235",
+            "INSTAGRAM": "@britny1999",
+            "VK": "dogger.website",
+            "TELEGRAM": "dogger"
+        }
     }
 
 === `GET /profile/{user-id}` - получить профиль другого пользователя
 
 Пример ответа в случае успеха: см. `GET /profile`
 
-=== `POST /editProfile` - редактировать профиль
+=== `POST /editUserInfo` - редактировать профиль
 
-Для редактирования профиля пользователя отправляется *Json*:
+Для редактирования профиля отправляется *Json*:
 
     {
-        "password": "test",
+        "name": "Aina",
         "fullName": "test1",
-        "email": "ainaard1@mail.ru",
         "city": "Ufa",
         "dateOfBirth": "2018-04-15",
-        "phoneNumber": "891776874326"
+        "district": "Sovetskii",
+        "contacts": {
+            "phone": "891782235",
+            "instagram": "@britny1999",
+            "vk": "dogger.website",
+            "telegram": "@AinaLikesSuicide"
+        }
+    }
+
+Пример ответа в случае успеха: см. `GET /profile`
+
+=== `POST /editEmail` - редактировать почту
+
+Для редактирования почты отправляется *Json*:
+
+    {
+        "email": "test@mail.ru"
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "value": "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2U9J40aYY62OQWQywkQ37BPpA5HF9koMkjMSxXMqwjU7mpbD9bPzRIqTanKTRhhwe9udlwGhOhJbikly5zXE6Q",
+        "status": "VALID"
+    }
+
+=== `POST /editPassword` - редактировать пароль
+
+Для редактирования пароля отправляется *Json*:
+
+    {
+        "password": "test1"
     }
 
 Пример ответа в случае успеха: см. `GET /profile`

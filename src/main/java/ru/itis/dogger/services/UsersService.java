@@ -16,8 +16,6 @@ public interface UsersService {
 
     Optional<Owner> findByLogin(String login);
 
-    Map<String, Object> userToMap(Owner owner);
-
     void editInfo(EditUserInfoDto dto, String login);
 
     boolean activateUser(String code);

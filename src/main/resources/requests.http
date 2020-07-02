@@ -15,7 +15,7 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "test@mail.ru",
+  "email": "test3@mail.ru",
   "password": "test",
   "fullName": "test",
   "name": "Aina"
@@ -30,20 +30,13 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/logout
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-###
-
 POST http://localhost:8080/login
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "test@mail.ru",
+  "email": "aina@mail.ru",
   "password": "test"
 }
 
@@ -56,7 +49,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
 
 ###
 
@@ -71,7 +64,7 @@ POST http://localhost:8080/editUserInfo
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
 
 {
   "name": "Aina",
@@ -93,10 +86,10 @@ POST http://localhost:8080/editEmail
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
 
 {
-  "email": "test@mail.ru"
+  "email": "aina@mail.ru"
 }
 
 ###
@@ -105,10 +98,10 @@ POST http://localhost:8080/editPassword
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2U9J40aYY62OQWQywkQ37BPpA5HF9koMkjMSxXMqwjU7mpbD9bPzRIqTanKTRhhwe9udlwGhOhJbikly5zXE6Q
 
 {
-  "password": "test1"
+  "password": "test"
 }
 
 ###
@@ -117,7 +110,7 @@ POST http://localhost:8080/addDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2U9J40aYY62OQWQywkQ37BPpA5HF9koMkjMSxXMqwjU7mpbD9bPzRIqTanKTRhhwe9udlwGhOhJbikly5zXE6Q
 
 {
   "name": "test1",
