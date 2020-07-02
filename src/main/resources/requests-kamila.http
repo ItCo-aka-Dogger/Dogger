@@ -1,0 +1,301 @@
+POST http://localhost:8080/checkUserEmail
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "email": "test@mail.ru"
+}
+
+###
+
+POST http://localhost:8080/signUp
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "email": "test@mail.ru",
+  "password": "test",
+  "surname": "test",
+  "name": "Aina"
+}
+
+###
+
+GET http://localhost:8080/activate/84882ee1-54d1-484d-8cf6-5eec4d986ca1
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/logout
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/login
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "email": "test@mail.ru",
+  "password": "test1"
+}
+
+<> 2020-03-31T080522.200.json
+<> 2020-03-31T080024.200.json
+
+###
+
+GET http://localhost:8080/profile
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+
+###
+
+GET http://localhost:8080/profile/3
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/editUserInfo
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
+
+{
+  "name": "Aina",
+  "surname": "Ard",
+  "dateOfBirth": "1999-04-15",
+  "city": "Kazan",
+  "district": "Sovetskii",
+  "contacts": {
+    "phone": "891782235",
+    "instagram": "@britny1999",
+    "vk": "dogger.website",
+    "telegram": "@AinaLikesSuicide"
+  }
+}
+
+###
+
+POST http://localhost:8080/editEmail
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+
+{
+  "email": "test@mail.ru"
+}
+
+###
+
+POST http://localhost:8080/editPassword
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
+
+{
+  "password": "test1"
+}
+
+###
+
+POST http://localhost:8080/addDog
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
+
+{
+  "name": "test1",
+  "size": "test1",
+  "breed": "test1",
+  "dateOfBirth": "2018-04-15",
+  "sex": "male",
+  "information": "test1"
+}
+
+###
+
+POST http://localhost:8080/editDogs
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+[
+  {
+    "id": 3,
+    "name": "",
+    "breed": "jack",
+    "dateOfBirth": "",
+    "information": "goody"
+  }
+]
+
+###
+POST http://localhost:8080/delete/?userId=21
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+
+###
+
+POST http://localhost:8080/addMeeting
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+{
+  "name": "Khakima 49-54",
+  "description": "For dog walkers from our district",
+  "date": "2020-06-30T17:00:00.000000",
+  "coordinateX": "65.56348",
+  "coordinateY": "63.14327"
+}
+
+###
+
+POST http://localhost:8080/editMeeting?meetingId=43
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+{
+  "name": "new name",
+  "description": "new description",
+  "date": "2020-04-30T17:00:00.000000",
+  "coordinateX": "65.56348",
+  "coordinateY": "63.14327"
+}
+
+###
+
+GET http://localhost:8080/meetings/future
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+GET http://localhost:8080/meetings/joined?userId=2
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+###
+
+GET http://localhost:8080/meetings/my
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+###
+
+GET http://localhost:8080/meetings/12
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/meetings/11/join
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+###
+
+POST http://localhost:8080/meetings/11/unjoin
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+###
+
+GET http://localhost:8080/places/all
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/addPlace
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+
+{
+  "name": "test place",
+  "description": "coffee shop",
+  "photoPath": "test_url",
+  "placeType": "COFFEESHOP",
+  "coordinateX": "55.73",
+  "coordinateY": "55.76",
+  "amenities": [ "WATER", "FOOD"],
+  "contacts":
+      {
+        "instagram" : "kamilamie",
+        "site": "dogger.website"
+      },
+  "timecard": {
+      "monday": "09:00-19:00",
+      "tuesday": "09:00-19:00",
+      "wednesday": "09:00-19:00",
+      "thursday": "09:00-19:00",
+      "friday": "09:00-19:00",
+      "saturday": "09:00-14:00",
+      "sunday": "09:00-14:00",
+      "launch": "12:00-13:00"
+  }
+}
+
+###
+
+GET http://localhost:8080/places/1
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+POST http://localhost:8080/places/1/addComment
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+
+{
+  "text": "beautiful place",
+  "rating": "5"
+}
+
+###
+
+GET http://localhost:8080/amenities
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###

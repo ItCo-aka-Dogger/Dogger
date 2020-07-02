@@ -14,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 public class SimpleOwnerDto {
     private Long id;
-    private String fullName;
+    private String surname;
     private String photo_path;
 
     public static SimpleOwnerDto from(Owner owner) {
         SimpleOwnerDto ownerDto = new SimpleOwnerDto();
         ownerDto.setId(owner.getId());
-        ownerDto.setFullName(owner.getFullName());
+        ownerDto.setSurname(owner.getSurname());
         ownerDto.setPhoto_path(owner.getPhoto_path());
         return ownerDto;
     }

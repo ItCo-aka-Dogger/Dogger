@@ -146,7 +146,7 @@
         "email": "user@mail.ru",
         "password": "user1",
         "name": "User"
-        "fullName": "User user user"
+        "surname": "User user user"
     }
 
 === Авторизация
@@ -170,7 +170,7 @@
 
     {
         "name": "Aina",
-        "fullName": "Ardashirova",
+        "surname": "Ardashirova",
         "dateOfBirth": "2018-04-15",
         "city": "Kazan",
         "district": "Sovetskii",
@@ -207,7 +207,7 @@
           "information": "good"
         }
       ],
-      "fullName": "Aina aina aina",
+      "surname": "Aina aina aina",
       "dateOfBirth": "1999-02-13T19:00:00.000+0000",
       "meetings": [],
       "email": "user@mail.ru"
@@ -231,7 +231,7 @@
 
     {
         "dogs": [],
-        "fullName": "Test Test",
+        "surname": "Test Test",
         "dateOfBirth": null,
         "meetings": [
             {
@@ -410,7 +410,7 @@
         "coordinateY": 63.14327,
         "creator": {
             "id": 1,
-            "fullName": "test test test",
+            "surname": "test test test",
             "email": "kamila.nigmet@gmail.com",
             "dateOfBirth": null,
             "photo_path": null,
@@ -440,7 +440,7 @@
         "participants": [
             {
                 "id": 1,
-                "fullName": "test test test",
+                "surname": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
                 "photo_path": null,
@@ -469,7 +469,7 @@
             },
             {
                 "id": 2,
-                "fullName": "test test test",
+                "surname": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
                 "photo_path": null,
@@ -506,7 +506,7 @@
         ],
         "creator": {
             "id": 1,
-            "fullName": "test test test",
+            "surname": "test test test",
             "email": "kamila.nigmet@gmail.com",
             "dateOfBirth": null,
             "photo_path": null,
@@ -621,7 +621,7 @@
         ],
         "creator": {
             "id": 1,
-            "fullName": "test test test",
+            "surname": "test test test",
             "email": "kamila.nigmet@gmail.com",
             "dateOfBirth": null,
             "photo_path": null,

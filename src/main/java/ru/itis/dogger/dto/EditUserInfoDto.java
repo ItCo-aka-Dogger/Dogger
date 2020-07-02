@@ -8,7 +8,7 @@ import java.util.Map;
 @Data
 public class EditUserInfoDto {
     private String name;
-    private String fullName;
+    private String surname;
     private Timestamp dateOfBirth;
     private String city;
     private String district;

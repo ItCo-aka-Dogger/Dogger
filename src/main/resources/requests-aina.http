@@ -17,7 +17,7 @@ Content-Type: application/json
 {
   "email": "test@mail.ru",
   "password": "test",
-  "fullName": "test",
+  "surname": "test",
   "name": "Aina"
 }
 
@@ -75,7 +75,7 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWlu
 
 {
   "name": "Aina",
-  "fullName": "Ard",
+  "surname": "Ard",
   "dateOfBirth": "1999-04-15",
   "city": "Kazan",
   "district": "Sovetskii",
@@ -255,19 +255,19 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
   "coordinateY": "55.76",
   "amenities": [ "WATER", "FOOD"],
   "contacts":
-      {
-        "instagram" : "kamilamie",
-        "site": "dogger.website"
-      },
+  {
+    "instagram" : "kamilamie",
+    "site": "dogger.website"
+  },
   "timecard": {
-      "monday": "09:00-19:00",
-      "tuesday": "09:00-19:00",
-      "wednesday": "09:00-19:00",
-      "thursday": "09:00-19:00",
-      "friday": "09:00-19:00",
-      "saturday": "09:00-14:00",
-      "sunday": "09:00-14:00",
-      "launch": "12:00-13:00"
+    "monday": "09:00-19:00",
+    "tuesday": "09:00-19:00",
+    "wednesday": "09:00-19:00",
+    "thursday": "09:00-19:00",
+    "friday": "09:00-19:00",
+    "saturday": "09:00-14:00",
+    "sunday": "09:00-14:00",
+    "launch": "12:00-13:00"
   }
 }
 
