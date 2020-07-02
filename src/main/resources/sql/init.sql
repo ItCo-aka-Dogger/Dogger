@@ -37,8 +37,8 @@ create table if not exists meeting
 	id bigserial not null
 		constraint meeting_pkey
 			primary key,
-	coordinatex double precision,
-	coordinatey double precision,
+	longitude double precision,
+	latitude double precision,
 	date timestamp,
 	description varchar(255),
 	name varchar(255),
@@ -80,8 +80,8 @@ create table if not exists place
 	id bigserial not null
 		constraint place_pkey
 			primary key,
-	coordinatex double precision,
-	coordinatey double precision,
+	longitude double precision,
+	latitude double precision,
 	description varchar(255),
 	name varchar(255),
 	photo_path varchar(255),
@@ -126,8 +126,8 @@ create table if not exists walking_area
 	id bigserial not null
 		constraint walking_area_pkey
 			primary key,
-	coordinatex double precision,
-	coordinatey double precision,
+	longitude double precision,
+	latitude double precision,
 	description varchar(255),
 	name varchar(255),
 	photo_path varchar(255),

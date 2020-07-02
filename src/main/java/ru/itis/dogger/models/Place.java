@@ -28,16 +28,16 @@ public class Place {
 
     private String description;
 
-    private Double coordinateX;
-    private Double coordinateY;
+    private Double longitude;
+    private Double latitude;
 
     @Enumerated(EnumType.STRING)
     private PlaceType type;
 
     @ElementCollection(targetClass = AmenityForDog.class)
-    @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
+    @Enumerated(EnumType.STRING)
     @CollectionTable(name = "place_amenity")
-    @Column(name = "amenity") // Column name in place_amenity
+    @Column(name = "amenity")
     private List<AmenityForDog> amenities;
 
     @JsonIgnore

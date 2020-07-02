@@ -165,8 +165,8 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
   "name": "Khakima 49-54",
   "description": "For dog walkers from our district",
   "date": "2020-06-30T17:00:00.000000",
-  "coordinateX": "65.56348",
-  "coordinateY": "63.14327"
+  "longitude": "65.56348",
+  "latitude": "63.14327"
 }
 
 ###
@@ -181,8 +181,8 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
   "name": "new name",
   "description": "new description",
   "date": "2020-04-30T17:00:00.000000",
-  "coordinateX": "65.56348",
-  "coordinateY": "63.14327"
+  "longitude": "65.56348",
+  "latitude": "63.14327"
 }
 
 ###
@@ -251,8 +251,8 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
   "description": "coffee shop",
   "photoPath": "test_url",
   "placeType": "COFFEESHOP",
-  "coordinateX": "55.73",
-  "coordinateY": "55.76",
+  "longitude": "55.73",
+  "latitude": "55.76",
   "amenities": [ "WATER", "FOOD"],
   "contacts":
       {
