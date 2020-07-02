@@ -15,9 +15,9 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "test3@mail.ru",
+  "email": "test@mail.ru",
   "password": "test",
-  "fullName": "test",
+  "surname": "test",
   "name": "Aina"
 }
 
@@ -30,14 +30,21 @@ Content-Type: application/json
 
 ###
 
+POST http://localhost:8080/logout
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
 POST http://localhost:8080/login
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 
 {
-  "email": "aina@mail.ru",
-  "password": "test"
+  "email": "test@mail.ru",
+  "password": "test1"
 }
 
 <> 2020-03-31T080522.200.json
@@ -49,7 +56,7 @@ GET http://localhost:8080/profile
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 ###
 
@@ -64,11 +71,11 @@ POST http://localhost:8080/editUserInfo
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWluYWFyZEBtYWlsLnJ1XCJcbn0iLCJpZCI6MjV9.F-y0rJNTPGjQGA2DKxHRijElT6URjrdbzwSKiasg5dPLk8xEzV0Hq_7qr15Wvx-Qo0roLU56kSVSZBeVcnZZWw
 
 {
   "name": "Aina",
-  "fullName": "Ard",
+  "surname": "Ard",
   "dateOfBirth": "1999-04-15",
   "city": "Kazan",
   "district": "Sovetskii",
@@ -86,10 +93,10 @@ POST http://localhost:8080/editEmail
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 {
-  "email": "aina@mail.ru"
+  "email": "test@mail.ru"
 }
 
 ###
@@ -98,10 +105,10 @@ POST http://localhost:8080/editPassword
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2U9J40aYY62OQWQywkQ37BPpA5HF9koMkjMSxXMqwjU7mpbD9bPzRIqTanKTRhhwe9udlwGhOhJbikly5zXE6Q
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 {
-  "password": "test"
+  "password": "test1"
 }
 
 ###
@@ -110,7 +117,7 @@ POST http://localhost:8080/addDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2U9J40aYY62OQWQywkQ37BPpA5HF9koMkjMSxXMqwjU7mpbD9bPzRIqTanKTRhhwe9udlwGhOhJbikly5zXE6Q
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
 
 {
   "name": "test1",
@@ -140,23 +147,6 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
 ]
 
 ###
-
-POST http://localhost:8080/editProfile
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
-
-{
-  "password": "test",
-  "fullName": "test1",
-  "email": "ainaard1@mail.ru",
-  "city": "Ufa",
-  "dateOfBirth": "2018-04-15",
-  "phoneNumber": "891776874326"
-}
-
-###
 POST http://localhost:8080/delete/?userId=21
 Accept: */*
 Cache-Control: no-cache
@@ -169,30 +159,30 @@ POST http://localhost:8080/addMeeting
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
 
 {
   "name": "Khakima 49-54",
   "description": "For dog walkers from our district",
-  "date": "2020-08-30T17:00:00.000000",
-  "coordinateX": "65.56348",
-  "coordinateY": "63.14327"
+  "date": "2020-06-30T17:00:00.000000",
+  "longitude": "65.56348",
+  "latitude": "63.14327"
 }
 
 ###
 
-POST http://localhost:8080/editMeeting?meetingId=27
+POST http://localhost:8080/editMeeting?meetingId=43
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
 
 {
   "name": "new name",
   "description": "new description",
   "date": "2020-04-30T17:00:00.000000",
-  "coordinateX": "65.56348",
-  "coordinateY": "63.14327"
+  "longitude": "65.56348",
+  "latitude": "63.14327"
 }
 
 ###
@@ -204,11 +194,11 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/meetings/joined?userId=3
+GET http://localhost:8080/meetings/joined?userId=2
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
 
 ###
 
@@ -254,17 +244,18 @@ POST http://localhost:8080/addPlace
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
 
 {
   "name": "test place",
-  "description": "coffee shop",
+  "address": "Даурская 3",
   "photoPath": "test_url",
   "placeType": "COFFEESHOP",
-  "coordinateX": "55.73",
-  "coordinateY": "55.76",
+  "longitude": "55.73",
+  "latitude": "55.76",
   "amenities": [ "WATER", "FOOD"],
-  "contacts": {
+  "contacts":
+  {
     "instagram" : "kamilamie",
     "site": "dogger.website"
   },
@@ -293,7 +284,7 @@ POST http://localhost:8080/places/1/addComment
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
 
 {
   "text": "beautiful place",

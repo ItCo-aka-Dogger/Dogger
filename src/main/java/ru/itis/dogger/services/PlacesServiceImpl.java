@@ -40,11 +40,11 @@ public class PlacesServiceImpl implements PlacesService {
     public Place addPlace(NewPlaceDto placeDto, Owner creator) {
         Place newPlace = new Place();
         newPlace.setName(placeDto.getName());
-        newPlace.setDescription(placeDto.getDescription());
+        newPlace.setAddress(placeDto.getAddress());
         newPlace.setPhoto_path(placeDto.getPhotoPath());
         newPlace.setType(PlaceType.valueOf(placeDto.getPlaceType()));
-        newPlace.setCoordinateX(placeDto.getCoordinateX());
-        newPlace.setCoordinateY(placeDto.getCoordinateY());
+        newPlace.setLongitude(placeDto.getLongitude());
+        newPlace.setLatitude(placeDto.getLatitude());
         newPlace.setCreator(creator);
 
         Map<Contact, String> contacts = new HashMap<>();

@@ -8,7 +8,7 @@ public class NewOwnerDto {
     private Long id;
     private String password;
     private String name;
-    private String fullName;
+    private String surname;
 
     @Email
     private String email;

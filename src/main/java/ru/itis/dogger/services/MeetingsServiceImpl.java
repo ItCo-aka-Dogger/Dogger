@@ -30,8 +30,8 @@ public class MeetingsServiceImpl implements MeetingsService {
         }
         Meeting newMeeting = new Meeting();
 
-        newMeeting.setCoordinateX(meetingForm.getCoordinateX());
-        newMeeting.setCoordinateY(meetingForm.getCoordinateY());
+        newMeeting.setLongitude(meetingForm.getLongitude());
+        newMeeting.setLatitude(meetingForm.getLatitude());
         newMeeting.setDate(meetingForm.getDate());
         newMeeting.setDescription(meetingForm.getDescription());
         newMeeting.setName(meetingForm.getName());
@@ -84,8 +84,8 @@ public class MeetingsServiceImpl implements MeetingsService {
         Meeting meeting = meetingsRepository.getOne(meetingId);
         meeting.setName(dto.getName());
         meeting.setDescription(dto.getDescription());
-        meeting.setCoordinateX(dto.getCoordinateX());
-        meeting.setCoordinateY(dto.getCoordinateY());
+        meeting.setLongitude(dto.getLongitude());
+        meeting.setLatitude(dto.getLatitude());
         meeting.setDate(dto.getDate());
         return meetingsRepository.save(meeting);
     }

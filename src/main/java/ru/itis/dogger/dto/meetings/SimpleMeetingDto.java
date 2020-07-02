@@ -20,8 +20,8 @@ public class SimpleMeetingDto {
     private Long id;
     private String name;
     private Timestamp date;
-    private Double coordinateX;
-    private Double coordinateY;
+    private Double longitude;
+    private Double latitude;
     private List<SimpleOwnerDto> participants;
 
     public static SimpleMeetingDto from(Meeting meeting) {
@@ -29,8 +29,8 @@ public class SimpleMeetingDto {
         meetingDto.setId(meeting.getId());
         meetingDto.setName(meeting.getName());
         meetingDto.setDate(meeting.getDate());
-        meetingDto.setCoordinateX(meeting.getCoordinateX());
-        meetingDto.setCoordinateY(meeting.getCoordinateY());
+        meetingDto.setLongitude(meeting.getLongitude());
+        meetingDto.setLatitude(meeting.getLatitude());
 
         List<SimpleOwnerDto> dtos = meeting.getParticipants().stream()
                 .map(SimpleOwnerDto::from).collect(Collectors.toList());

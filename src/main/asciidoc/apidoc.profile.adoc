@@ -81,7 +81,7 @@ a|
         "id": 5,
         "email": "ainaard1@mail.ru",
         "name": null,
-        "fullName": "test1",
+        "surname": "test1",
         "dateOfBirth": "2018-04-15T00:00:00.000+0000",
         "city": "Ufa",
         "district": null,
@@ -116,7 +116,7 @@ a|
 
     {
         "name": "Aina",
-        "fullName": "test1",
+        "surname": "test1",
         "city": "Ufa",
         "dateOfBirth": "2018-04-15",
         "district": "Sovetskii",

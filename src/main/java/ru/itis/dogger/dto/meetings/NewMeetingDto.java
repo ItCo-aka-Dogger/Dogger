@@ -10,6 +10,6 @@ public class NewMeetingDto {
     private String name;
     private String description;
     private Timestamp date;
-    private Double coordinateX;
-    private Double coordinateY;
+    private Double longitude;
+    private Double latitude;
 }

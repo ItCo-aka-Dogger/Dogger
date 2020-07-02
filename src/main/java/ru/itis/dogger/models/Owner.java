@@ -32,7 +32,7 @@ public class Owner {
     private Boolean active;
 
     private String name;
-    private String fullName;
+    private String surname;
     private Date dateOfBirth;
     private String photo_path;
     private String city;
@@ -67,9 +67,9 @@ public class Owner {
     @Column(name = "contact_value")
     private Map<Contact, String> contacts;
 
-    public Owner(String password, String fullName, String email, String city) {
+    public Owner(String password, String surname, String email, String city) {
         this.password = password;
-        this.fullName = fullName;
+        this.surname = surname;
         this.email = email;
         this.city = city;
     }

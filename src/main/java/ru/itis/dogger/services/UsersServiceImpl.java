@@ -48,7 +48,7 @@ public class UsersServiceImpl implements UsersService {
                 .email(email.toLowerCase())
                 .password(hashPassword)
                 .name(dto.getName())
-                .fullName(dto.getFullName())
+                .surname(dto.getSurname())
                 .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
@@ -89,10 +89,9 @@ public class UsersServiceImpl implements UsersService {
         return usersRepository.findByEmail(login);
     }
 
-    @Override
     public void editInfo(EditUserInfoDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
-        dbOwner.setFullName(dto.getFullName());
+        dbOwner.setSurname(dto.getSurname());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
         dbOwner.setDistrict(dto.getDistrict());

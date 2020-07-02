@@ -82,8 +82,8 @@ a|
         "name": "Khakima 49-54",
         "description": "For dog walkers from our district",
         "date": "2020-04-30T17:00:00.000000",
-        "coordinateX": "65.56348",
-        "coordinateY": "63.14327"
+        "longitude": "65.56348",
+        "latitude": "63.14327"
     }
 
 При успешном запросе в базе данных появится мероприятие, автором которого будет текущий авторизованный пользователь
@@ -101,8 +101,8 @@ a|
         "name": "Khakima 49-54",
         "description": "For dog walkers from our district",
         "date": "2020-04-30T17:00:00.000000",
-        "coordinateX": "65.56348",
-        "coordinateY": "63.14327"
+        "longitude": "65.56348",
+        "latitude": "63.14327"
     }
 
 Если такой прогулки не существует или пользователь не является ее создателем, вернется ошибка *403 Forbidden*.
@@ -120,12 +120,12 @@ a|
         "id": 3,
         "name": "Khakima 47-54",
         "date": "2020-04-30T17:00:00.000+0000",
-        "coordinateX": 65.56348,
-        "coordinateY": 63.14327,
+        "longitude": 65.56348,
+        "latitude": 63.14327,
         "participants": [
           {
             "id": 2,
-            "fullName": "test test test",
+            "surname": "test test test",
             "photo_path": null
           }
         ]
@@ -134,12 +134,12 @@ a|
         "id": 7,
         "name": "Khakima 49-54",
         "date": "2020-04-30T17:00:00.000+0000",
-        "coordinateX": 65.56348,
-        "coordinateY": 63.14327,
+        "longitude": 65.56348,
+        "latitude": 63.14327,
         "participants": [
           {
             "id": 2,
-            "fullName": "test test test",
+            "surname": "test test test",
             "photo_path": null
           }
         ]
@@ -163,14 +163,14 @@ a|
         "name": "Khakima 47-54",
         "description": "For dog walkers from our district",
         "date": "2020-04-30T17:00:00.000+0000",
-        "coordinateX": 65.56348,
-        "coordinateY": 63.14327,
+        "longitude": 65.56348,
+        "latitude": 63.14327,
         "creatorId": 3,
         "participants": [
             {
                 "id": 1,
                 "name": "test",
-                "fullName": "test test test",
+                "surname": "test test test",
                 "email": "kamila.nigmet@gmail.com",
                 "dateOfBirth": null,
                 "city": "Ufa",
