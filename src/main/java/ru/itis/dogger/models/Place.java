@@ -26,7 +26,7 @@ public class Place {
 
     private String photo_path;
 
-    private String description;
+    private String address;
 
     private Double longitude;
     private Double latitude;

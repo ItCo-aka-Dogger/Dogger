@@ -82,7 +82,7 @@ create table if not exists place
 			primary key,
 	longitude double precision,
 	latitude double precision,
-	description varchar(255),
+	address varchar(255),
 	name varchar(255),
 	photo_path varchar(255),
 	type varchar(255),
@@ -120,19 +120,4 @@ create table if not exists answer
 			references question
 );
 
-
-create table if not exists walking_area
-(
-	id bigserial not null
-		constraint walking_area_pkey
-			primary key,
-	longitude double precision,
-	latitude double precision,
-	description varchar(255),
-	name varchar(255),
-	photo_path varchar(255),
-	creator_id bigint
-		constraint fk6fpitsgmnc8g6e2vlskqrjixm
-			references owner
-);
 
