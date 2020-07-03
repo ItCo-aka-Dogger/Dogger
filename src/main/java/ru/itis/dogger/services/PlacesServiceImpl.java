@@ -3,16 +3,13 @@ package ru.itis.dogger.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.dogger.dto.places.NewPlaceDto;
-import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.enums.Contact;
+import ru.itis.dogger.models.place.Amenity;
 import ru.itis.dogger.models.place.Comment;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.models.place.Place;
 import ru.itis.dogger.models.place.PlaceType;
-import ru.itis.dogger.repositories.CommentsRepository;
-import ru.itis.dogger.repositories.PlaceTypesRepository;
-import ru.itis.dogger.repositories.PlacesRepository;
-import ru.itis.dogger.repositories.TimecardsRepository;
+import ru.itis.dogger.repositories.*;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -25,14 +22,17 @@ public class PlacesServiceImpl implements PlacesService {
     private CommentsRepository commentsRepository;
     private TimecardsRepository timecardsRepository;
     private PlaceTypesRepository placeTypesRepository;
+    private AmenitiesRepository amenitiesRepository;
 
     @Autowired
     public PlacesServiceImpl(PlacesRepository placesRepository, CommentsRepository commentsRepository,
-                             TimecardsRepository timecardsRepository, PlaceTypesRepository placeTypesRepository) {
+                             TimecardsRepository timecardsRepository, PlaceTypesRepository placeTypesRepository,
+                             AmenitiesRepository amenitiesRepository) {
         this.placesRepository = placesRepository;
         this.commentsRepository = commentsRepository;
         this.timecardsRepository = timecardsRepository;
         this.placeTypesRepository = placeTypesRepository;
+        this.amenitiesRepository = amenitiesRepository;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PlacesServiceImpl implements PlacesService {
         newPlace.setLatitude(placeDto.getLatitude());
         newPlace.setCreator(creator);
 
-        PlaceType type = placeTypesRepository.findById(Long.parseLong(placeDto.getPlaceId())).get();
+        PlaceType type = placeTypesRepository.findById(Long.parseLong(placeDto.getTypeId())).get();
         newPlace.setType(type);
 
         Map<Contact, String> contacts = new HashMap<>();
@@ -59,9 +59,11 @@ public class PlacesServiceImpl implements PlacesService {
         }
         newPlace.setContacts(contacts);
 
-        List<AmenityForDog> amenities = placeDto.getAmenities().stream()
-                .map(amenityStr -> AmenityForDog.valueOf(amenityStr.toUpperCase())).collect(Collectors.toList());
+        List<Amenity> amenities = placeDto.getAmenitiesIds().stream()
+                .map(amenityId -> amenitiesRepository.findById(Long.parseLong(amenityId)).get())
+                .collect(Collectors.toList());
         newPlace.setAmenities(amenities);
+
         timecardsRepository.save(placeDto.getTimecard());
         newPlace.setTimecard(placeDto.getTimecard());
         return placesRepository.save(newPlace);
@@ -95,5 +97,10 @@ public class PlacesServiceImpl implements PlacesService {
     @Override
     public List<PlaceType> getAllPlacesTypes(){
         return placeTypesRepository.findAll();
+    }
+
+    @Override
+    public List<Amenity> getAllPlaceAmenities(){
+        return amenitiesRepository.findAll();
     }
 }

@@ -66,10 +66,10 @@ a|
             "address": "Даурская 3",
             "longitude": 55.73,
             "latitude": 55.76,
-            "type": "COFFEESHOP",
-            "amenities": [
-                "WATER",
-                "FOOD"
+            "typeId": "1",
+            "amenitiesIds": [
+                "1",
+                "2"
             ],
             "comments": [
                 {
@@ -133,10 +133,10 @@ a|
         "name": "test place",
         "address": "Даурская 3",
         "photoPath": "test_url",
-        "placeId": "1",
+        "typeId": "1",
         "longitude": "55.73",
         "latitude": "55.76",
-        "amenities": [ "WATER", "FOOD"],
+        "amenitiesIds": [ "1", "2"],
         "contacts": {
             "instagram" : "kamilamie",
             "site": "dogger.website"
@@ -221,15 +221,42 @@ a|
 Пример ответа:
 
     [
-      "WATER",
-      "FOOD",
-      "ALLOWED_INSIDE",
-      "ALLOWED_ON_VERANDA",
-      "TRAINING_COMPLEX",
-      "ALLOWED_TO_UNFASTEN",
-      "BENCHES",
-      "LAKE_RIVER",
-      "WASTE_BINS"
+      {
+        "id": 1,
+        "name": "Вода"
+      },
+      {
+        "id": 2,
+        "name": "Лакомства"
+      },
+      {
+        "id": 3,
+        "name": "Можно с собакой внутри"
+      },
+      {
+        "id": 4,
+        "name": "Можно с собакой на террасе"
+      },
+      {
+        "id": 5,
+        "name": "Тренировчный комплекс"
+      },
+      {
+        "id": 6,
+        "name": "Можно отстегнуть с поводка"
+      },
+      {
+        "id": 7,
+        "name": "Скамейки"
+      },
+      {
+        "id": 8,
+        "name": "Озеро или река поблизости"
+      },
+      {
+        "id": 9,
+        "name": "Урны для отходов"
+      }
     ]
 
 === `GET /placeTypes` - получить список всех типов мест

@@ -14,8 +14,8 @@ public class NewPlaceDto {
     private String address;
     private Double longitude;
     private Double latitude;
-    private String placeId;
-    private List<String> amenities;
+    private String typeId;
+    private List<String> amenitiesIds;
     private Map<String, String> contacts;
     private Timecard timecard;
 }

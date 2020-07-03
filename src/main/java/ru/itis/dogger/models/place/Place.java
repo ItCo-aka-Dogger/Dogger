@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.models.owner.Owner;
 
@@ -35,11 +34,8 @@ public class Place {
     @JoinColumn(name = "type_id")
     private PlaceType type;
 
-    @ElementCollection(targetClass = AmenityForDog.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "place_amenity")
-    @Column(name = "amenity")
-    private List<AmenityForDog> amenities;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Amenity> amenities;
 
     @JsonIgnore
     @ManyToOne

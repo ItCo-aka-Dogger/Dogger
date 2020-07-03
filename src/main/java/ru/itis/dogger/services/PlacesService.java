@@ -1,6 +1,7 @@
 package ru.itis.dogger.services;
 
 import ru.itis.dogger.dto.places.NewPlaceDto;
+import ru.itis.dogger.models.place.Amenity;
 import ru.itis.dogger.models.place.Comment;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.models.place.Place;
@@ -20,4 +21,6 @@ public interface PlacesService {
     Comment addComment(Owner currentUser, Map<String, String> dto, Long placeId);
 
     List<PlaceType> getAllPlacesTypes();
+
+    List<Amenity> getAllPlaceAmenities();
 }
