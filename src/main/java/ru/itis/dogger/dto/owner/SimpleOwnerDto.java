@@ -1,11 +1,9 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.dto.owner;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itis.dogger.models.Owner;
-
-import java.util.List;
+import ru.itis.dogger.models.owner.Owner;
 
 /* user info that will be used in lists of something (meetings, comments, etc)*/
 

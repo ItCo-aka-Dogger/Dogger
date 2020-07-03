@@ -1,4 +1,4 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.place;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.enums.Contact;
-import ru.itis.dogger.enums.PlaceType;
+import ru.itis.dogger.models.owner.Owner;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,7 +31,8 @@ public class Place {
     private Double longitude;
     private Double latitude;
 
-    @Enumerated(EnumType.STRING)
+    @OneToOne
+    @JoinColumn(name = "type_id")
     private PlaceType type;
 
     @ElementCollection(targetClass = AmenityForDog.class)

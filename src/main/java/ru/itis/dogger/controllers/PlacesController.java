@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.enums.AmenityForDog;
-import ru.itis.dogger.models.Comment;
-import ru.itis.dogger.models.Owner;
-import ru.itis.dogger.models.Place;
+import ru.itis.dogger.models.place.Comment;
+import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.models.place.Place;
 import ru.itis.dogger.services.PlacesService;
 import ru.itis.dogger.services.UsersService;
 
@@ -73,5 +73,11 @@ public class PlacesController {
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> getAllAmenitiesList() {
         return ResponseEntity.ok(AmenityForDog.values());
+    }
+
+    @GetMapping("/placeTypes")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity<?> getAllTypesOfPlaces() {
+        return ResponseEntity.ok(placesService.getAllPlacesTypes());
     }
 }

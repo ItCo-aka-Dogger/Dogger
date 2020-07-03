@@ -1,8 +1,8 @@
 package ru.itis.dogger.services;
 
 import ru.itis.dogger.dto.meetings.NewMeetingDto;
-import ru.itis.dogger.models.Meeting;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.meeting.Meeting;
+import ru.itis.dogger.models.owner.Owner;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,36 +1,34 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.forum;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.dogger.models.owner.Owner;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Date date;
+
+    @Column(name = "question_text")
     private String text;
-
-    private Timestamp date;
-
-    private Integer rating;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Owner author;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "place_id")
-    private Place place;
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
 
 }

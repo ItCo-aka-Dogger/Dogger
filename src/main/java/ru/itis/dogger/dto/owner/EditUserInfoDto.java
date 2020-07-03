@@ -1,4 +1,4 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.dto.owner;
 
 import lombok.Data;
 

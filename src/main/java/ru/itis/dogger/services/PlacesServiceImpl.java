@@ -5,11 +5,12 @@ import org.springframework.stereotype.Service;
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.enums.Contact;
-import ru.itis.dogger.enums.PlaceType;
-import ru.itis.dogger.models.Comment;
-import ru.itis.dogger.models.Owner;
-import ru.itis.dogger.models.Place;
+import ru.itis.dogger.models.place.Comment;
+import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.models.place.Place;
+import ru.itis.dogger.models.place.PlaceType;
 import ru.itis.dogger.repositories.CommentsRepository;
+import ru.itis.dogger.repositories.PlaceTypesRepository;
 import ru.itis.dogger.repositories.PlacesRepository;
 import ru.itis.dogger.repositories.TimecardsRepository;
 
@@ -23,12 +24,15 @@ public class PlacesServiceImpl implements PlacesService {
     private PlacesRepository placesRepository;
     private CommentsRepository commentsRepository;
     private TimecardsRepository timecardsRepository;
+    private PlaceTypesRepository placeTypesRepository;
 
     @Autowired
-    public PlacesServiceImpl(PlacesRepository placesRepository, CommentsRepository commentsRepository, TimecardsRepository timecardsRepository) {
+    public PlacesServiceImpl(PlacesRepository placesRepository, CommentsRepository commentsRepository,
+                             TimecardsRepository timecardsRepository, PlaceTypesRepository placeTypesRepository) {
         this.placesRepository = placesRepository;
         this.commentsRepository = commentsRepository;
         this.timecardsRepository = timecardsRepository;
+        this.placeTypesRepository = placeTypesRepository;
     }
 
     @Override
@@ -42,10 +46,12 @@ public class PlacesServiceImpl implements PlacesService {
         newPlace.setName(placeDto.getName());
         newPlace.setAddress(placeDto.getAddress());
         newPlace.setPhoto_path(placeDto.getPhotoPath());
-        newPlace.setType(PlaceType.valueOf(placeDto.getPlaceType()));
         newPlace.setLongitude(placeDto.getLongitude());
         newPlace.setLatitude(placeDto.getLatitude());
         newPlace.setCreator(creator);
+
+        PlaceType type = placeTypesRepository.findById(Long.parseLong(placeDto.getPlaceId())).get();
+        newPlace.setType(type);
 
         Map<Contact, String> contacts = new HashMap<>();
         for (Map.Entry<String, String> e : placeDto.getContacts().entrySet()) {
@@ -84,5 +90,10 @@ public class PlacesServiceImpl implements PlacesService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<PlaceType> getAllPlacesTypes(){
+        return placeTypesRepository.findAll();
     }
 }

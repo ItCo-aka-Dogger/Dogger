@@ -1,8 +1,9 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.forum;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.dogger.models.owner.Owner;
 
 import javax.persistence.*;
 import java.util.Date;

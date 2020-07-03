@@ -1,10 +1,16 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.owner;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import ru.itis.dogger.enums.Contact;
+import ru.itis.dogger.models.forum.Answer;
+import ru.itis.dogger.models.forum.Question;
+import ru.itis.dogger.models.meeting.Meeting;
+import ru.itis.dogger.models.owner.Dog;
+import ru.itis.dogger.models.place.Comment;
+import ru.itis.dogger.models.place.Place;
 
 import javax.persistence.*;
 import java.util.Date;
