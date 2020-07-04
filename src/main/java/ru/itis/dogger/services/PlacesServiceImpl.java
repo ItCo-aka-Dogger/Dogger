@@ -2,13 +2,10 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.itis.dogger.dto.NewContactDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
-import ru.itis.dogger.enums.Contact;
-import ru.itis.dogger.models.place.Amenity;
-import ru.itis.dogger.models.place.Comment;
+import ru.itis.dogger.models.place.*;
 import ru.itis.dogger.models.owner.Owner;
-import ru.itis.dogger.models.place.Place;
-import ru.itis.dogger.models.place.PlaceType;
 import ru.itis.dogger.repositories.*;
 
 import java.sql.Timestamp;
@@ -23,16 +20,21 @@ public class PlacesServiceImpl implements PlacesService {
     private TimecardsRepository timecardsRepository;
     private PlaceTypesRepository placeTypesRepository;
     private AmenitiesRepository amenitiesRepository;
+    private ContactTypesRepository contactTypesRepository;
+    private PlaceContactsRepository placeContactsRepository;
 
     @Autowired
     public PlacesServiceImpl(PlacesRepository placesRepository, CommentsRepository commentsRepository,
                              TimecardsRepository timecardsRepository, PlaceTypesRepository placeTypesRepository,
-                             AmenitiesRepository amenitiesRepository) {
+                             AmenitiesRepository amenitiesRepository, ContactTypesRepository contactTypesRepository,
+                             PlaceContactsRepository placeContactsRepository) {
         this.placesRepository = placesRepository;
         this.commentsRepository = commentsRepository;
         this.timecardsRepository = timecardsRepository;
         this.placeTypesRepository = placeTypesRepository;
         this.amenitiesRepository = amenitiesRepository;
+        this.contactTypesRepository = contactTypesRepository;
+        this.placeContactsRepository = placeContactsRepository;
     }
 
     @Override
@@ -53,12 +55,6 @@ public class PlacesServiceImpl implements PlacesService {
         PlaceType type = placeTypesRepository.findById(Long.parseLong(placeDto.getTypeId())).get();
         newPlace.setType(type);
 
-        Map<Contact, String> contacts = new HashMap<>();
-        for (Map.Entry<String, String> e : placeDto.getContacts().entrySet()) {
-            contacts.put(Contact.valueOf(e.getKey().toUpperCase()), e.getValue());
-        }
-        newPlace.setContacts(contacts);
-
         List<Amenity> amenities = placeDto.getAmenitiesIds().stream()
                 .map(amenityId -> amenitiesRepository.findById(Long.parseLong(amenityId)).get())
                 .collect(Collectors.toList());
@@ -66,7 +62,21 @@ public class PlacesServiceImpl implements PlacesService {
 
         timecardsRepository.save(placeDto.getTimecard());
         newPlace.setTimecard(placeDto.getTimecard());
-        return placesRepository.save(newPlace);
+
+        Place savedPlace = placesRepository.save(newPlace);
+
+        List<PlaceContact> contacts = new ArrayList<>();
+        for (NewContactDto dto : placeDto.getContacts()) {
+            PlaceContact contact = new PlaceContact();
+            contact.setType(contactTypesRepository.findById(dto.getTypeId()).get());
+            contact.setValue(dto.getValue());
+            contact.setPlace(savedPlace);
+            placeContactsRepository.save(contact);
+            contacts.add(contact);
+        }
+        savedPlace.setContacts(contacts);
+
+        return placesRepository.save(savedPlace);
     }
 
     @Override
@@ -81,7 +91,7 @@ public class PlacesServiceImpl implements PlacesService {
         Optional<Place> place = placesRepository.findById(placeId);
         if (place.isPresent()) {
             Comment newComment = new Comment();
-            if(dto.containsKey("text")){
+            if (dto.containsKey("text")) {
                 newComment.setText(dto.get("text"));
             }
             newComment.setRating(Integer.parseInt(dto.get("rating")));
@@ -92,15 +102,5 @@ public class PlacesServiceImpl implements PlacesService {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public List<PlaceType> getAllPlacesTypes(){
-        return placeTypesRepository.findAll();
-    }
-
-    @Override
-    public List<Amenity> getAllPlaceAmenities(){
-        return amenitiesRepository.findAll();
     }
 }

@@ -1,11 +1,8 @@
 package ru.itis.dogger.services;
 
 import ru.itis.dogger.dto.places.NewPlaceDto;
-import ru.itis.dogger.models.place.Amenity;
-import ru.itis.dogger.models.place.Comment;
+import ru.itis.dogger.models.place.*;
 import ru.itis.dogger.models.owner.Owner;
-import ru.itis.dogger.models.place.Place;
-import ru.itis.dogger.models.place.PlaceType;
 
 import java.util.List;
 import java.util.Map;
@@ -19,8 +16,4 @@ public interface PlacesService {
     Optional<Place> getPlaceById(Long placeId);
 
     Comment addComment(Owner currentUser, Map<String, String> dto, Long placeId);
-
-    List<PlaceType> getAllPlacesTypes();
-
-    List<Amenity> getAllPlaceAmenities();
 }

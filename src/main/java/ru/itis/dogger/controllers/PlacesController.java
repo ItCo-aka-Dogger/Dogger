@@ -67,16 +67,4 @@ public class PlacesController {
             return new ResponseEntity<>("Comment has not been added", HttpStatus.BAD_REQUEST);
         }
     }
-
-    @GetMapping("/amenities")
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<?> getAllAmenitiesList() {
-        return ResponseEntity.ok(placesService.getAllPlaceAmenities());
-    }
-
-    @GetMapping("/placeTypes")
-    @PreAuthorize("permitAll()")
-    public ResponseEntity<?> getAllTypesOfPlaces() {
-        return ResponseEntity.ok(placesService.getAllPlacesTypes());
-    }
 }

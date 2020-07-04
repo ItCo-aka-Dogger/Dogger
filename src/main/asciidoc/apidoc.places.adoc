@@ -118,10 +118,32 @@ a|
                 "sunday": "09:00-19:00",
                 "launch": "12:00-13:00"
             },
-            "contacts": {
-                "SITE": "dogger.website",
-                "INSTAGRAM": "kamilamie"
-            }
+            "contacts": [
+                {
+                  "id": 34,
+                  "type": {
+                    "id": 1,
+                    "name": "Сайт"
+                  },
+                  "value": "dogger.website"
+                },
+                {
+                  "id": 35,
+                  "type": {
+                    "id": 1,
+                    "name": "Сайт"
+                  },
+                  "value": "dogger.website2"
+                },
+                {
+                  "id": 36,
+                  "type": {
+                    "id": 2,
+                    "name": "Инстаграм"
+                  },
+                  "value": "dogger"
+                }
+            ]
         }
     ]
 
@@ -137,10 +159,20 @@ a|
         "longitude": "55.73",
         "latitude": "55.76",
         "amenitiesIds": [ "1", "2"],
-        "contacts": {
-            "instagram" : "kamilamie",
-            "site": "dogger.website"
-        },
+        "contacts": [
+            {
+              "typeId": 1,
+              "value": "dogger.website"
+            },
+            {
+              "typeId": 1,
+              "value": "dogger.website2"
+            },
+            {
+              "typeId": 2,
+              "value": "dogger"
+            }
+        ],
         "timecard": {
             "monday": "09:00-19:00",
             "tuesday": "09:00-19:00",
@@ -319,5 +351,40 @@ a|
       {
         "id": 14,
         "name": "Торговые центры"
+      }
+    ]
+
+=== `GET /contactTypes` - получить список всех типов мест
+
+Пример ответа:
+
+    [
+      {
+        "id": 1,
+        "name": "Сайт"
+      },
+      {
+        "id": 2,
+        "name": "Инстаграм"
+      },
+      {
+        "id": 3,
+        "name": "Телеграм"
+      },
+      {
+        "id": 4,
+        "name": "Viber"
+      },
+      {
+        "id": 5,
+        "name": "Телефон"
+      },
+      {
+        "id": 6,
+        "name": "Whatsapp"
+      },
+      {
+        "id": 7,
+        "name": "Вконтакте"
       }
     ]

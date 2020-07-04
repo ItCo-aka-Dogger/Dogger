@@ -254,11 +254,20 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
   "longitude": "55.73",
   "latitude": "55.76",
   "amenitiesIds": [ "1", "5"],
-  "contacts":
-  {
-    "instagram" : "kamilamie",
-    "site": "dogger.website"
-  },
+  "contacts": [
+    {
+      "typeId": 1,
+      "value": "dogger.website"
+    },
+    {
+      "typeId": 1,
+      "value": "dogger.website2"
+    },
+    {
+      "typeId": 2,
+      "value": "dogger"
+    }
+  ],
   "timecard": {
     "monday": "09:00-19:00",
     "tuesday": "09:00-19:00",
@@ -301,6 +310,13 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8080/placeTypes
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###
+
+GET http://localhost:8080/contactsTypes
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
