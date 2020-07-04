@@ -1,5 +1,6 @@
 package ru.itis.dogger.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,20 +26,21 @@ public class Place {
 
     private String photo_path;
 
-    private String description;
+    private String address;
 
-    private Double coordinateX;
-    private Double coordinateY;
+    private Double longitude;
+    private Double latitude;
 
     @Enumerated(EnumType.STRING)
     private PlaceType type;
 
     @ElementCollection(targetClass = AmenityForDog.class)
-    @Enumerated(EnumType.STRING) // Possibly optional (I'm not sure) but defaults to ORDINAL.
+    @Enumerated(EnumType.STRING)
     @CollectionTable(name = "place_amenity")
-    @Column(name = "amenity") // Column name in place_amenity
+    @Column(name = "amenity")
     private List<AmenityForDog> amenities;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "creator_id")
     private Owner creator;

@@ -2,7 +2,7 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.dogger.dto.NewMeetingDto;
+import ru.itis.dogger.dto.meetings.NewMeetingDto;
 import ru.itis.dogger.models.Meeting;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.MeetingsRepository;
@@ -30,8 +30,8 @@ public class MeetingsServiceImpl implements MeetingsService {
         }
         Meeting newMeeting = new Meeting();
 
-        newMeeting.setCoordinateX(meetingForm.getCoordinateX());
-        newMeeting.setCoordinateY(meetingForm.getCoordinateY());
+        newMeeting.setLongitude(meetingForm.getLongitude());
+        newMeeting.setLatitude(meetingForm.getLatitude());
         newMeeting.setDate(meetingForm.getDate());
         newMeeting.setDescription(meetingForm.getDescription());
         newMeeting.setName(meetingForm.getName());
@@ -84,8 +84,8 @@ public class MeetingsServiceImpl implements MeetingsService {
         Meeting meeting = meetingsRepository.getOne(meetingId);
         meeting.setName(dto.getName());
         meeting.setDescription(dto.getDescription());
-        meeting.setCoordinateX(dto.getCoordinateX());
-        meeting.setCoordinateY(dto.getCoordinateY());
+        meeting.setLongitude(dto.getLongitude());
+        meeting.setLatitude(dto.getLatitude());
         meeting.setDate(dto.getDate());
         return meetingsRepository.save(meeting);
     }

@@ -26,8 +26,8 @@ public class Meeting {
 
     private Timestamp date;
 
-    private Double coordinateX;
-    private Double coordinateY;
+    private Double longitude;
+    private Double latitude;
 
     @JsonIgnore
     @ManyToOne

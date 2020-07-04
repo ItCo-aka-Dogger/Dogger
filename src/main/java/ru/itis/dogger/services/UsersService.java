@@ -16,8 +16,6 @@ public interface UsersService {
 
     Optional<Owner> findByLogin(String login);
 
-    Map<String, Object> userToMap(Owner owner);
-
     void editInfo(EditUserInfoDto dto, String login);
 
     boolean activateUser(String code);
@@ -28,7 +26,7 @@ public interface UsersService {
 
     boolean recover(Long userId);
 
-    String delete(Long id);
+    void delete(Owner user);
 
     Optional<Owner> getCurrentUser(Authentication authentication);
 

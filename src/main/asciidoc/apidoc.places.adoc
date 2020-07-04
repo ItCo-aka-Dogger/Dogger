@@ -1,0 +1,227 @@
+= Описание API по заведениям
+
+Примечание: если запрос нуждается в авторизации, в заголовках запроса надо добавить *Authorization* со значением
+полученного после авторизации токена.
+
+|===
+|Запрос | Назначение | isAuthenticated | Response
+
+|`GET /places/all`
+| Получить все заведения
+| false
+a|
+* *200* - возвращается массив всех заведений
+
+
+|`POST /addPlace`
+| Добавить новое заведение
+| true
+a|
+* *200* - возвращается информация о новом заведении
+* *400* - значит запрос построен неправильно
+* *401* - значит запрос не содержал токен
+
+
+|`GET /places/{place-id}`
+| Получить информацию о заведении
+| false
+a|
+* *200* - возвращается информация о заведении
+* *404* - значит нет заведения с таким id
+
+
+|`POST /places/{place-id}/addComment`
+| Добавить комментарий к заведению
+| true
+a|
+* *200* - возвращается информация о новом комментарии
+* *400* - значит запрос составлен неправильно или нет такого заведения
+* *401* - значит запрос не содержал токен
+
+|`GET /amenities`
+| Получить список всех удобств для собак
+| false
+a|
+* *200* - возвращается список удобств
+
+|===
+
+== Примеры запросов
+
+=== `GET /places/all` - получить список всех заведений
+
+Пример ответа в случае успеха (массив содержит 1 заведение):
+
+    [
+        {
+            "id": 1,
+            "name": "test place",
+            "photo_path": "test_url",
+            "address": "Даурская 3",
+            "longitude": 55.73,
+            "latitude": 55.76,
+            "type": "COFFEESHOP",
+            "amenities": [
+                "WATER",
+                "FOOD"
+            ],
+            "comments": [
+                {
+                    "id": 6,
+                    "text": "beautiful place",
+                    "date": "2020-06-21T17:54:12.555+0000",
+                    "rating": 5,
+                    "author": {
+                        "id": 5,
+                        "email": "ainaard@mail.ru",
+                        "name": "test",
+                        "surname": "test",
+                        "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                        "photo_path": null,
+                        "city": "Ufa",
+                        "district": "Sovetskiy",
+                        "dogs": [
+                            {
+                                "id": 4,
+                                "name": "test",
+                                "breed": "test",
+                                "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                                "sex": "test",
+                                "size": "test",
+                                "photo_path": null,
+                                "information": "test"
+                            }
+                        ],
+                        "contacts": {
+                            "PHONE": "891782235",
+                            "INSTAGRAM": "@britny1999",
+                            "VK": "dogger.website",
+                            "TELEGRAM": "dogger"
+                        }
+                    }
+                }
+            ],
+            "timecard": {
+                "id": 7,
+                "monday": "09:00-19:00",
+                "tuesday": "09:00-19:00",
+                "wednesday": "09:00-19:00",
+                "thursday": "09:00-19:00",
+                "friday": "09:00-19:00",
+                "saturday": "09:00-19:00",
+                "sunday": "09:00-19:00",
+                "launch": "12:00-13:00"
+            },
+            "contacts": {
+                "SITE": "dogger.website",
+                "INSTAGRAM": "kamilamie"
+            }
+        }
+    ]
+
+=== `POST /addPlace` - добавить заведение
+
+Пользователь может добавить новое заведение/лес/площадку, для этого клиент посылает *Json*:
+
+    {
+        "name": "test place",
+        "address": "Даурская 3",
+        "photoPath": "test_url",
+        "placeType": "COFFEESHOP",
+        "longitude": "55.73",
+        "latitude": "55.76",
+        "amenities": [ "WATER", "FOOD"],
+        "contacts": {
+            "instagram" : "kamilamie",
+            "site": "dogger.website"
+        },
+        "timecard": {
+            "monday": "09:00-19:00",
+            "tuesday": "09:00-19:00",
+            "wednesday": "09:00-19:00",
+            "thursday": "09:00-19:00",
+            "friday": "09:00-19:00",
+            "saturday": "09:00-14:00",
+            "sunday": "09:00-14:00",
+            "launch": "12:00-13:00"
+        }
+    }
+
+При успешном запросе в базе данных появится заведение, автором будет текущий авторизованный пользователь.
+В ответ придет информация о новом созданном заведении.
+
+Пример ответа в случае успеха: см. `GET /places/all`
+
+=== `GET /places/{place-id}` - получить информацию о заведении
+
+Пример ответа в случае успеха: см. `GET /places/all`
+
+=== `POST /places/{place-id}/addComment` - добавить комментарий
+
+Пользователь может добавить комментарий к заведению/лесу/площадке, для этого клиент посылает *Json* c:
+
+оценкой и текстом комментария:
+
+    {
+        "text": "beautiful place",
+        "rating": "5"
+    }
+
+или просто оценкой:
+
+    {
+        "rating": "4"
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "id": 10,
+        "text": "beautiful place",
+        "date": "2020-06-24T14:43:28.500+0000",
+        "rating": 5,
+        "author": {
+            "id": 5,
+            "email": "ainaard@mail.ru",
+            "name": "aina",
+            "surname": "test",
+            "dateOfBirth": "2020-07-01T22:30:35.929+0000",
+            "photo_path": "test_url",
+            "city": "Ufa",
+            "district": "Sovetskiy",
+            "dogs": [
+                {
+                    "id": 4,
+                    "name": "test",
+                    "breed": "test",
+                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
+                    "sex": "test",
+                    "size": "test",
+                    "photo_path": "test_url",
+                    "information": "test"
+                }
+            ],
+            "contacts": {
+                "PHONE": "891782235",
+                "INSTAGRAM": "@britny1999",
+                "VK": "dogger.website",
+                "TELEGRAM": "dogger"
+            }
+        }
+    }
+
+=== `GET /amenities` - получить список всех удобств для собак
+
+Пример ответа:
+
+    [
+      "WATER",
+      "FOOD",
+      "ALLOWED_INSIDE",
+      "ALLOWED_ON_VERANDA",
+      "TRAINING_COMPLEX",
+      "ALLOWED_TO_UNFASTEN",
+      "BENCHES",
+      "LAKE_RIVER",
+      "WASTE_BINS"
+    ]

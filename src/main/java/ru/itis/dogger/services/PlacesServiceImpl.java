@@ -2,7 +2,7 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.dogger.dto.NewPlaceDto;
+import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.PlaceType;
@@ -40,11 +40,11 @@ public class PlacesServiceImpl implements PlacesService {
     public Place addPlace(NewPlaceDto placeDto, Owner creator) {
         Place newPlace = new Place();
         newPlace.setName(placeDto.getName());
-        newPlace.setDescription(placeDto.getDescription());
+        newPlace.setAddress(placeDto.getAddress());
         newPlace.setPhoto_path(placeDto.getPhotoPath());
         newPlace.setType(PlaceType.valueOf(placeDto.getPlaceType()));
-        newPlace.setCoordinateX(placeDto.getCoordinateX());
-        newPlace.setCoordinateY(placeDto.getCoordinateY());
+        newPlace.setLongitude(placeDto.getLongitude());
+        newPlace.setLatitude(placeDto.getLatitude());
         newPlace.setCreator(creator);
 
         Map<Contact, String> contacts = new HashMap<>();
