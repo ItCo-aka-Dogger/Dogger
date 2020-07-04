@@ -91,6 +91,7 @@ public class UsersServiceImpl implements UsersService {
 
     public void editInfo(EditUserInfoDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
+        dbOwner.setName(dto.getName());
         dbOwner.setSurname(dto.getSurname());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
