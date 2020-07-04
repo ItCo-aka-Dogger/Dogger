@@ -8,6 +8,7 @@ import ru.itis.dogger.models.owner.Owner;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,7 +24,7 @@ public class Comment {
 
     private Timestamp date;
 
-    private Integer rating;
+    private Integer score;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
@@ -33,5 +34,8 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "place_id")
     private Place place;
+
+    @ElementCollection
+    private List<String> attachments;
 
 }

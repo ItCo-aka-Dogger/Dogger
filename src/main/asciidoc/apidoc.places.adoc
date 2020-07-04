@@ -67,16 +67,22 @@ a|
             "longitude": 55.73,
             "latitude": 55.76,
             "typeId": "1",
-            "amenitiesIds": [
-                "1",
-                "2"
+            "amenities": [
+                {
+                  "id": 1,
+                  "name": "Вода"
+                },
+                {
+                  "id": 7,
+                  "name": "Скамейки"
+                }
             ],
             "comments": [
                 {
                     "id": 6,
                     "text": "beautiful place",
                     "date": "2020-06-21T17:54:12.555+0000",
-                    "rating": 5,
+                    "score": 5,
                     "author": {
                         "id": 5,
                         "email": "ainaard@mail.ru",
@@ -104,7 +110,11 @@ a|
                             "VK": "dogger.website",
                             "TELEGRAM": "dogger"
                         }
-                    }
+                    },
+                    "attachments": [
+                        "test_url",
+                        "test_url2"
+                    ]
                 }
             ],
             "timecard": {
@@ -198,18 +208,16 @@ a|
 
 Пользователь может добавить комментарий к заведению/лесу/площадке, для этого клиент посылает *Json* c:
 
-оценкой и текстом комментария:
-
     {
         "text": "beautiful place",
-        "rating": "5"
+        "score": "5",
+        "attachments": [
+            "test_url",
+            "test_url2"
+        ]
     }
 
-или просто оценкой:
-
-    {
-        "rating": "4"
-    }
+*score должен быть not null*
 
 Пример ответа в случае успеха:
 
@@ -217,7 +225,7 @@ a|
         "id": 10,
         "text": "beautiful place",
         "date": "2020-06-24T14:43:28.500+0000",
-        "rating": 5,
+        "score": 5,
         "author": {
             "id": 5,
             "email": "ainaard@mail.ru",
@@ -245,7 +253,11 @@ a|
                 "VK": "dogger.website",
                 "TELEGRAM": "dogger"
             }
-        }
+        },
+        "attachments": [
+            "test_url",
+            "test_url2"
+        ]
     }
 
 === `GET /amenities` - получить список всех удобств для собак

@@ -299,7 +299,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/places/26/addComment
+POST http://localhost:8080/places/51/addComment
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
@@ -307,7 +307,11 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.r
 
 {
   "text": "beautiful place",
-  "rating": "5"
+  "score": "5",
+  "attachments": [
+    "test_url",
+    "test_url2"
+  ]
 }
 
 ###

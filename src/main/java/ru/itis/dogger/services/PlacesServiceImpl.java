@@ -2,6 +2,8 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import ru.itis.dogger.dto.NewCommentDto;
 import ru.itis.dogger.dto.NewContactDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.models.place.*;
@@ -85,16 +87,15 @@ public class PlacesServiceImpl implements PlacesService {
     }
 
     @Override
-    public Comment addComment(Owner currentUser, Map<String, String> dto, Long placeId) {
-        if (!dto.containsKey("rating"))
+    public Comment addComment(Owner currentUser, NewCommentDto dto, Long placeId) {
+        if (StringUtils.isEmpty(dto.getScore()))
             return null;
         Optional<Place> place = placesRepository.findById(placeId);
         if (place.isPresent()) {
             Comment newComment = new Comment();
-            if (dto.containsKey("text")) {
-                newComment.setText(dto.get("text"));
-            }
-            newComment.setRating(Integer.parseInt(dto.get("rating")));
+            newComment.setText(dto.getText());
+            newComment.setScore(dto.getScore());
+            newComment.setAttachments(dto.getAttachments());
             newComment.setAuthor(currentUser);
             newComment.setDate(new Timestamp(System.currentTimeMillis()));
             newComment.setPlace(place.get());
