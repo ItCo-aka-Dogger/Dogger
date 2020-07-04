@@ -250,10 +250,10 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
   "name": "test place",
   "address": "Даурская 3",
   "photoPath": "test_url",
-  "typeId": "1",
+  "typeId": 1,
   "longitude": "55.73",
   "latitude": "55.76",
-  "amenitiesIds": [ "1", "5"],
+  "amenitiesIds": [ 1, 5],
   "contacts": [
     {
       "typeId": 1,
@@ -289,15 +289,15 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/places/1/addComment
+POST http://localhost:8080/places/1/addReview
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
 
 {
-  "text": "beautiful place",
-  "score": "5",
+  "comment": "beautiful place",
+  "score": 5,
   "attachments": [
     "test_url",
     "test_url2"

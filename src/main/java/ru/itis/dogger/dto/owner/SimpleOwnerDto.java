@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.dogger.models.owner.Owner;
 
-/* user info that will be used in lists of something (meetings, comments, etc)*/
+/* user info that will be used in lists of something (meetings, reviews, etc)*/
 
 @Data
 @NoArgsConstructor

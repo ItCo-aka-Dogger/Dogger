@@ -30,7 +30,7 @@ a|
 * *404* - значит нет заведения с таким id
 
 
-|`POST /places/{place-id}/addComment`
+|`POST /places/{place-id}/addReview`
 | Добавить комментарий к заведению
 | true
 a|
@@ -89,10 +89,10 @@ a|
         "name": "test place",
         "address": "Даурская 3",
         "photoPath": "test_url",
-        "typeId": "1",
-        "longitude": "55.73",
-        "latitude": "55.76",
-        "amenitiesIds": [ "1", "2"],
+        "typeId": 1,
+        "longitude": 55.73,
+        "latitude": 55.76,
+        "amenitiesIds": [ 1, 2],
         "contacts": [
             {
               "typeId": 1,
@@ -184,18 +184,18 @@ a|
                 }
             ],
             "rating": 5.0,
-            "comments_count": 2,
-            "comments": [
+            "reviews_count": 2,
+            "reviews": [
                 {
                     "id": 14,
-                    "text": "beautiful place",
+                    "comment": "beautiful place",
                     "date": "2020-07-04T12:14:28.857+0000",
                     "score": 5,
                     "author": {
                         "id": 3,
                         "name": "test",
                         "surname": "Ard",
-                        "photo_path": null
+                        "photo_path": "test_url"
                     },
                     "attachments": [
                         "test_url",
@@ -204,14 +204,14 @@ a|
                 },
                 {
                     "id": 15,
-                    "text": "beautiful place",
+                    "comment": "beautiful place",
                     "date": "2020-07-04T12:47:16.786+0000",
                     "score": 5,
                     "author": {
                         "id": 3,
                         "name": "test",
                         "surname": "Ard",
-                        "photo_path": null
+                        "photo_path": "test_url"
                     },
                     "attachments": [
                         "test_url",
@@ -226,13 +226,13 @@ a|
 
 Пример ответа в случае успеха: см. `POST /addPlace`
 
-=== `POST /places/{place-id}/addComment` - добавить комментарий
+=== `POST /places/{place-id}/addReview` - добавить комментарий
 
 Пользователь может добавить комментарий к заведению/лесу/площадке, для этого клиент посылает *Json* c:
 
     {
-        "text": "beautiful place",
-        "score": "5",
+        "comment": "beautiful place",
+        "score": 5,
         "attachments": [
             "test_url",
             "test_url2"
@@ -245,7 +245,7 @@ a|
 
     {
         "id": 10,
-        "text": "beautiful place",
+        "comment": "beautiful place",
         "date": "2020-06-24T14:43:28.500+0000",
         "score": 5,
         "author": {

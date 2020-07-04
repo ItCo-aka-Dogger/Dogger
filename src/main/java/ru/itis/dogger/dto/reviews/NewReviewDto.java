@@ -1,13 +1,13 @@
-package ru.itis.dogger.dto.comments;
+package ru.itis.dogger.dto.reviews;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class NewCommentDto {
+public class NewReviewDto {
 
-    private String text;
+    private String comment;
     private Integer score;
     private List<String> attachments;
 }

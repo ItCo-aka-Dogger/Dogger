@@ -41,7 +41,7 @@ public class Place {
     private Owner creator;
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<Comment> comments;
+    private List<Review> reviews;
 
     @OneToOne
     @JoinColumn(name = "timecard_id")

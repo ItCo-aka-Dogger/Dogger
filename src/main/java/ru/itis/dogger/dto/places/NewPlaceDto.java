@@ -13,8 +13,8 @@ public class NewPlaceDto {
     private String address;
     private Double longitude;
     private Double latitude;
-    private String typeId;
-    private List<String> amenitiesIds;
+    private Long typeId;
+    private List<Long> amenitiesIds;
     private List<NewContactDto> contacts;
     private Timecard timecard;
 }

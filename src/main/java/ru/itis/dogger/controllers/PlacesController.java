@@ -7,12 +7,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import ru.itis.dogger.dto.comments.CommentDto;
-import ru.itis.dogger.dto.comments.NewCommentDto;
+import ru.itis.dogger.dto.reviews.ReviewDto;
+import ru.itis.dogger.dto.reviews.NewReviewDto;
 import ru.itis.dogger.dto.places.DetailedPlaceDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.dto.places.SimplePlaceDto;
-import ru.itis.dogger.models.place.Comment;
+import ru.itis.dogger.models.place.Review;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.models.place.Place;
 import ru.itis.dogger.services.PlacesService;
@@ -60,16 +60,16 @@ public class PlacesController {
             return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/places/{placeId}/addComment")
+    @PostMapping("/places/{placeId}/addReview")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> leaveComment(@PathVariable Long placeId, @RequestBody NewCommentDto dto,
+    public ResponseEntity<?> leaveReview(@PathVariable Long placeId, @RequestBody NewReviewDto dto,
                                           Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        Comment savedComment = placesService.addComment(currentUser.get(), dto, placeId);
-        if (savedComment != null) {
-            return ResponseEntity.ok(CommentDto.from(savedComment));
+        Review savedReview = placesService.addReview(currentUser.get(), dto, placeId);
+        if (savedReview != null) {
+            return ResponseEntity.ok(ReviewDto.from(savedReview));
         } else {
-            return new ResponseEntity<>("Comment has not been added", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Review has not been added", HttpStatus.BAD_REQUEST);
         }
     }
 }

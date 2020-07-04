@@ -8,8 +8,7 @@ import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.models.forum.Answer;
 import ru.itis.dogger.models.forum.Question;
 import ru.itis.dogger.models.meeting.Meeting;
-import ru.itis.dogger.models.owner.Dog;
-import ru.itis.dogger.models.place.Comment;
+import ru.itis.dogger.models.place.Review;
 import ru.itis.dogger.models.place.Place;
 
 import javax.persistence.*;
@@ -63,7 +62,7 @@ public class Owner {
 
     @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    private List<Review> reviews;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "user_contact")
