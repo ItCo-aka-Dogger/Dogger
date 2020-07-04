@@ -7,8 +7,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import ru.itis.dogger.dto.NewCommentDto;
+import ru.itis.dogger.dto.comments.CommentDto;
+import ru.itis.dogger.dto.comments.NewCommentDto;
+import ru.itis.dogger.dto.places.DetailedPlaceDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
+import ru.itis.dogger.dto.places.SimplePlaceDto;
 import ru.itis.dogger.models.place.Comment;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.models.place.Place;
@@ -16,8 +19,8 @@ import ru.itis.dogger.services.PlacesService;
 import ru.itis.dogger.services.UsersService;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class PlacesController {
@@ -35,7 +38,8 @@ public class PlacesController {
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> getAllPlaces() {
         List<Place> places = placesService.getAllPlaces();
-        return ResponseEntity.ok(places);
+        List<SimplePlaceDto> dtos = places.stream().map(SimplePlaceDto::from).collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
     }
 
     @PostMapping("/addPlace")
@@ -43,7 +47,7 @@ public class PlacesController {
     public ResponseEntity<?> addPlace(@RequestBody NewPlaceDto placeDto, Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Place newPlace = placesService.addPlace(placeDto, currentUser.get());
-        return ResponseEntity.ok(newPlace);
+        return ResponseEntity.ok(DetailedPlaceDto.from(newPlace));
     }
 
     @GetMapping("/places/{placeId}")
@@ -51,7 +55,7 @@ public class PlacesController {
     public ResponseEntity<?> getPlacePageInfo(@PathVariable Long placeId) {
         Optional<Place> place = placesService.getPlaceById(placeId);
         if (place.isPresent()) {
-            return ResponseEntity.ok(place);
+            return ResponseEntity.ok(DetailedPlaceDto.from(place.get()));
         } else
             return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
     }
@@ -63,7 +67,7 @@ public class PlacesController {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Comment savedComment = placesService.addComment(currentUser.get(), dto, placeId);
         if (savedComment != null) {
-            return ResponseEntity.ok(savedComment);
+            return ResponseEntity.ok(CommentDto.from(savedComment));
         } else {
             return new ResponseEntity<>("Comment has not been added", HttpStatus.BAD_REQUEST);
         }

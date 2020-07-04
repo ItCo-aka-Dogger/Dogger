@@ -56,104 +56,28 @@ a|
 
 === `GET /places/all` - получить список всех заведений
 
-Пример ответа в случае успеха (массив содержит 1 заведение):
+Пример ответа в случае успеха:
 
     [
         {
-            "id": 1,
+            "id": 34,
             "name": "test place",
-            "photo_path": "test_url",
-            "address": "Даурская 3",
             "longitude": 55.73,
             "latitude": 55.76,
-            "typeId": "1",
-            "amenities": [
-                {
-                  "id": 1,
-                  "name": "Вода"
-                },
-                {
-                  "id": 7,
-                  "name": "Скамейки"
-                }
-            ],
-            "comments": [
-                {
-                    "id": 6,
-                    "text": "beautiful place",
-                    "date": "2020-06-21T17:54:12.555+0000",
-                    "score": 5,
-                    "author": {
-                        "id": 5,
-                        "email": "ainaard@mail.ru",
-                        "name": "test",
-                        "surname": "test",
-                        "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                        "photo_path": null,
-                        "city": "Ufa",
-                        "district": "Sovetskiy",
-                        "dogs": [
-                            {
-                                "id": 4,
-                                "name": "test",
-                                "breed": "test",
-                                "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                                "sex": "test",
-                                "size": "test",
-                                "photo_path": null,
-                                "information": "test"
-                            }
-                        ],
-                        "contacts": {
-                            "PHONE": "891782235",
-                            "INSTAGRAM": "@britny1999",
-                            "VK": "dogger.website",
-                            "TELEGRAM": "dogger"
-                        }
-                    },
-                    "attachments": [
-                        "test_url",
-                        "test_url2"
-                    ]
-                }
-            ],
-            "timecard": {
-                "id": 7,
-                "monday": "09:00-19:00",
-                "tuesday": "09:00-19:00",
-                "wednesday": "09:00-19:00",
-                "thursday": "09:00-19:00",
-                "friday": "09:00-19:00",
-                "saturday": "09:00-19:00",
-                "sunday": "09:00-19:00",
-                "launch": "12:00-13:00"
-            },
-            "contacts": [
-                {
-                  "id": 34,
-                  "type": {
-                    "id": 1,
-                    "name": "Сайт"
-                  },
-                  "value": "dogger.website"
-                },
-                {
-                  "id": 35,
-                  "type": {
-                    "id": 1,
-                    "name": "Сайт"
-                  },
-                  "value": "dogger.website2"
-                },
-                {
-                  "id": 36,
-                  "type": {
-                    "id": 2,
-                    "name": "Инстаграм"
-                  },
-                  "value": "dogger"
-                }
-            ]
+            "type": {
+              "id": 1,
+              "name": "Кафе"
+            }
+        },
+        {
+            "id": 35,
+            "name": "test place",
+            "longitude": 55.73,
+            "latitude": 55.76,
+            "type": {
+              "id": 1,
+              "name": "Кафе"
+            }
         }
     ]
 
@@ -198,11 +122,109 @@ a|
 При успешном запросе в базе данных появится заведение, автором будет текущий авторизованный пользователь.
 В ответ придет информация о новом созданном заведении.
 
-Пример ответа в случае успеха: см. `GET /places/all`
+Пример ответа в случае успеха:
+
+    [
+        {
+            "id": 1,
+            "name": "test place",
+            "photo_path": "test_url",
+            "address": "Даурская 3",
+            "longitude": 55.73,
+            "latitude": 55.76,
+            "type": {
+                "id": 1,
+                "name": "Кафе"
+            },
+            "amenities": [
+                {
+                  "id": 1,
+                  "name": "Вода"
+                },
+                {
+                  "id": 7,
+                  "name": "Скамейки"
+                }
+            ],
+            "timecard": {
+                "id": 7,
+                "monday": "09:00-19:00",
+                "tuesday": "09:00-19:00",
+                "wednesday": "09:00-19:00",
+                "thursday": "09:00-19:00",
+                "friday": "09:00-19:00",
+                "saturday": "09:00-19:00",
+                "sunday": "09:00-19:00",
+                "launch": "12:00-13:00"
+            },
+            "contacts": [
+                {
+                  "id": 34,
+                  "type": {
+                    "id": 1,
+                    "name": "Сайт"
+                  },
+                  "value": "dogger.website"
+                },
+                {
+                  "id": 35,
+                  "type": {
+                    "id": 1,
+                    "name": "Сайт"
+                  },
+                  "value": "dogger.website2"
+                },
+                {
+                  "id": 36,
+                  "type": {
+                    "id": 2,
+                    "name": "Инстаграм"
+                  },
+                  "value": "dogger"
+                }
+            ],
+            "rating": 5.0,
+            "comments_count": 2,
+            "comments": [
+                {
+                    "id": 14,
+                    "text": "beautiful place",
+                    "date": "2020-07-04T12:14:28.857+0000",
+                    "score": 5,
+                    "author": {
+                        "id": 3,
+                        "name": "test",
+                        "surname": "Ard",
+                        "photo_path": null
+                    },
+                    "attachments": [
+                        "test_url",
+                        "test_url2"
+                    ]
+                },
+                {
+                    "id": 15,
+                    "text": "beautiful place",
+                    "date": "2020-07-04T12:47:16.786+0000",
+                    "score": 5,
+                    "author": {
+                        "id": 3,
+                        "name": "test",
+                        "surname": "Ard",
+                        "photo_path": null
+                    },
+                    "attachments": [
+                        "test_url",
+                        "test_url2"
+                    ]
+                }
+            ]
+        }
+    ]
 
 === `GET /places/{place-id}` - получить информацию о заведении
 
-Пример ответа в случае успеха: см. `GET /places/all`
+Пример ответа в случае успеха: см. `POST /addPlace`
 
 === `POST /places/{place-id}/addComment` - добавить комментарий
 
@@ -228,31 +250,9 @@ a|
         "score": 5,
         "author": {
             "id": 5,
-            "email": "ainaard@mail.ru",
             "name": "aina",
             "surname": "test",
-            "dateOfBirth": "2020-07-01T22:30:35.929+0000",
             "photo_path": "test_url",
-            "city": "Ufa",
-            "district": "Sovetskiy",
-            "dogs": [
-                {
-                    "id": 4,
-                    "name": "test",
-                    "breed": "test",
-                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                    "sex": "test",
-                    "size": "test",
-                    "photo_path": "test_url",
-                    "information": "test"
-                }
-            ],
-            "contacts": {
-                "PHONE": "891782235",
-                "INSTAGRAM": "@britny1999",
-                "VK": "dogger.website",
-                "TELEGRAM": "dogger"
-            }
         },
         "attachments": [
             "test_url",

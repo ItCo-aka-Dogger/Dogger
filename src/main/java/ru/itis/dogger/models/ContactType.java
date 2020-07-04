@@ -1,4 +1,4 @@
-package ru.itis.dogger.models.place;
+package ru.itis.dogger.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

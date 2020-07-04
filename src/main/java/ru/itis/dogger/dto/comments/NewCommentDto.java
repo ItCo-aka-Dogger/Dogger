@@ -1,4 +1,4 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.dto.comments;
 
 import lombok.Data;
 

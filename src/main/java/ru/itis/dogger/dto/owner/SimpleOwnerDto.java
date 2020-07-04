@@ -12,12 +12,14 @@ import ru.itis.dogger.models.owner.Owner;
 @AllArgsConstructor
 public class SimpleOwnerDto {
     private Long id;
+    private String name;
     private String surname;
     private String photo_path;
 
     public static SimpleOwnerDto from(Owner owner) {
         SimpleOwnerDto ownerDto = new SimpleOwnerDto();
         ownerDto.setId(owner.getId());
+        ownerDto.setName(owner.getName());
         ownerDto.setSurname(owner.getSurname());
         ownerDto.setPhoto_path(owner.getPhoto_path());
         return ownerDto;

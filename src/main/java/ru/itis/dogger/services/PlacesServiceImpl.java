@@ -3,7 +3,7 @@ package ru.itis.dogger.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.itis.dogger.dto.NewCommentDto;
+import ru.itis.dogger.dto.comments.NewCommentDto;
 import ru.itis.dogger.dto.NewContactDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.models.place.*;
