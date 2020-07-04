@@ -48,7 +48,7 @@ public class UsersServiceImpl implements UsersService {
                 .email(email.toLowerCase())
                 .password(hashPassword)
                 .name(dto.getName())
-                .fullName(dto.getFullName())
+                .surname(dto.getSurname())
                 .build();
         newUser.setActivationCode(UUID.randomUUID().toString());
         newUser.setActive(false);
@@ -94,7 +94,7 @@ public class UsersServiceImpl implements UsersService {
         Map<String, Object> ownerProperties = new HashMap<>();
         ownerProperties.put("email", owner.getEmail());
         ownerProperties.put("id", owner.getId());
-        ownerProperties.put("fullName", owner.getFullName());
+        ownerProperties.put("fullName", owner.getSurname());
         ownerProperties.put("dateOfBirth", owner.getDateOfBirth());
         ownerProperties.put("dogs", owner.getDogs());
         ownerProperties.put("meetings", owner.getMeetings());
@@ -104,7 +104,7 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void editInfo(EditUserInfoDto dto, String email) {
         Owner dbOwner = usersRepository.findByEmail(email).get();
-        dbOwner.setFullName(dto.getFullName());
+        dbOwner.setSurname(dto.getSurname());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
         dbOwner.setDistrict(dto.getDistrict());

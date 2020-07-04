@@ -21,7 +21,7 @@ public class OwnerDto {
     private Long id;
     private String email;
     private String name;
-    private String fullName;
+    private String surname;
     private Date dateOfBirth;
     private String city;
     private String district;
@@ -34,7 +34,7 @@ public class OwnerDto {
         OwnerDto ownerDto = new OwnerDto();
         ownerDto.setId(owner.getId());
         ownerDto.setName(owner.getName());
-        ownerDto.setFullName(owner.getFullName());
+        ownerDto.setSurname(owner.getSurname());
         ownerDto.setEmail(owner.getEmail());
         ownerDto.setDateOfBirth(owner.getDateOfBirth());
         ownerDto.setCity(owner.getCity());
