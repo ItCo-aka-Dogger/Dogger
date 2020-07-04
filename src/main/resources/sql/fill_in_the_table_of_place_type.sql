@@ -1,4 +1,4 @@
-INSERT INTO place_type (name) VALUES
+INSERT INTO d4bek8u5o91hvp.public.place_type (name) VALUES
 ('Кафе'),
 ('Бар'),
 ('Кофейня'),

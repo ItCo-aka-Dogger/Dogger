@@ -1,4 +1,4 @@
-INSERT INTO contact_type (name) VALUES
+INSERT INTO d4bek8u5o91hvp.public.contact_type (name) VALUES
 ('Сайт'),
 ('Инстаграм'),
 ('Телеграм'),

@@ -1,4 +1,4 @@
-INSERT INTO amenity (name) VALUES
+INSERT INTO d4bek8u5o91hvp.public.amenity (name) VALUES
 ('Вода'),
 ('Лакомства'),
 ('Можно с собакой внутри'),
