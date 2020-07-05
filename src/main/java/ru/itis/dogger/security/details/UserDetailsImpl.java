@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 
 import java.util.Collection;

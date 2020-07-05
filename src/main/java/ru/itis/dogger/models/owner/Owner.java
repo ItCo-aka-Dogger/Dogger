@@ -1,8 +1,13 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.owner;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import ru.itis.dogger.models.Contact;
+import ru.itis.dogger.models.forum.Answer;
+import ru.itis.dogger.models.forum.Question;
+import ru.itis.dogger.models.meeting.Meeting;
+import ru.itis.dogger.models.place.Review;
 
 import javax.persistence.EnumType;
 import javax.persistence.Id;
@@ -48,7 +53,7 @@ public class Owner {
     private List<String> createdPlaces;
 
     @JsonIgnore
-    private List<Comment> comments;
+    private List<Review> reviews;
 
     @MapKeyEnumerated(EnumType.STRING)
     private List<Contact> contacts;
@@ -67,4 +72,8 @@ public class Owner {
 
     @JsonIgnore
     private List<Answer> answers;
+
+    public void addDog(Dog newDog) {
+        dogs.add(newDog);
+    }
 }

@@ -3,13 +3,10 @@ package ru.itis.dogger.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.dogger.dto.places.NewPlaceDto;
-import ru.itis.dogger.enums.AmenityForDog;
+import ru.itis.dogger.dto.reviews.NewReviewDto;
 import ru.itis.dogger.enums.ContactType;
-import ru.itis.dogger.enums.PlaceType;
-import ru.itis.dogger.models.Comment;
-import ru.itis.dogger.models.Contact;
-import ru.itis.dogger.models.Owner;
-import ru.itis.dogger.models.Place;
+import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.models.place.*;
 import ru.itis.dogger.repositories.PlacesRepository;
 
 import java.sql.Timestamp;
@@ -46,9 +43,9 @@ public class PlacesServiceImpl implements PlacesService {
         newPlace.setCreator(creator.getId());
         newPlace.setTimecard(placeDto.getTimecard());
 
-        List<Contact> contacts = new ArrayList<>();
+        List<PlaceContact> contacts = new ArrayList<>();
         for (Map.Entry<String, String> e : placeDto.getContacts().entrySet()) {
-            contacts.add(new Contact(ContactType.valueOf(e.getKey().toUpperCase()), e.getValue()));
+            contacts.add(new PlaceContact(ContactType.valueOf(e.getKey().toUpperCase()), e.getValue()));
         }
         newPlace.setContacts(contacts);
 
@@ -64,24 +61,24 @@ public class PlacesServiceImpl implements PlacesService {
     }
 
     @Override
-    public Comment addComment(Owner currentUser, Map<String, String> dto, String placeId) {
-        if (!dto.containsKey("rating"))
-            return null;
+    public Review addReview(Owner currentUser, NewReviewDto dto, String placeId) {
         Optional<Place> place = placesRepository.findById(placeId);
         if (place.isPresent()) {
-            Comment newComment = new Comment();
-            if(dto.containsKey("text")){
-                newComment.setText(dto.get("text"));
-            }
-            newComment.setRating(Integer.parseInt(dto.get("rating")));
-            newComment.setAuthor(currentUser.getId());
-            newComment.setDate(new Timestamp(System.currentTimeMillis()));
-
-            place.get().addComment(newComment);
+            Review newReview = new Review();
+            newReview.setComment(dto.getComment());
+            newReview.setScore(dto.getScore());
+//            newReview.setAuthor(currentUser.getId());
+            newReview.setDate(new Timestamp(System.currentTimeMillis()));
+            place.get().addComment(newReview);
             placesRepository.save(place.get());
-            return newComment;
+            return newReview;
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<AmenityForDog> getAllAmenities() {
+        return placesRepository.getAllAmenities();
     }
 }

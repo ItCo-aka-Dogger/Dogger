@@ -1,11 +1,11 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.dto.owner;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.dogger.models.Contact;
-import ru.itis.dogger.models.Dog;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.owner.Dog;
+import ru.itis.dogger.models.owner.Owner;
 
 import java.util.Date;
 import java.util.List;

@@ -2,7 +2,7 @@ package ru.itis.dogger.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.owner.Owner;
 
 import java.util.Optional;
 

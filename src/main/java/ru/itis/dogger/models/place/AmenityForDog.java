@@ -1,4 +1,4 @@
-package ru.itis.dogger.enums;
+package ru.itis.dogger.models.place;
 
 public enum AmenityForDog {
     WATER, FOOD, ALLOWED_INSIDE, ALLOWED_ON_VERANDA, TRAINING_COMPLEX, ALLOWED_TO_UNFASTEN, BENCHES, LAKE_RIVER, WASTE_BINS

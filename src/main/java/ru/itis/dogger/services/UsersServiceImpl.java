@@ -9,13 +9,13 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.itis.dogger.dto.EditUserInfoDto;
-import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
+import ru.itis.dogger.dto.owner.EditUserInfoDto;
+import ru.itis.dogger.dto.owner.NewOwnerDto;
 import ru.itis.dogger.enums.ContactType;
 import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.Contact;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 
@@ -93,6 +93,7 @@ public class UsersServiceImpl implements UsersService {
             throw new IllegalArgumentException("User with email " + email + " is not found");
         }
         Owner dbOwner = optionalOwner.get();
+        dbOwner.setName(dto.getName());
         dbOwner.setSurname(dto.getSurname());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());

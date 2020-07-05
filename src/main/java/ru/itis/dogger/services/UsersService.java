@@ -1,10 +1,10 @@
 package ru.itis.dogger.services;
 
 import org.springframework.security.core.Authentication;
-import ru.itis.dogger.dto.EditUserInfoDto;
-import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.dto.owner.EditUserInfoDto;
+import ru.itis.dogger.dto.owner.NewOwnerDto;
+import ru.itis.dogger.models.owner.Owner;
 
 import java.util.Optional;
 

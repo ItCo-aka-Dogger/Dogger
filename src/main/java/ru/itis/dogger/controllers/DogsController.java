@@ -8,9 +8,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.dogger.dto.DogDto;
-import ru.itis.dogger.dto.EditDogDto;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.dto.dogs.DogDto;
+import ru.itis.dogger.dto.dogs.EditDogDto;
+import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.DogsService;
 
@@ -36,11 +36,13 @@ public class DogsController {
 
     @PostMapping("/editDogs")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editDog(@RequestBody List<EditDogDto> dtos) {
+    public ResponseEntity<?> editDog(@RequestBody List<EditDogDto> dtos, Authentication authentication) {
         if (dtos.isEmpty()) {
             return new ResponseEntity<>("No changes in dogs", HttpStatus.OK);
         }
-        dogsService.editDogs(dtos);
+        Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
+        dogsService.editDogs(currentUser, dtos);
+        // TODO: return updated dogs in response
         return new ResponseEntity<>("Dogs info was successfully updated", HttpStatus.OK);
     }
 }

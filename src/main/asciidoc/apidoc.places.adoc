@@ -30,7 +30,7 @@ a|
 * *404* - значит нет заведения с таким id
 
 
-|`POST /places/{place-id}/addComment`
+|`POST /places/{place-id}/addReview`
 | Добавить комментарий к заведению
 | true
 a|
@@ -44,77 +44,39 @@ a|
 a|
 * *200* - возвращается список удобств
 
+|`GET /placeTypes`
+| Получить список всех удобств для собак
+| false
+a|
+* *200* - возвращается список типов мест
+
 |===
 
 == Примеры запросов
 
 === `GET /places/all` - получить список всех заведений
 
-Пример ответа в случае успеха (массив содержит 1 заведение):
+Пример ответа в случае успеха:
 
     [
         {
-            "id": 1,
+            "id": 34,
             "name": "test place",
-            "photo_path": "test_url",
-            "address": "Даурская 3",
             "longitude": 55.73,
             "latitude": 55.76,
-            "type": "COFFEESHOP",
-            "amenities": [
-                "WATER",
-                "FOOD"
-            ],
-            "comments": [
-                {
-                    "id": 6,
-                    "text": "beautiful place",
-                    "date": "2020-06-21T17:54:12.555+0000",
-                    "rating": 5,
-                    "author": {
-                        "id": 5,
-                        "email": "ainaard@mail.ru",
-                        "name": "test",
-                        "surname": "test",
-                        "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                        "photo_path": null,
-                        "city": "Ufa",
-                        "district": "Sovetskiy",
-                        "dogs": [
-                            {
-                                "id": 4,
-                                "name": "test",
-                                "breed": "test",
-                                "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                                "sex": "test",
-                                "size": "test",
-                                "photo_path": null,
-                                "information": "test"
-                            }
-                        ],
-                        "contacts": {
-                            "PHONE": "891782235",
-                            "INSTAGRAM": "@britny1999",
-                            "VK": "dogger.website",
-                            "TELEGRAM": "dogger"
-                        }
-                    }
-                }
-            ],
-            "timecard": {
-                "id": 7,
-                "monday": "09:00-19:00",
-                "tuesday": "09:00-19:00",
-                "wednesday": "09:00-19:00",
-                "thursday": "09:00-19:00",
-                "friday": "09:00-19:00",
-                "saturday": "09:00-19:00",
-                "sunday": "09:00-19:00",
-                "launch": "12:00-13:00"
-            },
-            "contacts": {
-                "SITE": "dogger.website",
-                "INSTAGRAM": "kamilamie"
+            "type": {
+              "id": 1,
+              "name": "Кафе"
+            }
+        },
+        {
+            "id": 35,
+            "name": "test place",
+            "longitude": 55.73,
+            "latitude": 55.76,
+            "type": {
+              "id": 1,
+              "name": "Кафе"
             }
         }
     ]
@@ -127,14 +89,24 @@ a|
         "name": "test place",
         "address": "Даурская 3",
         "photoPath": "test_url",
-        "placeType": "COFFEESHOP",
-        "longitude": "55.73",
-        "latitude": "55.76",
-        "amenities": [ "WATER", "FOOD"],
-        "contacts": {
-            "instagram" : "kamilamie",
-            "site": "dogger.website"
-        },
+        "typeId": 1,
+        "longitude": 55.73,
+        "latitude": 55.76,
+        "amenitiesIds": [ 1, 2],
+        "contacts": [
+            {
+              "typeId": 1,
+              "value": "dogger.website"
+            },
+            {
+              "typeId": 1,
+              "value": "dogger.website2"
+            },
+            {
+              "typeId": 2,
+              "value": "dogger"
+            }
+        ],
         "timecard": {
             "monday": "09:00-19:00",
             "tuesday": "09:00-19:00",
@@ -150,64 +122,142 @@ a|
 При успешном запросе в базе данных появится заведение, автором будет текущий авторизованный пользователь.
 В ответ придет информация о новом созданном заведении.
 
-Пример ответа в случае успеха: см. `GET /places/all`
+Пример ответа в случае успеха:
+
+    [
+        {
+            "id": 1,
+            "name": "test place",
+            "photo_path": "test_url",
+            "address": "Даурская 3",
+            "longitude": 55.73,
+            "latitude": 55.76,
+            "type": {
+                "id": 1,
+                "name": "Кафе"
+            },
+            "amenities": [
+                {
+                  "id": 1,
+                  "name": "Вода"
+                },
+                {
+                  "id": 7,
+                  "name": "Скамейки"
+                }
+            ],
+            "timecard": {
+                "id": 7,
+                "monday": "09:00-19:00",
+                "tuesday": "09:00-19:00",
+                "wednesday": "09:00-19:00",
+                "thursday": "09:00-19:00",
+                "friday": "09:00-19:00",
+                "saturday": "09:00-19:00",
+                "sunday": "09:00-19:00",
+                "launch": "12:00-13:00"
+            },
+            "contacts": [
+                {
+                  "id": 34,
+                  "type": {
+                    "id": 1,
+                    "name": "Сайт"
+                  },
+                  "value": "dogger.website"
+                },
+                {
+                  "id": 35,
+                  "type": {
+                    "id": 1,
+                    "name": "Сайт"
+                  },
+                  "value": "dogger.website2"
+                },
+                {
+                  "id": 36,
+                  "type": {
+                    "id": 2,
+                    "name": "Инстаграм"
+                  },
+                  "value": "dogger"
+                }
+            ],
+            "rating": 5.0,
+            "reviews_count": 2,
+            "reviews": [
+                {
+                    "id": 14,
+                    "comment": "beautiful place",
+                    "date": "2020-07-04T12:14:28.857+0000",
+                    "score": 5,
+                    "author": {
+                        "id": 3,
+                        "name": "test",
+                        "surname": "Ard",
+                        "photo_path": "test_url"
+                    },
+                    "attachments": [
+                        "test_url",
+                        "test_url2"
+                    ]
+                },
+                {
+                    "id": 15,
+                    "comment": "beautiful place",
+                    "date": "2020-07-04T12:47:16.786+0000",
+                    "score": 5,
+                    "author": {
+                        "id": 3,
+                        "name": "test",
+                        "surname": "Ard",
+                        "photo_path": "test_url"
+                    },
+                    "attachments": [
+                        "test_url",
+                        "test_url2"
+                    ]
+                }
+            ]
+        }
+    ]
 
 === `GET /places/{place-id}` - получить информацию о заведении
 
-Пример ответа в случае успеха: см. `GET /places/all`
+Пример ответа в случае успеха: см. `POST /addPlace`
 
-=== `POST /places/{place-id}/addComment` - добавить комментарий
+=== `POST /places/{place-id}/addReview` - добавить комментарий
 
 Пользователь может добавить комментарий к заведению/лесу/площадке, для этого клиент посылает *Json* c:
 
-оценкой и текстом комментария:
-
     {
-        "text": "beautiful place",
-        "rating": "5"
+        "comment": "beautiful place",
+        "score": 5,
+        "attachments": [
+            "test_url",
+            "test_url2"
+        ]
     }
 
-или просто оценкой:
-
-    {
-        "rating": "4"
-    }
+*score должен быть not null*
 
 Пример ответа в случае успеха:
 
     {
         "id": 10,
-        "text": "beautiful place",
+        "comment": "beautiful place",
         "date": "2020-06-24T14:43:28.500+0000",
-        "rating": 5,
+        "score": 5,
         "author": {
             "id": 5,
-            "email": "ainaard@mail.ru",
             "name": "aina",
             "surname": "test",
-            "dateOfBirth": "2020-07-01T22:30:35.929+0000",
             "photo_path": "test_url",
-            "city": "Ufa",
-            "district": "Sovetskiy",
-            "dogs": [
-                {
-                    "id": 4,
-                    "name": "test",
-                    "breed": "test",
-                    "dateOfBirth": "2018-04-15T00:00:00.000+0000",
-                    "sex": "test",
-                    "size": "test",
-                    "photo_path": "test_url",
-                    "information": "test"
-                }
-            ],
-            "contacts": {
-                "PHONE": "891782235",
-                "INSTAGRAM": "@britny1999",
-                "VK": "dogger.website",
-                "TELEGRAM": "dogger"
-            }
-        }
+        },
+        "attachments": [
+            "test_url",
+            "test_url2"
+        ]
     }
 
 === `GET /amenities` - получить список всех удобств для собак
@@ -215,13 +265,138 @@ a|
 Пример ответа:
 
     [
-      "WATER",
-      "FOOD",
-      "ALLOWED_INSIDE",
-      "ALLOWED_ON_VERANDA",
-      "TRAINING_COMPLEX",
-      "ALLOWED_TO_UNFASTEN",
-      "BENCHES",
-      "LAKE_RIVER",
-      "WASTE_BINS"
+      {
+        "id": 1,
+        "name": "Вода"
+      },
+      {
+        "id": 2,
+        "name": "Лакомства"
+      },
+      {
+        "id": 3,
+        "name": "Можно с собакой внутри"
+      },
+      {
+        "id": 4,
+        "name": "Можно с собакой на террасе"
+      },
+      {
+        "id": 5,
+        "name": "Тренировчный комплекс"
+      },
+      {
+        "id": 6,
+        "name": "Можно отстегнуть с поводка"
+      },
+      {
+        "id": 7,
+        "name": "Скамейки"
+      },
+      {
+        "id": 8,
+        "name": "Озеро или река поблизости"
+      },
+      {
+        "id": 9,
+        "name": "Урны для отходов"
+      }
+    ]
+
+=== `GET /placeTypes` - получить список всех типов мест
+
+Пример ответа:
+
+    [
+      {
+        "id": 1,
+        "name": "Кафе"
+      },
+      {
+        "id": 2,
+        "name": "Бар"
+      },
+      {
+        "id": 3,
+        "name": "Кофейня"
+      },
+      {
+        "id": 4,
+        "name": "Ресторан"
+      },
+      {
+        "id": 5,
+        "name": "Лес"
+      },
+      {
+        "id": 6,
+        "name": "Парк"
+      },
+      {
+        "id": 7,
+        "name": "Пляж"
+      },
+      {
+        "id": 8,
+        "name": "Площадка для выгула"
+      },
+      {
+        "id": 9,
+        "name": "Площадка для аджилити"
+      },
+      {
+        "id": 10,
+        "name": "Продуктовый магазин"
+      },
+      {
+        "id": 11,
+        "name": "Зоомагазин"
+      },
+      {
+        "id": 12,
+        "name": "Ветеринарная клиника"
+      },
+      {
+        "id": 13,
+        "name": "Груминг"
+      },
+      {
+        "id": 14,
+        "name": "Торговые центры"
+      }
+    ]
+
+=== `GET /contactTypes` - получить список всех типов мест
+
+Пример ответа:
+
+    [
+      {
+        "id": 1,
+        "name": "Сайт"
+      },
+      {
+        "id": 2,
+        "name": "Инстаграм"
+      },
+      {
+        "id": 3,
+        "name": "Телеграм"
+      },
+      {
+        "id": 4,
+        "name": "Viber"
+      },
+      {
+        "id": 5,
+        "name": "Телефон"
+      },
+      {
+        "id": 6,
+        "name": "Whatsapp"
+      },
+      {
+        "id": 7,
+        "name": "Вконтакте"
+      }
     ]

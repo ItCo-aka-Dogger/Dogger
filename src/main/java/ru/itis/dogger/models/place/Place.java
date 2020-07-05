@@ -1,11 +1,9 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.place;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
-import ru.itis.dogger.enums.AmenityForDog;
-import ru.itis.dogger.enums.PlaceType;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,14 +34,14 @@ public class Place {
   // Creator document id stored here
   private String creator;
 
-  private List<Comment> comments;
+  private List<Review> reviews;
 
   private Timecard timecard;
 
   @MapKeyEnumerated(EnumType.STRING)
-  private List<Contact> contacts;
+  private List<PlaceContact> contacts;
 
-  public void addComment(Comment newComment) {
-    comments.add(newComment);
+  public void addComment(Review newComment) {
+    reviews.add(newComment);
   }
 }

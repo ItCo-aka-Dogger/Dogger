@@ -1,4 +1,4 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.meeting;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.owner;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

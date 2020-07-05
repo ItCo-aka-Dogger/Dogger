@@ -1,23 +1,24 @@
-package ru.itis.dogger.models;
+package ru.itis.dogger.models.place;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class Review {
 
     private String id;
 
-    private String text;
+    private String comment;
 
     private Timestamp date;
 
-    private Integer rating;
+    private Integer score;
 
-    private String author;
+    private List<String> attachments;
 }

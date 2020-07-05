@@ -1,7 +1,7 @@
 package ru.itis.dogger.dto.places;
 
 import lombok.Data;
-import ru.itis.dogger.models.Timecard;
+import ru.itis.dogger.models.place.Timecard;
 
 import java.util.List;
 import java.util.Map;
