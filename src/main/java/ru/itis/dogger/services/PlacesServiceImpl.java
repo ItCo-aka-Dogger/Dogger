@@ -40,7 +40,7 @@ public class PlacesServiceImpl implements PlacesService {
         newPlace.setType(PlaceType.valueOf(placeDto.getPlaceType()));
         newPlace.setLongitude(placeDto.getLongitude());
         newPlace.setLatitude(placeDto.getLatitude());
-        newPlace.setCreator(creator.getId());
+        newPlace.setCreatorId(creator.getId());
         newPlace.setTimecard(placeDto.getTimecard());
 
         List<PlaceContact> contacts = new ArrayList<>();
@@ -67,9 +67,10 @@ public class PlacesServiceImpl implements PlacesService {
             Review newReview = new Review();
             newReview.setComment(dto.getComment());
             newReview.setScore(dto.getScore());
+            // TODO:
 //            newReview.setAuthor(currentUser.getId());
             newReview.setDate(new Timestamp(System.currentTimeMillis()));
-            place.get().addComment(newReview);
+            place.get().addReview(newReview);
             placesRepository.save(place.get());
             return newReview;
         } else {
@@ -79,6 +80,7 @@ public class PlacesServiceImpl implements PlacesService {
 
     @Override
     public List<AmenityForDog> getAllAmenities() {
-        return placesRepository.getAllAmenities();
+        // TODO:
+        return null;
     }
 }

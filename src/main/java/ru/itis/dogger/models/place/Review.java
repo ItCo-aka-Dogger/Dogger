@@ -16,6 +16,7 @@ public class Review {
 
     private String comment;
 
+    // TODO: replace to dates everywhere
     private Timestamp date;
 
     private Integer score;

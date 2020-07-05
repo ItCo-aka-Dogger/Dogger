@@ -17,31 +17,31 @@ import java.util.List;
 @NoArgsConstructor
 public class Place {
 
-  @Id
-  private String id;
-  private String name;
-  private String photoPath;
-  private String address;
-  private Double longitude;
-  private Double latitude;
+    @Id
+    private String id;
+    private String name;
+    private String photoPath;
+    private String address;
+    private Double longitude;
+    private Double latitude;
 
-  @Enumerated(EnumType.STRING)
-  private PlaceType type;
+    @Enumerated(EnumType.STRING)
+    private PlaceType type;
 
-  @Enumerated(EnumType.STRING)
-  private List<AmenityForDog> amenities;
+    @Enumerated(EnumType.STRING)
+    private List<AmenityForDog> amenities;
 
-  // Creator document id stored here
-  private String creator;
+    // Creator document id stored here
+    private String creatorId;
 
-  private List<Review> reviews;
+    private List<Review> reviews;
 
-  private Timecard timecard;
+    private Timecard timecard;
 
-  @MapKeyEnumerated(EnumType.STRING)
-  private List<PlaceContact> contacts;
+    @MapKeyEnumerated(EnumType.STRING)
+    private List<PlaceContact> contacts;
 
-  public void addComment(Review newComment) {
-    reviews.add(newComment);
-  }
+    public void addReview(Review newReview) {
+        reviews.add(newReview);
+    }
 }
