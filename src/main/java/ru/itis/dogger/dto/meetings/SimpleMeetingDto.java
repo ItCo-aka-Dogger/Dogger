@@ -6,9 +6,8 @@ import lombok.NoArgsConstructor;
 import ru.itis.dogger.dto.SimpleOwnerDto;
 import ru.itis.dogger.models.Meeting;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /* Shorted info about meeting for list*/
 
@@ -17,9 +16,9 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class SimpleMeetingDto {
 
-    private Long id;
+    private String id;
     private String name;
-    private Timestamp date;
+    private Date date;
     private Double longitude;
     private Double latitude;
     private List<SimpleOwnerDto> participants;
@@ -32,9 +31,10 @@ public class SimpleMeetingDto {
         meetingDto.setLongitude(meeting.getLongitude());
         meetingDto.setLatitude(meeting.getLatitude());
 
-        List<SimpleOwnerDto> dtos = meeting.getParticipants().stream()
-                .map(SimpleOwnerDto::from).collect(Collectors.toList());
-        meetingDto.setParticipants(dtos);
+        // TODO: Handle participants extraction on a Service / Repository layer
+        if (!meeting.getParticipantsIds().isEmpty()) {
+            throw new UnsupportedOperationException("Handle participants extraction on a Service / Repository layer");
+        }
 
         return meetingDto;
     }

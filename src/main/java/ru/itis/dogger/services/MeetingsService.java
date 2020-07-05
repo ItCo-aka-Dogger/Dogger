@@ -13,11 +13,11 @@ public interface MeetingsService {
 
     List<Meeting> getAllFutureMeetings();
 
-    Optional<Meeting> getMeetingById(Long id);
+    Optional<Meeting> getMeetingById(String id);
 
     boolean joinMeeting(Owner currentUser, Meeting meeting);
 
     boolean unjoinMeeting(Owner currentUser, Meeting meeting);
 
-    Meeting editMeeting(NewMeetingDto dto, Owner owner, Long meetingId);
+    Meeting editMeeting(NewMeetingDto dto, Owner owner, String meetingId);
 }

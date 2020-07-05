@@ -20,7 +20,7 @@ public class PasswordRecoverController {
 
     @GetMapping("/recover/{userId}")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> recoverPassword(@PathVariable Long userId) {
+    public ResponseEntity<?> recoverPassword(@PathVariable String userId) {
         if (usersService.recover(userId)) {
             return ResponseEntity.ok("Password recovered");
         } else {

@@ -23,9 +23,7 @@ public class Question {
     @Column(name = "question_text")
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Owner author;
+    private String authorId;
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers;

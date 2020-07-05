@@ -9,6 +9,7 @@ import ru.itis.dogger.repositories.MeetingsRepository;
 
 import java.sql.Timestamp;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,19 +36,19 @@ public class MeetingsServiceImpl implements MeetingsService {
         newMeeting.setDate(meetingForm.getDate());
         newMeeting.setDescription(meetingForm.getDescription());
         newMeeting.setName(meetingForm.getName());
-        newMeeting.setCreator(creator);
-        newMeeting.setParticipants(Collections.singletonList(creator));
+        newMeeting.setCreatorId(creator.getId());
+        newMeeting.setParticipantsIds(Collections.singletonList(creator.getId()));
 
         return meetingsRepository.save(newMeeting);
     }
 
     @Override
     public List<Meeting> getAllFutureMeetings() {
-        return meetingsRepository.findAllFutureMeetings();
+        return meetingsRepository.findByDateAfter(new Date());
     }
 
     @Override
-    public Optional<Meeting> getMeetingById(Long id) {
+    public Optional<Meeting> getMeetingById(String id) {
         return meetingsRepository.findById(id);
     }
 
@@ -56,7 +57,7 @@ public class MeetingsServiceImpl implements MeetingsService {
         boolean isAlreadyJoined = currentUser.getMeetings().stream()
                 .anyMatch(m -> m.getId().equals(meeting.getId()));
         if (!isAlreadyJoined) {
-            meeting.getParticipants().add(currentUser);
+            meeting.getParticipantsIds().add(currentUser.getId());
             meetingsRepository.save(meeting);
             return true;
         }
@@ -68,9 +69,9 @@ public class MeetingsServiceImpl implements MeetingsService {
         boolean isJoined = currentUser.getMeetings().stream()
                 .anyMatch(m -> m.getId().equals(meeting.getId()));
         if (isJoined) {
-            meeting.getParticipants().remove(currentUser);
-            if (meeting.getParticipants().size() == 0) {
-                meetingsRepository.deleteMeetingById(meeting.getId());
+            meeting.getParticipantsIds().remove(currentUser.getId());
+            if (meeting.getParticipantsIds().isEmpty()) {
+                meetingsRepository.deleteById(meeting.getId());
             } else {
                 meetingsRepository.save(meeting);
             }
@@ -80,8 +81,8 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public Meeting editMeeting(NewMeetingDto dto, Owner owner, Long meetingId) {
-        Meeting meeting = meetingsRepository.getOne(meetingId);
+    public Meeting editMeeting(NewMeetingDto dto, Owner owner, String meetingId) {
+        Meeting meeting = meetingsRepository.findById(meetingId).orElse(new Meeting());
         meeting.setName(dto.getName());
         meeting.setDescription(dto.getDescription());
         meeting.setLongitude(dto.getLongitude());

@@ -20,13 +20,7 @@ public class Message {
     @Column(name = "message_text")
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "sender_id")
-    private Owner sender;
+    private String senderId;
 
     private Date date;
-
-    @ManyToOne
-    @JoinColumn(name = "meeting_id")
-    private Meeting meeting;
 }

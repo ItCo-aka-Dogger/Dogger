@@ -1,62 +1,49 @@
 package ru.itis.dogger.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 import ru.itis.dogger.enums.AmenityForDog;
-import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.PlaceType;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.MapKeyEnumerated;
 import java.util.List;
-import java.util.Map;
 
-@Entity
+@Document
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Place {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  private String id;
+  private String name;
+  private String photoPath;
+  private String address;
+  private Double longitude;
+  private Double latitude;
 
-    private String name;
+  @Enumerated(EnumType.STRING)
+  private PlaceType type;
 
-    private String photo_path;
+  @Enumerated(EnumType.STRING)
+  private List<AmenityForDog> amenities;
 
-    private String address;
+  // Creator document id stored here
+  private String creator;
 
-    private Double longitude;
-    private Double latitude;
+  private List<Comment> comments;
 
-    @Enumerated(EnumType.STRING)
-    private PlaceType type;
+  private Timecard timecard;
 
-    @ElementCollection(targetClass = AmenityForDog.class)
-    @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "place_amenity")
-    @Column(name = "amenity")
-    private List<AmenityForDog> amenities;
+  @MapKeyEnumerated(EnumType.STRING)
+  private List<Contact> contacts;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "creator_id")
-    private Owner creator;
-
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Comment> comments;
-
-    @OneToOne
-    @JoinColumn(name = "timecard_id")
-    private Timecard timecard;
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "place_contact")
-    @MapKeyColumn(name = "contact_type")
-    @MapKeyClass(Contact.class)
-    @MapKeyEnumerated(EnumType.STRING)
-    @Column(name = "contact_value")
-    private Map<Contact, String> contacts;
+  public void addComment(Comment newComment) {
+    comments.add(newComment);
+  }
 }

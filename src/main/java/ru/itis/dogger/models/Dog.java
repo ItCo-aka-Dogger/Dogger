@@ -1,24 +1,16 @@
 package ru.itis.dogger.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Dog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -33,11 +25,6 @@ public class Dog {
     private String photo_path;
 
     private String information;
-
-    @ManyToOne
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @JsonIgnore
-    private Owner owner;
 
     @Override
     public String toString() {

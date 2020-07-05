@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.dogger.dto.OwnerDto;
-import ru.itis.dogger.dto.SimpleOwnerDto;
 import ru.itis.dogger.models.Meeting;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /* All detailed info about meeting */
 
@@ -18,13 +16,13 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class DetailedMeetingDto {
 
-    private Long id;
+    private String id;
     private String name;
     private String description;
-    private Timestamp date;
+    private Date date;
     private Double longitude;
     private Double latitude;
-    private Long creatorId;
+    private String creatorId;
     private List<OwnerDto> participants;
 
     public static DetailedMeetingDto from(Meeting meeting) {
@@ -35,12 +33,12 @@ public class DetailedMeetingDto {
         meetingDto.setDate(meeting.getDate());
         meetingDto.setLongitude(meeting.getLongitude());
         meetingDto.setLatitude(meeting.getLatitude());
-        meetingDto.setCreatorId(meeting.getCreator().getId());
+        meetingDto.setCreatorId(meeting.getCreatorId());
 
-        List<OwnerDto> dtos = meeting.getParticipants().stream()
-                .map(OwnerDto::from).collect(Collectors.toList());
-        meetingDto.setParticipants(dtos);
-
+        // TODO: Handle participants extraction on a Service / Repository layer
+        if (!meeting.getParticipantsIds().isEmpty()) {
+            throw new UnsupportedOperationException("Handle participants extraction on a Service / Repository layer");
+        }
         return meetingDto;
     }
 }

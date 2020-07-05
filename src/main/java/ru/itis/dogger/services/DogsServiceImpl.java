@@ -29,7 +29,6 @@ public class DogsServiceImpl implements DogsService {
         newDog.setSex(dto.getSex());
         newDog.setSize(dto.getSize());
         newDog.setInformation(dto.getInformation());
-        newDog.setOwner(owner);
         dogsRepository.save(newDog);
     }
 

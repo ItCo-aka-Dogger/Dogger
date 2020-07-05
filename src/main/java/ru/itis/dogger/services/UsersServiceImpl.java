@@ -12,16 +12,14 @@ import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.EditUserInfoDto;
 import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
-import ru.itis.dogger.enums.Contact;
+import ru.itis.dogger.enums.ContactType;
 import ru.itis.dogger.enums.TokenStatus;
+import ru.itis.dogger.models.Contact;
 import ru.itis.dogger.models.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -90,14 +88,18 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public void editInfo(EditUserInfoDto dto, String email) {
-        Owner dbOwner = usersRepository.findByEmail(email).get();
+        Optional<Owner> optionalOwner = usersRepository.findByEmail(email);
+        if (!optionalOwner.isPresent()) {
+            throw new IllegalArgumentException("User with email " + email + " is not found");
+        }
+        Owner dbOwner = optionalOwner.get();
         dbOwner.setSurname(dto.getSurname());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
         dbOwner.setDistrict(dto.getDistrict());
-        Map<Contact, String> contacts = new HashMap<>();
+        List<Contact> contacts = new ArrayList<>();
         for (Map.Entry<String, String> e : dto.getContacts().entrySet()) {
-            contacts.put(Contact.valueOf(e.getKey().toUpperCase()), e.getValue());
+            contacts.add(new Contact(ContactType.valueOf(e.getKey().toUpperCase()), e.getValue()));
         }
         dbOwner.setContacts(contacts);
         usersRepository.save(dbOwner);
@@ -121,7 +123,11 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void sendRecoverMail(String email) {
-        Owner user = usersRepository.findByEmail(email).get();
+        Optional<Owner> optionalOwner = usersRepository.findByEmail(email);
+        if (!optionalOwner.isPresent()) {
+            throw new IllegalArgumentException("User with email " + email + " is not found");
+        }
+        Owner user = optionalOwner.get();
         user.setActive(false);
 
         String message = "Hello, \n" +
@@ -132,7 +138,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public boolean recover(Long userId) {
+    public boolean recover(String userId) {
         Optional<Owner> userCandidate = usersRepository.findById(userId);
         if (userCandidate.isPresent()) {
             userCandidate.get().setActive(true);
@@ -151,14 +157,14 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public Optional<Owner> getCurrentUser(Authentication authentication) {
         if (authentication != null) {
-            Long currentUserId = ((UserDetailsImpl) authentication.getPrincipal()).getUser().getId();
+            String currentUserId = ((UserDetailsImpl) authentication.getPrincipal()).getUser().getId();
             return usersRepository.findById(currentUserId);
         }
         return Optional.empty();
     }
 
     @Override
-    public Optional<Owner> getUserById(Long id) {
+    public Optional<Owner> getUserById(String id) {
         return usersRepository.findById(id);
     }
 

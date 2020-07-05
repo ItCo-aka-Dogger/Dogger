@@ -26,8 +26,6 @@ public class Answer {
     @JoinColumn(name = "question_id")
     private Question question;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private Owner author;
+    private String authorId;
 
 }

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 @Data
 public class EditDogDto {
-    private Long id;
+    private String id;
     private String name;
     private String breed;
     private Timestamp dateOfBirth;

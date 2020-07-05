@@ -2,16 +2,15 @@ package ru.itis.dogger.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-import ru.itis.dogger.enums.Contact;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
+import javax.persistence.EnumType;
+import javax.persistence.Id;
+import javax.persistence.MapKeyEnumerated;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
-@Entity
+@Document
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,8 +19,7 @@ import java.util.Map;
 public class Owner {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String email;
 
     @JsonIgnore
@@ -38,34 +36,22 @@ public class Owner {
     private String city;
     private String district;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Dog> dogs;
 
     @JsonIgnore
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ManyToMany(mappedBy = "participants")
     private List<Meeting> meetings;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private List<Meeting> myMeetings;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
-    private List<Place> createdPlaces;
+    private List<String> createdPlaces;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "user_contact")
-    @MapKeyColumn(name = "contact_type")
-    @MapKeyClass(Contact.class)
     @MapKeyEnumerated(EnumType.STRING)
-    @Column(name = "contact_value")
-    private Map<Contact, String> contacts;
+    private List<Contact> contacts;
 
     public Owner(String password, String surname, String email, String city) {
         this.password = password;
@@ -77,14 +63,8 @@ public class Owner {
     //TODO: forum release 2.0
 
     @JsonIgnore
-    @OneToMany(mappedBy = "author")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OrderBy("date DESC")
     private List<Question> questions;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "author")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @OrderBy("date DESC")
     private List<Answer> answers;
 }

@@ -14,7 +14,7 @@ public interface PlacesService {
 
     Place addPlace(NewPlaceDto placeDto, Owner owner);
 
-    Optional<Place> getPlaceById(Long placeId);
+    Optional<Place> getPlaceById(String placeId);
 
-    Comment addComment(Owner currentUser, Map<String, String> dto, Long placeId);
+    Comment addComment(Owner currentUser, Map<String, String> dto, String placeId);
 }

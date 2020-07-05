@@ -5,15 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.dogger.models.Owner;
 
-import java.util.List;
-
 /* user info that will be used in lists of something (meetings, comments, etc)*/
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SimpleOwnerDto {
-    private Long id;
+    private String id;
     private String surname;
     private String photo_path;
 

@@ -40,7 +40,7 @@ public class ProfileController {
 
     @GetMapping("/profile/{userId}")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> getAnotherUserProfilePage(@PathVariable Long userId) {
+    public ResponseEntity<?> getAnotherUserProfilePage(@PathVariable String userId) {
         Optional<Owner> userCandidate = usersService.getUserById(userId);
         if (userCandidate.isPresent()) {
             return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
@@ -53,7 +53,11 @@ public class ProfileController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> editProfile(@RequestBody EditUserInfoDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
-        usersService.editInfo(dto, currentUser.getEmail());
+        try {
+            usersService.editInfo(dto, currentUser.getEmail());
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>("No user with such email or login. Please verify your data.", HttpStatus.NOT_FOUND);
+        }
         return ResponseEntity.ok(usersService.findByEmail(currentUser.getEmail()));
     }
 
@@ -78,7 +82,7 @@ public class ProfileController {
 
     @PostMapping("/delete")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> deleteUser(@RequestParam("userId") Long userId) {
+    public ResponseEntity<?> deleteUser(@RequestParam("userId") String userId) {
         Optional<Owner> user = usersService.getUserById(userId);
         if (user.isPresent()) {
             usersService.delete(user.get());

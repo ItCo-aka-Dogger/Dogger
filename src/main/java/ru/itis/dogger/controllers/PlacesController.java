@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.enums.AmenityForDog;
 import ru.itis.dogger.models.Comment;
@@ -48,7 +47,7 @@ public class PlacesController {
 
     @GetMapping("/places/{placeId}")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<?> getPlacePageInfo(@PathVariable Long placeId) {
+    public ResponseEntity<?> getPlacePageInfo(@PathVariable String placeId) {
         Optional<Place> place = placesService.getPlaceById(placeId);
         if (place.isPresent()) {
             return ResponseEntity.ok(place);
@@ -58,7 +57,7 @@ public class PlacesController {
 
     @PostMapping("/places/{placeId}/addComment")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> leaveComment(@PathVariable Long placeId, @RequestBody Map<String, String> dto,
+    public ResponseEntity<?> leaveComment(@PathVariable String placeId, @RequestBody Map<String, String> dto,
                                           Authentication authentication) {
         Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
         Comment savedComment = placesService.addComment(currentUser.get(), dto, placeId);

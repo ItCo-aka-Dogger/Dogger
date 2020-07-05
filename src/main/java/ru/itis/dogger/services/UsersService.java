@@ -6,7 +6,6 @@ import ru.itis.dogger.dto.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.Owner;
 
-import java.util.Map;
 import java.util.Optional;
 
 public interface UsersService {
@@ -24,13 +23,13 @@ public interface UsersService {
 
     void sendRecoverMail(String email);
 
-    boolean recover(Long userId);
+    boolean recover(String userId);
 
     void delete(Owner user);
 
     Optional<Owner> getCurrentUser(Authentication authentication);
 
-    Optional<Owner> getUserById(Long id);
+    Optional<Owner> getUserById(String id);
 
     boolean checkForUniqueness(String email);
 
