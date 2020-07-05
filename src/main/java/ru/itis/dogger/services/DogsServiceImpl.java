@@ -29,6 +29,7 @@ public class DogsServiceImpl implements DogsService {
         newDog.setSex(dto.getSex());
         newDog.setSize(dto.getSize());
         newDog.setInformation(dto.getInformation());
+        newDog.setPhoto_path(dto.getPhoto_path());
         newDog.setOwner(owner);
         dogsRepository.save(newDog);
     }
@@ -45,6 +46,7 @@ public class DogsServiceImpl implements DogsService {
         dog.setDateOfBirth(dto.getDateOfBirth());
         dog.setInformation(dto.getInformation());
         dog.setName(dto.getName());
+        dog.setPhoto_path(dto.getPhoto_path());
 
 //        if (!dto.getName().equals("")) {
 //            dog.setName(dto.getName());

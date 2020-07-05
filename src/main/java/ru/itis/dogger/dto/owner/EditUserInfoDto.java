@@ -9,6 +9,7 @@ import java.util.Map;
 public class EditUserInfoDto {
     private String name;
     private String surname;
+    private String photo_path;
     private Timestamp dateOfBirth;
     private String city;
     private String district;

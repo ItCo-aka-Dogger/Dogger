@@ -69,6 +69,7 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.r
 {
   "name": "Kamila",
   "surname": "Ard",
+  "photo_path": "test_url",
   "dateOfBirth": "1999-04-15",
   "city": "Kazan",
   "district": "Sovetskii",
@@ -118,7 +119,8 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2
   "breed": "test1",
   "dateOfBirth": "2018-04-15",
   "sex": "male",
-  "information": "test1"
+  "information": "test1",
+  "photo_path": "test_url"
 }
 
 ###
@@ -135,7 +137,8 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
     "name": "",
     "breed": "jack",
     "dateOfBirth": "",
-    "information": "goody"
+    "information": "goody",
+    "photo_path": "test_url"
   }
 ]
 

@@ -117,6 +117,7 @@ a|
     {
         "name": "Aina",
         "surname": "test1",
+        "photo_path": "test_url",
         "city": "Ufa",
         "dateOfBirth": "2018-04-15",
         "district": "Sovetskii",
@@ -165,7 +166,8 @@ a|
         "breed": "Zvegshnauzer",
         "dateOfBirth": "2018-04-15",
         "sex": "male",
-        "information": "very energetic, friendly dog. Little bit coward"
+        "information": "very energetic, friendly dog. Little bit coward",
+        "photo_path": "test_url"
     }
 
 При успешном запросе в профиле пользователя появится собака.
@@ -180,7 +182,8 @@ a|
         "name": "tesla",
         "breed": "jack rassel",
         "dateOfBirth": "",
-        "information": "good girl"
+        "information": "good girl",
+        "photo_path": "test_url"
       },
         {
         ...

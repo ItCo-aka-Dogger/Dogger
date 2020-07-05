@@ -12,4 +12,5 @@ public class DogDto {
     private Timestamp dateOfBirth;
     private String sex;
     private String size;
+    private String photo_path;
 }

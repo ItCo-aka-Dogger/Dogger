@@ -11,4 +11,5 @@ public class EditDogDto {
     private String breed;
     private Timestamp dateOfBirth;
     private String information;
+    private String photo_path;
 }
