@@ -6,11 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dogger.dto.EditUserInfoDto;
-import ru.itis.dogger.dto.OwnerDto;
+import ru.itis.dogger.dto.owner.EditUserInfoDto;
+import ru.itis.dogger.dto.owner.OwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.enums.TokenStatus;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.UsersService;
 

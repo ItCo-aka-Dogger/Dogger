@@ -1,7 +1,6 @@
-package ru.itis.dogger.dto;
+package ru.itis.dogger.dto.dogs;
 
 import lombok.Data;
-import ru.itis.dogger.models.Dog;
 
 import java.sql.Timestamp;
 

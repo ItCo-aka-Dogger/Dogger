@@ -7,7 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.dogger.dto.NewOwnerDto;
+import ru.itis.dogger.dto.owner.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.services.UsersService;

@@ -3,8 +3,8 @@ package ru.itis.dogger.dto.meetings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itis.dogger.dto.SimpleOwnerDto;
-import ru.itis.dogger.models.Meeting;
+import ru.itis.dogger.dto.owner.SimpleOwnerDto;
+import ru.itis.dogger.models.meeting.Meeting;
 
 import java.sql.Timestamp;
 import java.util.List;

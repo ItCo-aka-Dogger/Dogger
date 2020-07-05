@@ -2,16 +2,13 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import ru.itis.dogger.dto.reviews.NewReviewDto;
+import ru.itis.dogger.dto.NewContactDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
-import ru.itis.dogger.enums.AmenityForDog;
-import ru.itis.dogger.enums.Contact;
-import ru.itis.dogger.enums.PlaceType;
-import ru.itis.dogger.models.Comment;
-import ru.itis.dogger.models.Owner;
-import ru.itis.dogger.models.Place;
-import ru.itis.dogger.repositories.CommentsRepository;
-import ru.itis.dogger.repositories.PlacesRepository;
-import ru.itis.dogger.repositories.TimecardsRepository;
+import ru.itis.dogger.models.place.*;
+import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.repositories.*;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -21,14 +18,25 @@ import java.util.stream.Collectors;
 public class PlacesServiceImpl implements PlacesService {
 
     private PlacesRepository placesRepository;
-    private CommentsRepository commentsRepository;
+    private ReviewsRepository reviewsRepository;
     private TimecardsRepository timecardsRepository;
+    private PlaceTypesRepository placeTypesRepository;
+    private AmenitiesRepository amenitiesRepository;
+    private ContactTypesRepository contactTypesRepository;
+    private PlaceContactsRepository placeContactsRepository;
 
     @Autowired
-    public PlacesServiceImpl(PlacesRepository placesRepository, CommentsRepository commentsRepository, TimecardsRepository timecardsRepository) {
+    public PlacesServiceImpl(PlacesRepository placesRepository, ReviewsRepository reviewsRepository,
+                             TimecardsRepository timecardsRepository, PlaceTypesRepository placeTypesRepository,
+                             AmenitiesRepository amenitiesRepository, ContactTypesRepository contactTypesRepository,
+                             PlaceContactsRepository placeContactsRepository) {
         this.placesRepository = placesRepository;
-        this.commentsRepository = commentsRepository;
+        this.reviewsRepository = reviewsRepository;
         this.timecardsRepository = timecardsRepository;
+        this.placeTypesRepository = placeTypesRepository;
+        this.amenitiesRepository = amenitiesRepository;
+        this.contactTypesRepository = contactTypesRepository;
+        this.placeContactsRepository = placeContactsRepository;
     }
 
     @Override
@@ -42,23 +50,35 @@ public class PlacesServiceImpl implements PlacesService {
         newPlace.setName(placeDto.getName());
         newPlace.setAddress(placeDto.getAddress());
         newPlace.setPhoto_path(placeDto.getPhotoPath());
-        newPlace.setType(PlaceType.valueOf(placeDto.getPlaceType()));
         newPlace.setLongitude(placeDto.getLongitude());
         newPlace.setLatitude(placeDto.getLatitude());
         newPlace.setCreator(creator);
 
-        Map<Contact, String> contacts = new HashMap<>();
-        for (Map.Entry<String, String> e : placeDto.getContacts().entrySet()) {
-            contacts.put(Contact.valueOf(e.getKey().toUpperCase()), e.getValue());
-        }
-        newPlace.setContacts(contacts);
+        PlaceType type = placeTypesRepository.findById(placeDto.getTypeId()).get();
+        newPlace.setType(type);
 
-        List<AmenityForDog> amenities = placeDto.getAmenities().stream()
-                .map(amenityStr -> AmenityForDog.valueOf(amenityStr.toUpperCase())).collect(Collectors.toList());
+        List<Amenity> amenities = placeDto.getAmenitiesIds().stream()
+                .map(amenityId -> amenitiesRepository.findById(amenityId).get())
+                .collect(Collectors.toList());
         newPlace.setAmenities(amenities);
+
         timecardsRepository.save(placeDto.getTimecard());
         newPlace.setTimecard(placeDto.getTimecard());
-        return placesRepository.save(newPlace);
+
+        Place savedPlace = placesRepository.save(newPlace);
+
+        List<PlaceContact> contacts = new ArrayList<>();
+        for (NewContactDto dto : placeDto.getContacts()) {
+            PlaceContact contact = new PlaceContact();
+            contact.setType(contactTypesRepository.findById(dto.getTypeId()).get());
+            contact.setValue(dto.getValue());
+            contact.setPlace(savedPlace);
+            placeContactsRepository.save(contact);
+            contacts.add(contact);
+        }
+        savedPlace.setContacts(contacts);
+
+        return placesRepository.save(savedPlace);
     }
 
     @Override
@@ -67,20 +87,19 @@ public class PlacesServiceImpl implements PlacesService {
     }
 
     @Override
-    public Comment addComment(Owner currentUser, Map<String, String> dto, Long placeId) {
-        if (!dto.containsKey("rating"))
+    public Review addReview (Owner currentUser, NewReviewDto dto, Long placeId) {
+        if (StringUtils.isEmpty(dto.getScore()))
             return null;
         Optional<Place> place = placesRepository.findById(placeId);
         if (place.isPresent()) {
-            Comment newComment = new Comment();
-            if(dto.containsKey("text")){
-                newComment.setText(dto.get("text"));
-            }
-            newComment.setRating(Integer.parseInt(dto.get("rating")));
-            newComment.setAuthor(currentUser);
-            newComment.setDate(new Timestamp(System.currentTimeMillis()));
-            newComment.setPlace(place.get());
-            return commentsRepository.save(newComment);
+            Review newReview = new Review();
+            newReview.setComment(dto.getComment());
+            newReview.setScore(dto.getScore());
+            newReview.setAttachments(dto.getAttachments());
+            newReview.setAuthor(currentUser);
+            newReview.setDate(new Timestamp(System.currentTimeMillis()));
+            newReview.setPlace(place.get());
+            return reviewsRepository.save(newReview);
         } else {
             return null;
         }

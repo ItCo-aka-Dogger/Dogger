@@ -9,12 +9,12 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import ru.itis.dogger.dto.EditUserInfoDto;
-import ru.itis.dogger.dto.NewOwnerDto;
+import ru.itis.dogger.dto.owner.EditUserInfoDto;
+import ru.itis.dogger.dto.owner.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.TokenStatus;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.repositories.UsersRepository;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 

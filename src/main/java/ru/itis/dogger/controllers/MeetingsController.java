@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.itis.dogger.dto.meetings.DetailedMeetingDto;
 import ru.itis.dogger.dto.meetings.NewMeetingDto;
 import ru.itis.dogger.dto.meetings.SimpleMeetingDto;
-import ru.itis.dogger.models.Meeting;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.models.meeting.Meeting;
+import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.services.MeetingsService;
 import ru.itis.dogger.services.UsersService;
 

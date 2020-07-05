@@ -2,10 +2,10 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.dogger.dto.DogDto;
-import ru.itis.dogger.dto.EditDogDto;
-import ru.itis.dogger.models.Dog;
-import ru.itis.dogger.models.Owner;
+import ru.itis.dogger.dto.dogs.DogDto;
+import ru.itis.dogger.dto.dogs.EditDogDto;
+import ru.itis.dogger.models.owner.Dog;
+import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.repositories.DogsRepository;
 
 import java.util.List;
