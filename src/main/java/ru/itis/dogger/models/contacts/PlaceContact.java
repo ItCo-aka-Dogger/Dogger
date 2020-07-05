@@ -1,28 +1,20 @@
-package ru.itis.dogger.models.place;
+package ru.itis.dogger.models.contacts;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import ru.itis.dogger.models.ContactType;
+import ru.itis.dogger.models.place.Place;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PlaceContact {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @OneToOne
-    @JoinColumn(name = "type_id")
-    private ContactType type;
-
-    private String value;
+public class PlaceContact extends Contact{
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

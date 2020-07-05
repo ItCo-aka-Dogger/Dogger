@@ -9,19 +9,19 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import ru.itis.dogger.dto.NewContactDto;
 import ru.itis.dogger.dto.owner.EditUserInfoDto;
 import ru.itis.dogger.dto.owner.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
-import ru.itis.dogger.enums.Contact;
 import ru.itis.dogger.enums.TokenStatus;
+import ru.itis.dogger.models.contacts.OwnerContact;
 import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.repositories.ContactTypesRepository;
+import ru.itis.dogger.repositories.OwnerContactsRepository;
 import ru.itis.dogger.repositories.UsersRepository;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -29,15 +29,20 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepository;
     private PasswordEncoder passwordEncoder;
     private EmailService emailService;
+    private ContactTypesRepository contactTypesRepository;
+    private OwnerContactsRepository ownerContactsRepository;
 
     @Value("${jwt.secret}")
     private String secretKey;
 
     @Autowired
-    public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public UsersServiceImpl(UsersRepository usersRepository, PasswordEncoder passwordEncoder, EmailService emailService,
+                            ContactTypesRepository contactTypesRepository, OwnerContactsRepository ownerContactsRepository) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.contactTypesRepository = contactTypesRepository;
+        this.ownerContactsRepository = ownerContactsRepository;
     }
 
     @Override
@@ -96,9 +101,15 @@ public class UsersServiceImpl implements UsersService {
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
         dbOwner.setDistrict(dto.getDistrict());
-        Map<Contact, String> contacts = new HashMap<>();
-        for (Map.Entry<String, String> e : dto.getContacts().entrySet()) {
-            contacts.put(Contact.valueOf(e.getKey().toUpperCase()), e.getValue());
+
+        List<OwnerContact> contacts = new ArrayList<>();
+        for (NewContactDto contactDto : dto.getContacts()) {
+            OwnerContact contact = new OwnerContact();
+            contact.setType(contactTypesRepository.findById(contactDto.getTypeId()).get());
+            contact.setValue(contactDto.getValue());
+            contact.setOwner(dbOwner);
+            ownerContactsRepository.save(contact);
+            contacts.add(contact);
         }
         dbOwner.setContacts(contacts);
         usersRepository.save(dbOwner);

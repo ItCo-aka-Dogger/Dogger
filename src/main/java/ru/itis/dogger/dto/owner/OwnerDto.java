@@ -3,13 +3,12 @@ package ru.itis.dogger.dto.owner;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itis.dogger.enums.Contact;
+import ru.itis.dogger.models.contacts.OwnerContact;
 import ru.itis.dogger.models.owner.Dog;
 import ru.itis.dogger.models.owner.Owner;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /*excluded personal info like activeCode, password hash and etc*/
 
@@ -26,7 +25,7 @@ public class OwnerDto {
     private String district;
     private String photo_path;
     private List<Dog> dogs;
-    private Map<Contact, String> contacts;
+    private List<OwnerContact> contacts;
 
     public static OwnerDto from(Owner owner) {
         OwnerDto ownerDto = new OwnerDto();

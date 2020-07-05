@@ -68,16 +68,24 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.r
 
 {
   "name": "Kamila",
-  "surname": "Ard",
+  "surname": "Test",
   "dateOfBirth": "1999-04-15",
   "city": "Kazan",
   "district": "Sovetskii",
-  "contacts": {
-    "phone": "891782235",
-    "instagram": "@britny1999",
-    "vk": "dogger.website",
-    "telegram": "@AinaLikesSuicide"
-  }
+  "contacts": [
+    {
+      "typeId": 1,
+      "value": "dogger.website"
+    },
+    {
+      "typeId": 1,
+      "value": "dogger.website2"
+    },
+    {
+      "typeId": 2,
+      "value": "dogger"
+    }
+  ]
 }
 
 ###
@@ -138,23 +146,6 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
     "information": "goody"
   }
 ]
-
-###
-
-POST http://localhost:8080/editProfile
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmQxQG1haWwucnUiLCJpZCI6NX0._pyZ-Cz7yyvzUXF6J54l6jG3zT5b15tNd3ShcVrxRLzlCh7yxt9ABBvbdoYHU--PMR5cRtgGE28rzHveHn3MpA
-
-{
-  "password": "test",
-  "surname": "test1",
-  "email": "ainaard1@mail.ru",
-  "city": "Ufa",
-  "dateOfBirth": "2018-04-15",
-  "phoneNumber": "891776874326"
-}
 
 ###
 POST http://localhost:8080/delete/?userId=21

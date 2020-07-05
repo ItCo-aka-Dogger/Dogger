@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.itis.dogger.dto.reviews.ReviewDto;
+import ru.itis.dogger.models.contacts.PlaceContact;
 import ru.itis.dogger.models.place.*;
 
 import java.util.List;

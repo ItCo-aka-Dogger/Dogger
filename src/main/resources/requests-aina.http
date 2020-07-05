@@ -79,12 +79,20 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6IntcbiAgICBcImVtYWlsXCI6IFwiYWlu
   "dateOfBirth": "1999-04-15",
   "city": "Kazan",
   "district": "Sovetskii",
-  "contacts": {
-    "phone": "891782235",
-    "instagram": "@britny1999",
-    "vk": "dogger.website",
-    "telegram": "@AinaLikesSuicide"
-  }
+  "contacts": [
+    {
+      "typeId": 1,
+      "value": "dogger.website"
+    },
+    {
+      "typeId": 1,
+      "value": "dogger.website2"
+    },
+    {
+      "typeId": 2,
+      "value": "dogger"
+    }
+  ]
 }
 
 ###

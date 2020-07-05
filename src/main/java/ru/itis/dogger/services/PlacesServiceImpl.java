@@ -6,6 +6,7 @@ import org.springframework.util.StringUtils;
 import ru.itis.dogger.dto.reviews.NewReviewDto;
 import ru.itis.dogger.dto.NewContactDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
+import ru.itis.dogger.models.contacts.PlaceContact;
 import ru.itis.dogger.models.place.*;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.repositories.*;
