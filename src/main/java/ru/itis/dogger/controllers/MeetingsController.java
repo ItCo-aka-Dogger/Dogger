@@ -11,6 +11,7 @@ import ru.itis.dogger.dto.meetings.NewMeetingDto;
 import ru.itis.dogger.dto.meetings.SimpleMeetingDto;
 import ru.itis.dogger.models.meeting.Meeting;
 import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.MeetingsService;
 import ru.itis.dogger.services.UsersService;
 
@@ -34,8 +35,8 @@ public class MeetingsController {
     @PostMapping("/addMeeting")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addMeeting(@RequestBody NewMeetingDto dto, Authentication authentication) {
-        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        Meeting newMeeting = meetingsService.addMeeting(dto, currentUser.get());
+        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        Meeting newMeeting = meetingsService.addMeeting(dto, currentUser);
         if (newMeeting == null) {
             return new ResponseEntity<>("Meeting was not added. Check meeting's date validation.", HttpStatus.BAD_REQUEST);
         } else {
@@ -67,8 +68,8 @@ public class MeetingsController {
     @GetMapping("/meetings/my")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getMeetingsCreatedByMe(Authentication authentication) {
-        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        List<SimpleMeetingDto> meetingDtos = currentUser.get().getMyMeetings()
+        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        List<SimpleMeetingDto> meetingDtos = currentUser.getMyMeetings()
                 .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
         return ResponseEntity.ok(meetingDtos);
     }
@@ -86,13 +87,13 @@ public class MeetingsController {
     @PostMapping("/editMeeting")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> editMeeting(@RequestParam("meetingId") Long meetingId, @RequestBody NewMeetingDto dto, Authentication authentication) {
-        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
+        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (!meeting.isPresent()) {
             return new ResponseEntity<>("There is no meeting with such id", HttpStatus.NOT_FOUND);
         }
-        if (meeting.get().getCreator().equals(currentUser.get())) {
-            Meeting newMeeting = meetingsService.editMeeting(dto, currentUser.get(), meetingId);
+        if (meeting.get().getCreator().equals(currentUser)) {
+            Meeting newMeeting = meetingsService.editMeeting(dto, currentUser, meetingId);
             return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
         } else {
             return new ResponseEntity<>("User does not have rights to edit this meeting", HttpStatus.FORBIDDEN);
@@ -102,10 +103,10 @@ public class MeetingsController {
     @PostMapping("/meetings/{meetingId}/join")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> joinMeeting(@PathVariable Long meetingId, Authentication authentication) {
-        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
+        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (meeting.isPresent()) {
-            boolean isJoined = meetingsService.joinMeeting(currentUser.get(), meeting.get());
+            boolean isJoined = meetingsService.joinMeeting(currentUser, meeting.get());
             if (isJoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
             } else
@@ -118,10 +119,10 @@ public class MeetingsController {
     @PostMapping("/meetings/{meetingId}/unjoin")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> unjoinMeeting(@PathVariable Long meetingId, Authentication authentication) {
-        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
+        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (meeting.isPresent()) {
-            boolean isUnjoined = meetingsService.unjoinMeeting(currentUser.get(), meeting.get());
+            boolean isUnjoined = meetingsService.unjoinMeeting(currentUser, meeting.get());
             if (isUnjoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
             } else {
