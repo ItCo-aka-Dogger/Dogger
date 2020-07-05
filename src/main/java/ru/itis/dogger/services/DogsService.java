@@ -1,13 +1,15 @@
 package ru.itis.dogger.services;
 
-import ru.itis.dogger.dto.dogs.DogDto;
-import ru.itis.dogger.dto.dogs.EditDogDto;
+import ru.itis.dogger.dto.dogs.NewDogDto;
+import ru.itis.dogger.models.owner.Dog;
 import ru.itis.dogger.models.owner.Owner;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface DogsService {
-    void addDog(DogDto dto, Owner owner);
+    void addDog(NewDogDto dto, Owner owner);
 
-    List<EditDogDto> editDogs(List<EditDogDto> dtos);
+    Dog editDog(NewDogDto dto, Long dogId);
+
+    Optional<Dog> getDogById(Long id);
 }

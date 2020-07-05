@@ -111,7 +111,7 @@ POST http://localhost:8080/addDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2U9J40aYY62OQWQywkQ37BPpA5HF9koMkjMSxXMqwjU7mpbD9bPzRIqTanKTRhhwe9udlwGhOhJbikly5zXE6Q
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
 
 {
   "name": "test1",
@@ -125,22 +125,23 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjo1fQ.2
 
 ###
 
-POST http://localhost:8080/editDogs
+POST http://localhost:8080/editDog?dogId=6
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
 
-[
+
   {
-    "id": 3,
-    "name": "",
-    "breed": "jack",
-    "dateOfBirth": "",
+    "name": "Jack",
+    "breed": "teryer",
+    "dateOfBirth": "2020-06-30T17:00:00.000000",
     "information": "goody",
-    "photo_path": "test_url"
+    "photo_path": "test_url",
+    "sex": "male",
+    "size": "small"
   }
-]
+
 
 ###
 

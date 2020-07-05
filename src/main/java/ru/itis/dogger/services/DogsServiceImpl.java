@@ -2,13 +2,12 @@ package ru.itis.dogger.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.dogger.dto.dogs.DogDto;
-import ru.itis.dogger.dto.dogs.EditDogDto;
+import ru.itis.dogger.dto.dogs.NewDogDto;
 import ru.itis.dogger.models.owner.Dog;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.repositories.DogsRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DogsServiceImpl implements DogsService {
@@ -21,7 +20,7 @@ public class DogsServiceImpl implements DogsService {
     }
 
     @Override
-    public void addDog(DogDto dto, Owner owner) {
+    public void addDog(NewDogDto dto, Owner owner) {
         Dog newDog = new Dog();
         newDog.setBreed(dto.getBreed());
         newDog.setName(dto.getName());
@@ -35,31 +34,20 @@ public class DogsServiceImpl implements DogsService {
     }
 
     @Override
-    public List<EditDogDto> editDogs(List<EditDogDto> dtos) {
-        dtos.forEach(this::editDogInfo);
-        return dtos;
-    }
-
-    private void editDogInfo(EditDogDto dto) {
-        Dog dog = dogsRepository.findById(dto.getId()).get();
+    public Dog editDog(NewDogDto dto, Long dogId) {
+        Dog dog = dogsRepository.getOne(dogId);
         dog.setBreed(dto.getBreed());
         dog.setDateOfBirth(dto.getDateOfBirth());
         dog.setInformation(dto.getInformation());
         dog.setName(dto.getName());
         dog.setPhoto_path(dto.getPhoto_path());
+        dog.setSex(dto.getSex());
+        dog.setSize(dto.getSize());
+        return dogsRepository.save(dog);
+    }
 
-//        if (!dto.getName().equals("")) {
-//            dog.setName(dto.getName());
-//        }
-//        if (!dto.getBreed().equals("")) {
-//            dog.setBreed(dto.getBreed());
-//        }
-//        if (!dto.getInformation().equals("")) {
-//            dog.setInformation(dto.getInformation());
-//        }
-//        if (dto.getDateOfBirth() != null) {
-//            dog.setDateOfBirth(dto.getDateOfBirth());
-//        }
-        dogsRepository.save(dog);
+    @Override
+    public Optional<Dog> getDogById(Long id) {
+        return dogsRepository.findById(id);
     }
 }

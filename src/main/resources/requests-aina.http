@@ -132,22 +132,23 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.
 
 ###
 
-POST http://localhost:8080/editDogs
+POST http://localhost:8080/editDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oKWJSQBUsCyXoxKvv20www6dlDbr7ABQcPuAEbNVXCz5BZDRChdDjPopwqvtAwMx4VpeM_lwPMWQ
 
-[
+
   {
-    "id": 3,
-    "name": "",
-    "breed": "jack",
-    "dateOfBirth": "",
+    "name": "Jack",
+    "breed": "teryer",
+    "dateOfBirth": "2020-06-30T17:00:00.000000",
     "information": "goody",
-    "photo_path": "test_url"
+    "photo_path": "test_url",
+    "sex": "male",
+    "size": "small"
   }
-]
+
 
 ###
 POST http://localhost:8080/delete/?userId=21
