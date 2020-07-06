@@ -37,17 +37,4 @@ public class Dog {
     @LazyCollection(LazyCollectionOption.FALSE)
     @JsonIgnore
     private Owner owner;
-
-    @Override
-    public String toString() {
-        return "Dog{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", breed='" + breed + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", sex='" + sex + '\'' +
-                ", size='" + size + '\'' +
-                ", information='" + information + '\'' +
-                '}';
-    }
 }

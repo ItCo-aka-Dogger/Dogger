@@ -7,14 +7,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.itis.dogger.dto.dogs.DogDto;
-import ru.itis.dogger.dto.dogs.EditDogDto;
+import ru.itis.dogger.dto.dogs.NewDogDto;
+import ru.itis.dogger.models.owner.Dog;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.DogsService;
 
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class DogsController {
@@ -28,19 +29,26 @@ public class DogsController {
 
     @PostMapping("/addDog")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> addDog(@RequestBody DogDto dto, Authentication authentication) {
+    public ResponseEntity<?> addDog(@RequestBody NewDogDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         dogsService.addDog(dto, currentUser);
         return new ResponseEntity<>("Dog was successfully added", HttpStatus.OK);
     }
 
-    @PostMapping("/editDogs")
+    @PostMapping("/editDog")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editDog(@RequestBody List<EditDogDto> dtos) {
-        if (dtos.isEmpty()) {
-            return new ResponseEntity<>("No changes in dogs", HttpStatus.OK);
+    public ResponseEntity<?> editDog(@RequestParam("dogId") Long dogId, @RequestBody NewDogDto dto,
+                                     Authentication authentication) {
+        Owner owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        Optional<Dog> dog = dogsService.getDogById(dogId);
+        if (!dog.isPresent()) {
+            return new ResponseEntity<>("There is no dog with such id", HttpStatus.NOT_FOUND);
         }
-        dogsService.editDogs(dtos);
-        return new ResponseEntity<>("Dogs info was successfully updated", HttpStatus.OK);
+        if (dog.get().getOwner().getId().equals(owner.getId())) {
+            Dog editedDog = dogsService.editDog(dto, dogId);
+            return ResponseEntity.ok(editedDog);
+        } else {
+            return new ResponseEntity<>("User does not have rights to edit this dog", HttpStatus.FORBIDDEN);
+        }
     }
 }
