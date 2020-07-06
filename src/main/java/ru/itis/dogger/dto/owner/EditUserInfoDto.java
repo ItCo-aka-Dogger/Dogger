@@ -1,9 +1,10 @@
 package ru.itis.dogger.dto.owner;
 
 import lombok.Data;
+import ru.itis.dogger.dto.NewContactDto;
 
 import java.sql.Timestamp;
-import java.util.Map;
+import java.util.List;
 
 @Data
 public class EditUserInfoDto {
@@ -13,5 +14,5 @@ public class EditUserInfoDto {
     private Timestamp dateOfBirth;
     private String city;
     private String district;
-    private Map<String, String> contacts;
+    private List<NewContactDto> contacts;
 }

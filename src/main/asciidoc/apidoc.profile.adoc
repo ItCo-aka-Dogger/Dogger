@@ -100,12 +100,32 @@ a|
                 "information": "test"
             }
         ],
-        "contacts": {
-            "PHONE": "891782235",
-            "INSTAGRAM": "@britny1999",
-            "VK": "dogger.website",
-            "TELEGRAM": "dogger"
-        }
+        "contacts": [
+            {
+              "id": 1,
+              "type": {
+                "id": 1,
+                "name": "Сайт"
+              },
+              "value": "dogger.website"
+            },
+            {
+              "id": 2,
+              "type": {
+                "id": 1,
+                "name": "Сайт"
+              },
+              "value": "dogger.website2"
+            },
+            {
+              "id": 3,
+              "type": {
+                "id": 2,
+                "name": "Инстаграм"
+              },
+              "value": "dogger"
+            }
+        ]
     }
 
 === `GET /profile/{user-id}` - получить профиль другого пользователя
@@ -123,12 +143,20 @@ a|
         "city": "Ufa",
         "dateOfBirth": "2018-04-15",
         "district": "Sovetskii",
-        "contacts": {
-            "phone": "891782235",
-            "instagram": "@britny1999",
-            "vk": "dogger.website",
-            "telegram": "@AinaLikesSuicide"
-        }
+        "contacts": [
+            {
+              "typeId": 1,
+              "value": "dogger.website"
+            },
+            {
+              "typeId": 1,
+              "value": "dogger.website2"
+            },
+            {
+              "typeId": 2,
+              "value": "dogger"
+            }
+        ]
     }
 
 Пример ответа в случае успеха: см. `GET /profile`

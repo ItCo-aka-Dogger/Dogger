@@ -200,12 +200,20 @@ a|
                     "information": "test"
                     }
                 ],
-                "contacts": {
-                    "PHONE": "891782235",
-                    "INSTAGRAM": "@britny1999",
-                    "VK": "dogger.website",
-                    "TELEGRAM": "dogger"
-                }
+                "contacts": [
+                    {
+                      "typeId": 1,
+                      "value": "dogger.website"
+                    },
+                    {
+                      "typeId": 1,
+                      "value": "dogger.website2"
+                    },
+                    {
+                      "typeId": 2,
+                      "value": "dogger"
+                    }
+                ]
             }
         ]
     }

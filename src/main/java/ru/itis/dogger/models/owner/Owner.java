@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import ru.itis.dogger.enums.Contact;
+import ru.itis.dogger.models.contacts.OwnerContact;
 import ru.itis.dogger.models.forum.Answer;
 import ru.itis.dogger.models.forum.Question;
 import ru.itis.dogger.models.meeting.Meeting;
@@ -14,7 +14,6 @@ import ru.itis.dogger.models.place.Place;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Data
@@ -64,20 +63,8 @@ public class Owner {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "user_contact")
-    @MapKeyColumn(name = "contact_type")
-    @MapKeyClass(Contact.class)
-    @MapKeyEnumerated(EnumType.STRING)
-    @Column(name = "contact_value")
-    private Map<Contact, String> contacts;
-
-    public Owner(String password, String surname, String email, String city) {
-        this.password = password;
-        this.surname = surname;
-        this.email = email;
-        this.city = city;
-    }
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<OwnerContact> contacts;
 
     //TODO: forum release 2.0
 

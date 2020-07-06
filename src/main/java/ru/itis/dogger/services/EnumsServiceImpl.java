@@ -3,7 +3,7 @@ package ru.itis.dogger.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.dogger.models.place.Amenity;
-import ru.itis.dogger.models.ContactType;
+import ru.itis.dogger.models.contacts.ContactType;
 import ru.itis.dogger.models.place.PlaceType;
 import ru.itis.dogger.repositories.AmenitiesRepository;
 import ru.itis.dogger.repositories.ContactTypesRepository;
