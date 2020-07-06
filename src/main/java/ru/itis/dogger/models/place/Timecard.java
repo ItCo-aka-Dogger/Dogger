@@ -23,6 +23,6 @@ public class Timecard {
     private String friday;
     private String saturday;
     private String sunday;
-    private String launch;
+    private String lunch;
 
 }
