@@ -80,7 +80,7 @@ public class MeetingsServiceImpl implements MeetingsService {
     }
 
     @Override
-    public Meeting editMeeting(NewMeetingDto dto, Owner owner, Long meetingId) {
+    public Meeting editMeeting(NewMeetingDto dto, Long meetingId) {
         Meeting meeting = meetingsRepository.getOne(meetingId);
         meeting.setName(dto.getName());
         meeting.setDescription(dto.getDescription());

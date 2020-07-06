@@ -93,7 +93,7 @@ public class MeetingsController {
             return new ResponseEntity<>("There is no meeting with such id", HttpStatus.NOT_FOUND);
         }
         if (meeting.get().getCreator().equals(currentUser)) {
-            Meeting newMeeting = meetingsService.editMeeting(dto, currentUser, meetingId);
+            Meeting newMeeting = meetingsService.editMeeting(dto, meetingId);
             return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
         } else {
             return new ResponseEntity<>("User does not have rights to edit this meeting", HttpStatus.FORBIDDEN);
