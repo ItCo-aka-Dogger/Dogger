@@ -15,6 +15,7 @@ import ru.itis.dogger.dto.places.SimplePlaceDto;
 import ru.itis.dogger.models.place.Review;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.models.place.Place;
+import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.PlacesService;
 import ru.itis.dogger.services.UsersService;
 
@@ -45,8 +46,8 @@ public class PlacesController {
     @PostMapping("/addPlace")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addPlace(@RequestBody NewPlaceDto placeDto, Authentication authentication) {
-        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        Place newPlace = placesService.addPlace(placeDto, currentUser.get());
+        Owner currentUser = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+        Place newPlace = placesService.addPlace(placeDto, currentUser);
         return ResponseEntity.ok(DetailedPlaceDto.from(newPlace));
     }
 
@@ -64,8 +65,8 @@ public class PlacesController {
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> leaveReview(@PathVariable Long placeId, @RequestBody NewReviewDto dto,
                                           Authentication authentication) {
-        Optional<Owner> currentUser = usersService.getCurrentUser(authentication);
-        Review savedReview = placesService.addReview(currentUser.get(), dto, placeId);
+        Owner currentUser = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+        Review savedReview = placesService.addReview(currentUser, dto, placeId);
         if (savedReview != null) {
             return ResponseEntity.ok(ReviewDto.from(savedReview));
         } else {

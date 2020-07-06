@@ -54,13 +54,15 @@ a|
 * *400* - значит запрос построен неправильно
 * *401* - значит запрос не содержал токен
 
-|`POST /editDogs`
-| Редактировать питомцев пользователя
+|`POST /editDog?dogId=2`
+| Редактировать питомца пользователя
 | true
 a|
 * *200* - информация отредактирована
 * *400* - значит запрос построен неправильно
 * *401* - значит запрос не содержал токен
+* *404* - значит нет собаки с таким id
+* *409* - значит это не собака текущего пользователя
 
 |`POST /delete?userId={user-id}`
 |Удалить пользователя из базы данных *(метод для Тимура для быстрого удаления юзера из бд)*
@@ -137,6 +139,7 @@ a|
     {
         "name": "Aina",
         "surname": "test1",
+        "photo_path": "test_url",
         "city": "Ufa",
         "dateOfBirth": "2018-04-15",
         "district": "Sovetskii",
@@ -193,25 +196,37 @@ a|
         "breed": "Zvegshnauzer",
         "dateOfBirth": "2018-04-15",
         "sex": "male",
-        "information": "very energetic, friendly dog. Little bit coward"
+        "information": "very energetic, friendly dog. Little bit coward",
+        "photo_path": "test_url"
     }
 
 При успешном запросе в профиле пользователя появится собака.
 
-=== `POST /editDogs` - редактировать информацию о собаке
+=== `POST /editDog?dogId=2` - редактировать информацию о собаке
 
-Пользователь может редактировать информацию своих питомцев. Для этого нужно отправить *Json*:
+Пользователь может редактировать информацию, для этого клиент посылает *Json*:
 
-    [
-      {
-        "id": 5,
-        "name": "tesla",
-        "breed": "jack rassel",
-        "dateOfBirth": "",
-        "information": "good girl"
-      },
-        {
-        ...
-        }
-    ]
+
+    {
+        "name": "Jack",
+        "breed": "teryer",
+        "dateOfBirth": "2020-06-30T17:00:00.000000",
+        "information": "goody",
+        "photo_path": "test_url",
+        "sex": "male",
+        "size": "small"
+    }
+
+Пример ответа в случае успеха:
+
+    {
+        "id": 6,
+        "name": "Jack",
+        "breed": "teryer",
+        "dateOfBirth": "2020-06-30T17:00:00.000+0000",
+        "sex": "male",
+        "size": "small",
+        "photo_path": "test_url",
+        "information": "goody"
+    }
 

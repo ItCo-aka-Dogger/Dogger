@@ -98,6 +98,7 @@ public class UsersServiceImpl implements UsersService {
         Owner dbOwner = usersRepository.findByEmail(email).get();
         dbOwner.setName(dto.getName());
         dbOwner.setSurname(dto.getSurname());
+        dbOwner.setPhoto_path(dto.getPhoto_path());
         dbOwner.setDateOfBirth(dto.getDateOfBirth());
         dbOwner.setCity(dto.getCity());
         dbOwner.setDistrict(dto.getDistrict());
