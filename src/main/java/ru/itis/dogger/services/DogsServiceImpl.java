@@ -48,6 +48,11 @@ public class DogsServiceImpl implements DogsService {
 
     @Override
     public Optional<Dog> getDogById(Long id) {
-        return dogsRepository.findById(id);
+        return dogsRepository.findDogById(id);
+    }
+
+    @Override
+    public void deleteDog(Long dogId) {
+        dogsRepository.deleteDogById(dogId);
     }
 }
