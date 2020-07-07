@@ -12,4 +12,6 @@ public interface DogsService {
     Dog editDog(NewDogDto dto, Long dogId);
 
     Optional<Dog> getDogById(Long id);
+
+    void deleteDog(Long dogId);
 }

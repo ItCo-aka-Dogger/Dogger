@@ -51,4 +51,23 @@ public class DogsController {
             return new ResponseEntity<>("User does not have rights to edit this dog", HttpStatus.FORBIDDEN);
         }
     }
+
+    @PostMapping("/deleteDog")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> deleteDog(@RequestParam("dogId") Long dogId, Authentication authentication) {
+        Owner owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        Optional<Dog> dog = dogsService.getDogById(dogId);
+        if (!dog.isPresent()) {
+            return new ResponseEntity<>("There is no dog with such id", HttpStatus.NOT_FOUND);
+        }
+        if (!dog.get().getOwner().getId().equals(owner.getId())) {
+            return new ResponseEntity<>("User does not have rights for deleting this dog", HttpStatus.FORBIDDEN);
+        } else {
+            dogsService.deleteDog(dogId);
+            if (dogsService.getDogById(dogId).isPresent()) {
+                return new ResponseEntity<>("Unexpected error - dog was not deleted", HttpStatus.BAD_REQUEST);
+            } else
+                return ResponseEntity.ok("Dog was successfully deleted");
+        }
+    }
 }
