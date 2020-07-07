@@ -7,6 +7,7 @@ import ru.itis.dogger.models.owner.Owner;
 import java.util.Optional;
 
 public interface DogsService {
+
     void addDog(NewDogDto dto, Owner owner);
 
     Dog editDog(NewDogDto dto, Long dogId);
