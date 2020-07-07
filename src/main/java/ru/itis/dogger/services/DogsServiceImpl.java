@@ -7,7 +7,6 @@ import ru.itis.dogger.models.owner.Dog;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.repositories.DogsRepository;
 
-import javax.persistence.EntityManager;
 import java.util.Optional;
 
 @Service
@@ -19,9 +18,6 @@ public class DogsServiceImpl implements DogsService {
     public DogsServiceImpl(DogsRepository dogsRepository) {
         this.dogsRepository = dogsRepository;
     }
-
-    @Autowired
-    private EntityManager entityManager;
 
     @Override
     public void addDog(NewDogDto dto, Owner owner) {
