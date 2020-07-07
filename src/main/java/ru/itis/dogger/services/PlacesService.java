@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface PlacesService {
     List<Place> getAllPlaces();
 
+    List<Place> getAllVerifiedPlaces();
+
     Place addPlace(NewPlaceDto placeDto, Owner owner);
 
     Optional<Place> getPlaceById(Long placeId);

@@ -46,6 +46,11 @@ public class PlacesServiceImpl implements PlacesService {
     }
 
     @Override
+    public List<Place> getAllVerifiedPlaces() {
+        return placesRepository.getAllVerifiedPlaces();
+    }
+
+    @Override
     public Place addPlace(NewPlaceDto placeDto, Owner creator) {
         Place newPlace = new Place();
         newPlace.setName(placeDto.getName());
