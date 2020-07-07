@@ -73,4 +73,17 @@ public class PlacesController {
             return new ResponseEntity<>("Review has not been added", HttpStatus.BAD_REQUEST);
         }
     }
+
+//    @PostMapping("/places/{placeId}/addFavorite")
+//    @PreAuthorize("isAuthenticated()")
+//    public ResponseEntity<?> leaveReview(@PathVariable Long placeId, Authentication authentication) {
+//        Owner currentUser = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+//
+//        /* savedReview = placesService.addReview(currentUser, dto, placeId);
+//        if (savedReview != null) {
+//            return ResponseEntity.ok(ReviewDto.from(savedReview));
+//        } else {
+//            return new ResponseEntity<>("Review has not been added", HttpStatus.BAD_REQUEST);
+//        }*/
+//    }
 }
