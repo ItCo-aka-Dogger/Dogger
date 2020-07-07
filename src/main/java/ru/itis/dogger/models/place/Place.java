@@ -29,6 +29,8 @@ public class Place {
     private Double longitude;
     private Double latitude;
 
+    private boolean verified;
+
     @OneToOne
     @JoinColumn(name = "type_id")
     private PlaceType type;
