@@ -326,6 +326,22 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1
 
 ###
 
+POST http://localhost:8080/places/51/addFavorite
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+
+###
+
+POST http://localhost:8080/places/50/removeFavorite
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+
+###
+
 GET http://localhost:8080/amenities
 Accept: */*
 Cache-Control: no-cache

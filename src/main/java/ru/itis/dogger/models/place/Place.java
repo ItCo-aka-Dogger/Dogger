@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import ru.itis.dogger.models.contacts.PlaceContact;
+import ru.itis.dogger.models.meeting.Meeting;
 import ru.itis.dogger.models.owner.Owner;
 
 import javax.persistence.*;
@@ -52,4 +55,9 @@ public class Place {
 
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<PlaceContact> contacts;
+
+    @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(mappedBy = "favoritePlaces")
+    private List<Owner> usersWithSuchFavorite;
 }

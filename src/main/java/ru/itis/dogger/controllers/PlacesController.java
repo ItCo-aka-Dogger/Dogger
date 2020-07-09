@@ -44,7 +44,7 @@ public class PlacesController {
     @PostMapping("/addPlace")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addPlace(@RequestBody NewPlaceDto placeDto, Authentication authentication) {
-        Owner currentUser = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Place newPlace = placesService.addPlace(placeDto, currentUser);
         return ResponseEntity.ok(DetailedPlaceDto.from(newPlace));
     }
@@ -62,13 +62,45 @@ public class PlacesController {
     @PostMapping("/places/{placeId}/addReview")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> leaveReview(@PathVariable Long placeId, @RequestBody NewReviewDto dto,
-                                          Authentication authentication) {
-        Owner currentUser = ((UserDetailsImpl)authentication.getPrincipal()).getUser();
+                                         Authentication authentication) {
+        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Review savedReview = placesService.addReview(currentUser, dto, placeId);
         if (savedReview != null) {
             return ResponseEntity.ok(ReviewDto.from(savedReview));
         } else {
             return new ResponseEntity<>("Review has not been added", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping("/places/{placeId}/addFavorite")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> addFavoritePlace(@PathVariable Long placeId, Authentication authentication) {
+        Owner currentUser = usersService.getCurrentUser(authentication).get();
+        Optional<Place> place = placesService.getPlaceById(placeId);
+        if (!place.isPresent()) {
+            return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
+        }
+        boolean favoriteExist = currentUser.getFavoritePlaces().stream().map(Place::getId).anyMatch(f -> f.equals(placeId));
+        if (favoriteExist) {
+            return new ResponseEntity<>("Already in favorite", HttpStatus.BAD_REQUEST);
+        }
+        usersService.addPlaceToFavorites(place.get(), currentUser);
+        return new ResponseEntity<>("Successfully added place to favorites", HttpStatus.OK);
+    }
+
+    @PostMapping("/places/{placeId}/removeFavorite")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> removeFavoritePlace(@PathVariable Long placeId, Authentication authentication) {
+        Owner currentUser = usersService.getCurrentUser(authentication).get();
+        Optional<Place> place = placesService.getPlaceById(placeId);
+        if (!place.isPresent()) {
+            return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
+        }
+        boolean favoriteExist = currentUser.getFavoritePlaces().stream().map(Place::getId).anyMatch(f -> f.equals(placeId));
+        if (!favoriteExist) {
+            return new ResponseEntity<>("There is no such favorite for this user", HttpStatus.BAD_REQUEST);
+        }
+        usersService.removePlaceFromFavorites(place.get(), currentUser);
+        return new ResponseEntity<>("Successfully removed place from favorites", HttpStatus.OK);
     }
 }

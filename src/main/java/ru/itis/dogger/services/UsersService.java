@@ -5,6 +5,7 @@ import ru.itis.dogger.dto.owner.EditUserInfoDto;
 import ru.itis.dogger.dto.owner.NewOwnerDto;
 import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.models.place.Place;
 
 import java.util.Optional;
 
@@ -36,4 +37,8 @@ public interface UsersService {
     TokenDto changeEmail(String email, Owner currentUser);
 
     void changePassword(String password, Owner currentUser);
+
+    void addPlaceToFavorites(Place place, Owner currentUser);
+
+    void removePlaceFromFavorites(Place place, Owner currentUser);
 }

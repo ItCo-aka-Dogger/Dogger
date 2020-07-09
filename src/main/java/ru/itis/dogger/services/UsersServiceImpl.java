@@ -16,6 +16,7 @@ import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.contacts.OwnerContact;
 import ru.itis.dogger.models.owner.Owner;
+import ru.itis.dogger.models.place.Place;
 import ru.itis.dogger.repositories.ContactTypesRepository;
 import ru.itis.dogger.repositories.OwnerContactsRepository;
 import ru.itis.dogger.repositories.UsersRepository;
@@ -194,6 +195,19 @@ public class UsersServiceImpl implements UsersService {
     public void changePassword(String password, Owner currentUser) {
         String hashedPassword = passwordEncoder.encode(password);
         currentUser.setPassword(hashedPassword);
+        usersRepository.save(currentUser);
+    }
+
+    @Override
+    public void addPlaceToFavorites(Place place, Owner currentUser) {
+        List<Place> favoritePlaces = currentUser.getFavoritePlaces();
+        favoritePlaces.add(place);
+        usersRepository.save(currentUser);
+    }
+
+    @Override
+    public void removePlaceFromFavorites(Place place, Owner currentUser) {
+        currentUser.getFavoritePlaces().remove(place);
         usersRepository.save(currentUser);
     }
 

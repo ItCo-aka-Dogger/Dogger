@@ -27,6 +27,12 @@ public class Owner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
+    private String name;
+    private String surname;
+    private Date dateOfBirth;
+    private String photo_path;
+    private String city;
+    private String district;
 
     @JsonIgnore
     private String password;
@@ -34,13 +40,6 @@ public class Owner {
     private String activationCode;
     @JsonIgnore
     private Boolean active;
-
-    private String name;
-    private String surname;
-    private Date dateOfBirth;
-    private String photo_path;
-    private String city;
-    private String district;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -60,13 +59,19 @@ public class Owner {
     private List<Place> createdPlaces;
 
     @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "favorite_places",
+            joinColumns = @JoinColumn(name = "owner_id"),
+            inverseJoinColumns = @JoinColumn(name = "place_id"))
+    private List<Place> favoritePlaces;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<OwnerContact> contacts;
-
-    //TODO: forum release 2.0
 
     @JsonIgnore
     @OneToMany(mappedBy = "author")
