@@ -77,7 +77,7 @@ public class PlacesController {
     @PostMapping("/places/{placeId}/addFavorite")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> addFavoritePlace(@PathVariable Long placeId, Authentication authentication) {
-        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        Owner currentUser = usersService.getCurrentUser(authentication).get();
         Optional<Place> place = placesService.getPlaceById(placeId);
         if (!place.isPresent()) {
             return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
@@ -93,7 +93,7 @@ public class PlacesController {
     @PostMapping("/places/{placeId}/removeFavorite")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> removeFavoritePlace(@PathVariable Long placeId, Authentication authentication) {
-        Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        Owner currentUser = usersService.getCurrentUser(authentication).get();
         Optional<Place> place = placesService.getPlaceById(placeId);
         if (!place.isPresent()) {
             return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
