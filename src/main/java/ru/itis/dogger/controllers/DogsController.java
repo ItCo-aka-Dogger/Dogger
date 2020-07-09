@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.dto.dogs.NewDogDto;
 import ru.itis.dogger.models.owner.Dog;
 import ru.itis.dogger.models.owner.Owner;
@@ -32,7 +33,7 @@ public class DogsController {
     public ResponseEntity<?> addDog(@RequestBody NewDogDto dto, Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         dogsService.addDog(dto, currentUser);
-        return new ResponseEntity<>("Dog was successfully added", HttpStatus.OK);
+        return ResponseEntity.ok(new ResponseDto("Dog was successfully added", HttpStatus.OK));
     }
 
     @PostMapping("/editDog")
@@ -42,13 +43,13 @@ public class DogsController {
         Owner owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Optional<Dog> dog = dogsService.getDogById(dogId);
         if (!dog.isPresent()) {
-            return new ResponseEntity<>("There is no dog with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no dog with such id", HttpStatus.NOT_FOUND));
         }
         if (dog.get().getOwner().getId().equals(owner.getId())) {
             Dog editedDog = dogsService.editDog(dto, dogId);
             return ResponseEntity.ok(editedDog);
         } else {
-            return new ResponseEntity<>("User does not have rights to edit this dog", HttpStatus.FORBIDDEN);
+            return ResponseEntity.ok(new ResponseDto("User does not have rights to edit this dog", HttpStatus.FORBIDDEN));
         }
     }
 
@@ -58,16 +59,16 @@ public class DogsController {
         Owner owner = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Optional<Dog> dog = dogsService.getDogById(dogId);
         if (!dog.isPresent()) {
-            return new ResponseEntity<>("There is no dog with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no dog with such id", HttpStatus.NOT_FOUND));
         }
         if (!dog.get().getOwner().getId().equals(owner.getId())) {
-            return new ResponseEntity<>("User does not have rights for deleting this dog", HttpStatus.FORBIDDEN);
+            return ResponseEntity.ok(new ResponseDto("User does not have rights for deleting this dog", HttpStatus.FORBIDDEN));
         } else {
             dogsService.deleteDog(dogId);
             if (dogsService.getDogById(dogId).isPresent()) {
-                return new ResponseEntity<>("Unexpected error - dog was not deleted", HttpStatus.BAD_REQUEST);
+                return ResponseEntity.ok(new ResponseDto("Unexpected error - dog was not deleted", HttpStatus.BAD_REQUEST));
             } else
-                return ResponseEntity.ok("Dog was successfully deleted");
+                return ResponseEntity.ok(new ResponseDto("Dog was successfully deleted", HttpStatus.OK));
         }
     }
 }

@@ -126,15 +126,15 @@ POST http://localhost:8080/addDog
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFAbWFpbC5ydSIsImlkIjoyNX0.tLUlknk2smZE4U8FHs1r6GyALn1kSR4YgKj8elkBZXlqyUV7zUwmYuUMLbXKvmSqgr_DyWY8RDPSXD4io8kZ-Q
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 {
-  "name": "test1",
-  "size": "test1",
-  "breed": "test1",
+  "name": "test11",
+  "size": "test11",
+  "breed": "test11",
   "dateOfBirth": "2018-04-15",
   "sex": "male",
-  "information": "test1",
+  "information": "test11",
   "photo_path": "test_url"
 }
 
@@ -159,11 +159,11 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmEiLCJpZCI6MX0.uzVJT2sPv1oK
 
 ###
 
-POST http://localhost:8080/deleteDog?dogId=6
+POST http://localhost:8080/deleteDog?dogId=3
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjoyN30.CbeTGRaUrzi7nuE3lqdCDB2t_iy7PX5QgD0LrdSE0gvwzcR1uWzgaJ0L_2nHO0cnV0LL7UVfspbgXqZ2OLZSVg
 
 
 ###
