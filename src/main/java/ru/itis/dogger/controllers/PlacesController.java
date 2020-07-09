@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.dto.places.DetailedPlaceDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.dto.places.SimplePlaceDto;
@@ -57,7 +58,7 @@ public class PlacesController {
         if (place.isPresent()) {
             return ResponseEntity.ok(DetailedPlaceDto.from(place.get()));
         } else
-            return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no place with such id", HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/places/{placeId}/addReview")
@@ -69,7 +70,7 @@ public class PlacesController {
         if (savedReview != null) {
             return ResponseEntity.ok(ReviewDto.from(savedReview));
         } else {
-            return new ResponseEntity<>("Review has not been added", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok(new ResponseDto("Review has not been added", HttpStatus.BAD_REQUEST));
         }
     }
 
@@ -79,14 +80,14 @@ public class PlacesController {
         Owner currentUser = usersService.getCurrentUser(authentication).get();
         Optional<Place> place = placesService.getPlaceById(placeId);
         if (!place.isPresent()) {
-            return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no place with such id", HttpStatus.NOT_FOUND));
         }
         boolean favoriteExist = currentUser.getFavoritePlaces().stream().map(Place::getId).anyMatch(f -> f.equals(placeId));
         if (favoriteExist) {
-            return new ResponseEntity<>("Already in favorite", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok(new ResponseDto("Already in favorite", HttpStatus.BAD_REQUEST));
         }
         usersService.addPlaceToFavorites(place.get(), currentUser);
-        return new ResponseEntity<>("Successfully added place to favorites", HttpStatus.OK);
+        return ResponseEntity.ok(new ResponseDto("Successfully added place to favorites", HttpStatus.OK));
     }
 
     @PostMapping("/places/{placeId}/removeFavorite")
@@ -95,13 +96,13 @@ public class PlacesController {
         Owner currentUser = usersService.getCurrentUser(authentication).get();
         Optional<Place> place = placesService.getPlaceById(placeId);
         if (!place.isPresent()) {
-            return new ResponseEntity<>("There is no place with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no place with such id", HttpStatus.NOT_FOUND));
         }
         boolean favoriteExist = currentUser.getFavoritePlaces().stream().map(Place::getId).anyMatch(f -> f.equals(placeId));
         if (!favoriteExist) {
-            return new ResponseEntity<>("There is no such favorite for this user", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok(new ResponseDto("There is no such favorite for this user", HttpStatus.BAD_REQUEST));
         }
         usersService.removePlaceFromFavorites(place.get(), currentUser);
-        return new ResponseEntity<>("Successfully removed place from favorites", HttpStatus.OK);
+        return ResponseEntity.ok(new ResponseDto("Successfully removed place from favorites", HttpStatus.OK));
     }
 }
