@@ -59,7 +59,7 @@ public class Owner {
     private List<Place> createdPlaces;
 
     @JsonIgnore
-    @ManyToMany (fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "favorite_places",
             joinColumns = @JoinColumn(name = "owner_id"),

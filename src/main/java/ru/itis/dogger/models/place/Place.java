@@ -54,8 +54,8 @@ public class Place {
     @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     private List<PlaceContact> contacts;
 
-    /*@JsonIgnore
+    @JsonIgnore
     @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(mappedBy = "favoritePlaces")
-    private List<Owner> owners;*/
+    private List<Owner> usersWithSuchFavorite;
 }
