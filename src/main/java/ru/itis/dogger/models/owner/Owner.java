@@ -51,6 +51,7 @@ public class Owner {
     private List<Meeting> meetings;
 
     @JsonIgnore
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "creator", cascade = CascadeType.ALL)
     private List<Meeting> myMeetings;
 
@@ -70,6 +71,7 @@ public class Owner {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<OwnerContact> contacts;
 

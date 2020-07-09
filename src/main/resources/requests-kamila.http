@@ -178,7 +178,7 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.r
 {
   "name": "Khakima 49-54",
   "description": "For dog walkers from our district",
-  "date": "2020-06-30T17:00:00.000000",
+  "date": "2020-09-30T17:00:00.000000",
   "longitude": "65.56348",
   "latitude": "63.14327"
 }
@@ -220,7 +220,7 @@ GET http://localhost:8080/meetings/my
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6ImFpbmFhcmRAbWFpbC5ydSIsImlkIjo1fQ.Oh_4Z0VDgh_BJ4e0UVpwQTe7ufR6KHZFCbFLoezwNPcFfme93lWk4tPPvnWuvLqMzDJO3IHqc3mwwyx58-fTHw
+Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.rz1o5nRW0TCLQNyjHcy593O8gi2OMZDOfTpx_SCHnCDcgeptH3StTDzc0tMy5ZpHxnbM53jq7nGROo_fIWppqA
 
 ###
 
@@ -350,7 +350,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/contactsTypes
+GET http://localhost:8080/contactTypes
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
