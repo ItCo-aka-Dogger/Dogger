@@ -6,9 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.dogger.dto.ResponseDto;
+import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.dto.owner.EditUserInfoDto;
 import ru.itis.dogger.dto.owner.OwnerDto;
-import ru.itis.dogger.dto.TokenDto;
 import ru.itis.dogger.enums.TokenStatus;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.security.details.UserDetailsImpl;
@@ -34,7 +35,7 @@ public class ProfileController {
         if (userCandidate.isPresent()) {
             return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
         } else {
-            return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("User is not found", HttpStatus.NOT_FOUND));
         }
     }
 
@@ -45,7 +46,7 @@ public class ProfileController {
         if (userCandidate.isPresent()) {
             return ResponseEntity.ok(OwnerDto.from(userCandidate.get()));
         } else {
-            return new ResponseEntity<>("User is not found", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("User is not found", HttpStatus.NOT_FOUND));
         }
     }
 
@@ -63,7 +64,7 @@ public class ProfileController {
         Owner currentUser = ((UserDetailsImpl) authentication.getDetails()).getUser();
         TokenDto tokenDto = usersService.changeEmail(dto.get("email"), currentUser);
         if (tokenDto.getStatus().equals(TokenStatus.INVALID)) {
-            return new ResponseEntity<>("Email is already taken", HttpStatus.CONFLICT);
+            return ResponseEntity.ok(new ResponseDto("Email is already taken", HttpStatus.CONFLICT));
         }
         return ResponseEntity.ok(tokenDto);
     }
@@ -82,9 +83,9 @@ public class ProfileController {
         Optional<Owner> user = usersService.getUserById(userId);
         if (user.isPresent()) {
             usersService.delete(user.get());
-            return new ResponseEntity<>("User was successfully deleted", HttpStatus.OK);
+            return ResponseEntity.ok(new ResponseDto("User was successfully deleted", HttpStatus.OK));
         } else {
-            return new ResponseEntity<>("There is no user with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no user with such id", HttpStatus.NOT_FOUND));
         }
     }
 }

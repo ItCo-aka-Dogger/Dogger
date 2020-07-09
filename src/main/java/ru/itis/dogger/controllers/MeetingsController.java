@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.dogger.dto.ResponseDto;
 import ru.itis.dogger.dto.meetings.DetailedMeetingDto;
 import ru.itis.dogger.dto.meetings.NewMeetingDto;
 import ru.itis.dogger.dto.meetings.SimpleMeetingDto;
@@ -23,7 +24,6 @@ import java.util.stream.Collectors;
 public class MeetingsController {
 
     private MeetingsService meetingsService;
-
     private UsersService usersService;
 
     @Autowired
@@ -38,7 +38,8 @@ public class MeetingsController {
         Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Meeting newMeeting = meetingsService.addMeeting(dto, currentUser);
         if (newMeeting == null) {
-            return new ResponseEntity<>("Meeting was not added. Check meeting's date validation.", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.ok(new ResponseDto("Meeting was not added. Check meeting's date validation.",
+                    HttpStatus.BAD_REQUEST));
         } else {
             return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
         }
@@ -61,7 +62,7 @@ public class MeetingsController {
                     .stream().map(SimpleMeetingDto::from).collect(Collectors.toList());
             return ResponseEntity.ok(meetingDtos);
         } else {
-            return new ResponseEntity<>("There is no user with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no user with such id", HttpStatus.NOT_FOUND));
         }
     }
 
@@ -81,22 +82,24 @@ public class MeetingsController {
         if (meeting.isPresent()) {
             return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
         } else
-            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no meeting with such id", HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/editMeeting")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> editMeeting(@RequestParam("meetingId") Long meetingId, @RequestBody NewMeetingDto dto, Authentication authentication) {
+    public ResponseEntity<?> editMeeting(@RequestParam("meetingId") Long meetingId, @RequestBody NewMeetingDto dto,
+                                         Authentication authentication) {
         Owner currentUser = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (!meeting.isPresent()) {
-            return new ResponseEntity<>("There is no meeting with such id", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no meeting with such id", HttpStatus.NOT_FOUND));
         }
         if (meeting.get().getCreator().equals(currentUser)) {
             Meeting newMeeting = meetingsService.editMeeting(dto, meetingId);
             return ResponseEntity.ok(DetailedMeetingDto.from(newMeeting));
         } else {
-            return new ResponseEntity<>("User does not have rights to edit this meeting", HttpStatus.FORBIDDEN);
+            return ResponseEntity.ok(new ResponseDto("User does not have rights to edit this meeting",
+                    HttpStatus.FORBIDDEN));
         }
     }
 
@@ -110,9 +113,9 @@ public class MeetingsController {
             if (isJoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
             } else
-                return new ResponseEntity<>("User has already joined meeting", HttpStatus.BAD_REQUEST);
+                return ResponseEntity.ok(new ResponseDto("User has already joined meeting", HttpStatus.BAD_REQUEST));
         } else {
-            return new ResponseEntity<>("There is no such meeting", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no such meeting", HttpStatus.NOT_FOUND));
         }
     }
 
@@ -126,10 +129,11 @@ public class MeetingsController {
             if (isUnjoined) {
                 return ResponseEntity.ok(DetailedMeetingDto.from(meeting.get()));
             } else {
-                return new ResponseEntity<>("User is not participating in meeting", HttpStatus.BAD_REQUEST);
+                return ResponseEntity.ok(new ResponseDto("User is not participating in meeting",
+                        HttpStatus.BAD_REQUEST));
             }
         } else {
-            return new ResponseEntity<>("There is no such meeting", HttpStatus.NOT_FOUND);
+            return ResponseEntity.ok(new ResponseDto("There is no such meeting", HttpStatus.NOT_FOUND));
         }
     }
 }
