@@ -27,18 +27,16 @@ import java.util.stream.Collectors;
 public class PlacesController {
 
     private PlacesService placesService;
-    private UsersService usersService;
 
     @Autowired
-    public PlacesController(PlacesService placesService, UsersService usersService) {
+    public PlacesController(PlacesService placesService) {
         this.placesService = placesService;
-        this.usersService = usersService;
     }
 
     @GetMapping("/places/all")
     @PreAuthorize("permitAll()")
     public ResponseEntity<?> getAllPlaces() {
-        List<Place> places = placesService.getAllPlaces();
+        List<Place> places = placesService.getAllVerifiedPlaces();
         List<SimplePlaceDto> dtos = places.stream().map(SimplePlaceDto::from).collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
