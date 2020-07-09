@@ -103,7 +103,7 @@ public class MeetingsController {
     @PostMapping("/meetings/{meetingId}/join")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> joinMeeting(@PathVariable Long meetingId, Authentication authentication) {
-        Owner currentUser = usersService.getCurrentUser(authentication);
+        Owner currentUser = usersService.getCurrentUser(authentication).get();
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (meeting.isPresent()) {
             boolean isJoined = meetingsService.joinMeeting(currentUser, meeting.get());
@@ -119,7 +119,7 @@ public class MeetingsController {
     @PostMapping("/meetings/{meetingId}/unjoin")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> unjoinMeeting(@PathVariable Long meetingId, Authentication authentication) {
-        Owner currentUser = usersService.getCurrentUser(authentication);
+        Owner currentUser = usersService.getCurrentUser(authentication).get();
         Optional<Meeting> meeting = meetingsService.getMeetingById(meetingId);
         if (meeting.isPresent()) {
             boolean isUnjoined = meetingsService.unjoinMeeting(currentUser, meeting.get());

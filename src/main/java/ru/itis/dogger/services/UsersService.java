@@ -27,7 +27,7 @@ public interface UsersService {
 
     void delete(Owner user);
 
-    Owner getCurrentUser(Authentication authentication);
+    Optional<Owner> getCurrentUser(Authentication authentication);
 
     Optional<Owner> getUserById(Long id);
 
