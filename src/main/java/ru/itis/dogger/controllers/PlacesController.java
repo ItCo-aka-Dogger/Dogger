@@ -6,15 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import ru.itis.dogger.dto.reviews.ReviewDto;
-import ru.itis.dogger.dto.reviews.NewReviewDto;
 import ru.itis.dogger.dto.places.DetailedPlaceDto;
 import ru.itis.dogger.dto.places.NewPlaceDto;
 import ru.itis.dogger.dto.places.SimplePlaceDto;
-import ru.itis.dogger.models.place.Review;
+import ru.itis.dogger.dto.reviews.NewReviewDto;
+import ru.itis.dogger.dto.reviews.ReviewDto;
 import ru.itis.dogger.models.owner.Owner;
 import ru.itis.dogger.models.place.Place;
+import ru.itis.dogger.models.place.Review;
 import ru.itis.dogger.security.details.UserDetailsImpl;
 import ru.itis.dogger.services.PlacesService;
 import ru.itis.dogger.services.UsersService;
@@ -27,10 +26,12 @@ import java.util.stream.Collectors;
 public class PlacesController {
 
     private PlacesService placesService;
+    private UsersService usersService;
 
     @Autowired
-    public PlacesController(PlacesService placesService) {
+    public PlacesController(PlacesService placesService, UsersService usersService) {
         this.placesService = placesService;
+        this.usersService = usersService;
     }
 
     @GetMapping("/places/all")
