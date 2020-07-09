@@ -8,6 +8,7 @@ import ru.itis.dogger.dto.reviews.ReviewDto;
 import ru.itis.dogger.models.contacts.PlaceContact;
 import ru.itis.dogger.models.place.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,8 @@ public class DetailedPlaceDto {
             detailedPlaceDto.setReviews(place.getReviews().stream().map(ReviewDto::from).collect(Collectors.toList()));
         } else {
             detailedPlaceDto.setReviews_count(0);
+            detailedPlaceDto.setRating(0.0);
+            detailedPlaceDto.setReviews(new ArrayList<>());
         }
         return detailedPlaceDto;
     }

@@ -296,14 +296,14 @@ Authorization: eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbiI6InRlc3RAbWFpbC5ydSIsImlkIjozfQ.r
 
 ###
 
-GET http://localhost:8080/places/51
+GET http://localhost:8080/places/49
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/places/51/addReview
+POST http://localhost:8080/places/49/addReview
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
