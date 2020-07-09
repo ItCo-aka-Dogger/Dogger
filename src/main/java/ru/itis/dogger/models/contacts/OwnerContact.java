@@ -20,7 +20,7 @@ import javax.persistence.ManyToOne;
 public class OwnerContact extends Contact{
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "owner_id")
     private Owner owner;
 }
