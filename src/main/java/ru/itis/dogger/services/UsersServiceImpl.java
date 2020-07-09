@@ -162,12 +162,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public Optional<Owner> getCurrentUser(Authentication authentication) {
+    public Owner getCurrentUser(Authentication authentication) {
         if (authentication != null) {
             Long currentUserId = ((UserDetailsImpl) authentication.getPrincipal()).getUser().getId();
-            return usersRepository.findById(currentUserId);
+            Optional<Owner> owner = usersRepository.findById(currentUserId);
+            return owner.orElse(null);
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override
